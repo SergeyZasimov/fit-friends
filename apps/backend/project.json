@@ -56,6 +56,13 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker-compose up -d",
+        "cwd": "apps/backend"
+      }
     }
   },
   "tags": []
