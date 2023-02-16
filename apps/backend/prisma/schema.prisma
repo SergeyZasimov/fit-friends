@@ -1,11 +1,72 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(Customer)
+  createdAt    DateTime @default(now())
+  profile      Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id                         Int        @id @default(autoincrement())
+  userId                     Int        @unique
+  user                       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name                       String
+  avatar                     String
+  gender                     UserGender
+  birthDate                  DateTime?
+  location                   String
+  trainingLevel              String
+  trainingType               String[]
+  trainingTime               String?
+  caloriesAmountToLose       Int?
+  caloriesAmountToLosePerDay Int?
+  isReadyToTraining          Boolean?
+  certificate                String?
+  resume                     String?
+  isReadyToPersonalTraining  Boolean?
+
+  @@map("profiles")
+}
+
+model Workout {
+  id                   Int     @id @default(autoincrement())
+  title                String
+  backgroundImage      String
+  customerLevel        String
+  trainingType         String
+  trainingTime         String
+  price                Int
+  caloriesAmountToLose Int
+  description          String
+  favorGender          String
+  video                String
+  rating               Int
+  trainerId            String
+  isSpecial            Boolean
+
+  @@map("workouts")
+}
+
+enum UserRole {
+  Trainer
+  Customer
+}
+
+enum UserGender {
+  Male
+  Female
+  Unknown
 }
