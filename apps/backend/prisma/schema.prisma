@@ -9,23 +9,27 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String
-  role         UserRole @default(Customer)
-  createdAt    DateTime @default(now())
-  profile      Profile?
+  id               Int                       @id @default(autoincrement())
+  email            String                    @unique
+  passwordHash     String
+  role             String
+  createdAt        DateTime                  @default(now())
+  profile          Profile?
+  reviews          Review[]
+  requestTrainings PersonalTrainingRequest[] @relation("Requester")
+  conductTrainings PersonalTrainingRequest[] @relation("Conductor")
+  notifications    Notification[]
 
   @@map("users")
 }
 
 model Profile {
-  id                         Int        @id @default(autoincrement())
-  userId                     Int        @unique
-  user                       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                         Int       @id @default(autoincrement())
+  userId                     Int       @unique
+  user                       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name                       String
   avatar                     String
-  gender                     UserGender
+  gender                     String
   birthDate                  DateTime?
   location                   String
   trainingLevel              String
@@ -42,7 +46,7 @@ model Profile {
 }
 
 model Workout {
-  id                   Int     @id @default(autoincrement())
+  id                   Int      @id @default(autoincrement())
   title                String
   backgroundImage      String
   customerLevel        String
@@ -56,17 +60,70 @@ model Workout {
   rating               Int
   trainerId            String
   isSpecial            Boolean
+  reviews              Review[]
 
   @@map("workouts")
 }
 
-enum UserRole {
-  Trainer
-  Customer
+model SportGym {
+  id              Int      @id @default(autoincrement())
+  title           String
+  location        String
+  isVerified      Boolean
+  parameters      String[]
+  photos          String[]
+  description     String
+  oneWorkoutPrice Int
+  createdAt       DateTime @default(now())
+
+  @@map("sport_gyms")
 }
 
-enum UserGender {
-  Male
-  Female
-  Unknown
+model Review {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutId Int
+  workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  rating    Int
+  text      String
+  createdAt DateTime @default(now())
+
+  @@map("reviews")
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  purchaseType  String
+  purchaseId    Int
+  workoutPrice  Int
+  workoutAmount Int
+  totalCost     Int
+  paymentMethod String
+  createdAt     DateTime @default(now())
+
+  @@map("orders")
+}
+
+model PersonalTrainingRequest {
+  id          Int      @id @default(autoincrement())
+  requesterId Int
+  requester   User     @relation("Requester", fields: [requesterId], references: [id])
+  conductorId Int
+  conductor   User     @relation("Conductor", fields: [conductorId], references: [id])
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("personal_training_requests")
+}
+
+model Notification {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notifyAt DateTime
+  text     String
+
+  @@map("notificatons")
 }

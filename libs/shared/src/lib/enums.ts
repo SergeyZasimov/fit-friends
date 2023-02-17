@@ -1,12 +1,12 @@
 export const Gender = {
-  Male: 'Male',
-  Female: 'Female',
-  Unknown: 'Unknown',
+  Male: 'мужской ',
+  Female: 'женский',
+  Unknown: 'неважно',
 } as const;
 
 export const Role = {
-  Customer: 'Customer',
-  Trainer: 'Trainer',
+  Customer: 'пользователь',
+  Trainer: 'тренер',
 } as const;
 
 export const Locations = [
@@ -37,3 +37,20 @@ export const TrainingTimes = [
 ] as const;
 
 export const FavorGenders = ['для женщин', 'для мужчин', 'для всех'] as const;
+
+export const GymParameters = [
+  'бассейн',
+  'бесплатная парковка',
+  'детская комната',
+  'массаж',
+] as const;
+
+export const Purchases = ['абонемент', 'тренировка'] as const;
+
+export const PaymentMethods = ['visa', 'mir', 'umoney'] as const;
+
+export const TrainingStatus = {
+  UnderConsideration: 'на рассмотрении',
+  Canceled: 'отклонён',
+  Accept: 'принят',
+} as const;
