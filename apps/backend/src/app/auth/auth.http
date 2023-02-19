@@ -58,4 +58,30 @@ Content-Type: {{contentType}}
   "isReadyToPersonalTraining": ""
 }
 
+### Login User
+POST {{baseUrl}}/auth/login {{protocol}}
+Content-Type: {{contentType}}
 
+{
+  "email": "test5@user.com",
+  "password": "secret"
+}
+
+
+### Login User Bad Request
+POST {{baseUrl}}/auth/login {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "email": "test5user.com",
+  "password": "secre"
+}
+
+### Login User Forbidden
+POST {{baseUrl}}/auth/login {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "email": "test5@user.com",
+  "password": "secrett"
+}

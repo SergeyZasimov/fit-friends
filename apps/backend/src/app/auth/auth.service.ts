@@ -4,7 +4,12 @@ import {
   User,
   UserRole,
 } from '@fit-friends/shared';
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ProfileEntity } from '../profile/profile.entity';
 import { ProfileRepository } from '../profile/profile.repository';
 import { UserEntity } from '../user/user.entity';
@@ -67,5 +72,31 @@ export class AuthService {
     const profileEntity = new ProfileEntity(profile);
     const newProfile = await this.profileRepository.create(profileEntity);
     return { ...newUser, ...newProfile };
+  }
+
+  async login(user: User) {
+    const { id, email, role } = user;
+    console.log(id, email, role);
+  }
+
+  async verify(email: string, password: string): Promise<User> {
+    const existUser = await this.checkUserExist(email);
+    const isVerify = await new UserEntity(existUser).comparePassword(password);
+
+    if (!isVerify) {
+      throw new ForbiddenException();
+    }
+
+    return existUser;
+  }
+
+  private async checkUserExist(email: string): Promise<User> {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
   }
 }

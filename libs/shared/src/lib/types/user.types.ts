@@ -40,7 +40,7 @@ export type TrainerProfile = DefaultProfile & Partial<TrainerAdditionalInfo>;
 
 export type Profile = CustomerProfile & TrainerProfile;
 
-export type ResponseUser = User & Profile;
-
 export type CreateUser = Omit<User, 'id' | 'passwordHash' | 'createdAt'> &
   Omit<Profile, 'id' | 'user'>;
+
+export type LoginUser = Pick<User, 'email' | 'password'>;
