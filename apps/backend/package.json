@@ -1,0 +1,5 @@
+{
+  "prisma": {
+    "seed": "ts-node --compilerOptions {\"module\": \"commonjs\"} prisma/seed.ts"
+  }
+}

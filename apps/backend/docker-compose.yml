@@ -2,6 +2,7 @@ version: '3.5'
 services:
   postgres:
     image: postgres:14-alpine
+    restart: always
     container_name: fit-friends-postgres
     environment:
       POSTGRES_USER: 'admin'
@@ -11,7 +12,7 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d secret"]
+      test: ['CMD-SHELL', 'pg_isready -U admin -d secret']
       interval: 1m30s
       timeout: 30s
       retries: 5

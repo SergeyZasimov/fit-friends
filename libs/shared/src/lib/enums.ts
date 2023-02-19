@@ -1,10 +1,10 @@
 export const Gender = {
-  Male: 'мужской ',
+  Male: 'мужской',
   Female: 'женский',
   Unknown: 'неважно',
 } as const;
 
-export const Role = {
+export const UserRole = {
   Customer: 'пользователь',
   Trainer: 'тренер',
 } as const;

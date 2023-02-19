@@ -42,3 +42,4 @@ Thumbs.db
 tasks.todo
 db/
 *.env
+migrations/

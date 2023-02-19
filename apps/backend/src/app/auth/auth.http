@@ -1,0 +1,61 @@
+@baseUrl = http://localhost:3333/api
+@contentType = application/json
+@protocol = HTTP/1.1
+
+### Register New User Customer
+POST {{baseUrl}}/auth/register {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "name": "John",
+  "email": "test6@user.com",
+  "password": "secret",
+  "role": "пользователь",
+  "gender": "мужской",
+  "birthDay": "2000-04-12",
+  "location": "Пионерская",
+  "trainingLevel": "новичок",
+  "trainingType": ["кроссфит", "бег"],
+  "trainingTime": "10-30 мин",
+  "caloriesAmountToLose": 1200,
+  "caloriesAmountToLosePerDay": 1200,
+  "isReadyToTraining": true
+}
+
+### Register New User Trainer
+POST {{baseUrl}}/auth/register {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "name": "John",
+  "email": "test5@user.com",
+  "password": "secret",
+  "role": "тренер",
+  "gender": "мужской",
+  "birthDay": "2000-04-12",
+  "location": "Пионерская",
+  "trainingLevel": "новичок",
+  "trainingType": ["кроссфит"],
+  "resume": "Lorem ipsum dol",
+  "isReadyToPersonalTraining": true
+}
+
+### Register New User Trainer Bad Request
+POST {{baseUrl}}/auth/register {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "name": "John1",
+  "email": "test4user.com",
+  "password": "secet",
+  "role": "тренер",
+  "gender": "",
+  "birthDay": "2000",
+  "location": "Fh",
+  "trainingLevel": "новичк",
+  "trainingType": ["кроссфит", "ab", "bd", "er"],
+  "resume": "Lorem",
+  "isReadyToPersonalTraining": ""
+}
+
+

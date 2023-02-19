@@ -30,7 +30,7 @@ model Profile {
   name                       String
   avatar                     String
   gender                     String
-  birthDate                  DateTime?
+  birthDay                   DateTime?
   location                   String
   trainingLevel              String
   trainingType               String[]
