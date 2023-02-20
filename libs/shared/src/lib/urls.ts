@@ -5,4 +5,6 @@ export const UrlDomain = {
 export const UrlRoute = {
   Register: 'register',
   Login: 'login',
+  Logout: 'logout',
+  Refresh: 'refresh',
 } as const;

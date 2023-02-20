@@ -4,6 +4,7 @@ export type User = {
   password?: string;
   passwordHash?: string;
   role: string;
+  refreshToken?: string;
   createdAt?: Date;
 };
 
@@ -40,7 +41,13 @@ export type TrainerProfile = DefaultProfile & Partial<TrainerAdditionalInfo>;
 
 export type Profile = CustomerProfile & TrainerProfile;
 
-export type CreateUser = Omit<User, 'id' | 'passwordHash' | 'createdAt'> &
+export type CreateUser = Pick<User, 'email' | 'password' | 'role'> &
   Omit<Profile, 'id' | 'user'>;
 
 export type LoginUser = Pick<User, 'email' | 'password'>;
+
+export type TokenPayload = {
+  id: number;
+  email: string;
+  role: string;
+};

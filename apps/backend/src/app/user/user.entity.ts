@@ -6,11 +6,13 @@ export class UserEntity implements User {
   email: string;
   passwordHash: string;
   role: string;
+  refreshToken: string;
 
   constructor(user: User) {
     this.email = user.email;
     this.role = user.role;
     this.passwordHash = user.passwordHash ?? '';
+    this.refreshToken = user.refreshToken ?? '';
   }
 
   async setPassword(password: string): Promise<UserEntity> {

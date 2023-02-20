@@ -85,3 +85,22 @@ Content-Type: {{contentType}}
   "email": "test5@user.com",
   "password": "secrett"
 }
+
+### Login User Not Found
+POST {{baseUrl}}/auth/login {{protocol}}
+Content-Type: {{contentType}}
+
+{
+  "email": "test105@user.com",
+  "password": "secret"
+}
+
+
+### Refersh Tokens
+GET {{baseUrl}}/auth/refresh {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5MTU5ODcsImV4cCI6MTY3NjkxNjA0N30.UoC9ErBWRuli2eBMXr7EMgqIz1S1KTzcoaNHu6oOJRU
+
+
+### Logout
+GET {{baseUrl}}/auth/logout {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5MTU5MjYsImV4cCI6MTY3NjkxNTk4Nn0.0KwsORVUyFrT-fSz-9oBUByirpcNGsUtndCLFhBUVZA

@@ -1,34 +1,42 @@
 import {
   CustomerProfile,
+  TokenPayload,
   TrainerProfile,
   User,
   UserRole,
 } from '@fit-friends/shared';
 import {
   ConflictException,
-  ForbiddenException,
+  Inject,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { jwtConfig } from '../config/namespaces';
 import { ProfileEntity } from '../profile/profile.entity';
 import { ProfileRepository } from '../profile/profile.repository';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
+import { AuthExceptionMessage } from './auth.constant';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly profileRepository: ProfileRepository
+    private readonly profileRepository: ProfileRepository,
+    private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
   async register(dto: CreateUserDto) {
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {
-      // TODO: message
-      throw new ConflictException();
+      throw new ConflictException(AuthExceptionMessage.ConflictUser(dto.email));
     }
 
     const user: User = {
@@ -76,7 +84,23 @@ export class AuthService {
 
   async login(user: User) {
     const { id, email, role } = user;
-    console.log(id, email, role);
+
+    const payload: TokenPayload = {
+      id,
+      email,
+      role,
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: this.jwtOptions.refreshTokenSecret,
+      expiresIn: this.jwtOptions.refreshTokenExpiresIn,
+    });
+
+    const userEntity = new UserEntity({ ...user, refreshToken });
+    await this.userRepository.update(id, userEntity);
+
+    return { access_token: accessToken, refresh_token: refreshToken };
   }
 
   async verify(email: string, password: string): Promise<User> {
@@ -84,17 +108,22 @@ export class AuthService {
     const isVerify = await new UserEntity(existUser).comparePassword(password);
 
     if (!isVerify) {
-      throw new ForbiddenException();
+      throw new UnauthorizedException(AuthExceptionMessage.ForeignPassword);
     }
 
     return existUser;
   }
 
-  private async checkUserExist(email: string): Promise<User> {
+  async logout(user: User): Promise<void> {
+    const userEntity = new UserEntity({ ...user, refreshToken: null });
+    await this.userRepository.update(user.id, userEntity);
+  }
+
+  async checkUserExist(email: string): Promise<User> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new NotFoundException();
+      throw new NotFoundException(AuthExceptionMessage.UserNotFound(email));
     }
 
     return user;

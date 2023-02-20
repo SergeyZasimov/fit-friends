@@ -1,11 +1,12 @@
 import { UrlDomain, UrlRoute, User } from '@fit-friends/shared';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { fillObject } from '../utils/helpers';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRdo } from './rdo/user.rdo';
+import { UserRdo } from '../user/rdo/user.rdo';
 
 @Controller(UrlDomain.Auth)
 export class AuthController {
@@ -21,5 +22,17 @@ export class AuthController {
   @Post(UrlRoute.Login)
   async login(@GetCurrentUser() user: User) {
     return this.authService.login(user);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Get(UrlRoute.Refresh)
+  async refreshTokens(@GetCurrentUser() user: User) {
+    return this.authService.login(user);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Get(UrlRoute.Logout)
+  async logout(@GetCurrentUser() user: User) {
+    return this.authService.logout(user);
   }
 }
