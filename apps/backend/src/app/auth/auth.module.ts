@@ -6,6 +6,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt-auth.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { LocalStrategy } from './strategies/local-auth.strategy';
 
@@ -16,7 +17,7 @@ import { LocalStrategy } from './strategies/local-auth.strategy';
     PassportModule,
     JwtModule.registerAsync(getJwtConfig()),
   ],
-  providers: [AuthService, LocalStrategy, JwtRefreshStrategy],
+  providers: [AuthService, LocalStrategy, JwtRefreshStrategy, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

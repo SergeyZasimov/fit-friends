@@ -7,12 +7,23 @@ import { UserEntity } from './user.entity';
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(user: UserEntity): Promise<User> {
-    return this.prisma.user.create({ data: user });
+  async findByEmail(email: string): Promise<User> {
+    return this.prisma.user.findUnique({ where: { email } });
   }
 
-  async findByEmail(email: string): Promise<User> {
-    return this.prisma.user.findFirst({ where: { email } });
+  async findById(id: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        profile: true,
+      },
+    });
+  }
+
+  async create(user: UserEntity): Promise<User> {
+    return this.prisma.user.create({ data: user });
   }
 
   async update(id: number, user: UserEntity): Promise<User> {

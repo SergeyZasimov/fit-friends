@@ -4,6 +4,7 @@ import {
   TrainerProfile,
   User,
   UserRole,
+  UserTokens,
 } from '@fit-friends/shared';
 import {
   ConflictException,
@@ -32,7 +33,7 @@ export class AuthService {
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
-  async register(dto: CreateUserDto) {
+  async register(dto: CreateUserDto): Promise<User> {
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {
@@ -79,10 +80,10 @@ export class AuthService {
 
     const profileEntity = new ProfileEntity(profile);
     const newProfile = await this.profileRepository.create(profileEntity);
-    return { ...newUser, ...newProfile };
+    return { ...newUser, profile: newProfile };
   }
 
-  async login(user: User) {
+  async login(user: User): Promise<UserTokens> {
     const { id, email, role } = user;
 
     const payload: TokenPayload = {

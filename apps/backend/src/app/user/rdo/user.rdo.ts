@@ -1,7 +1,8 @@
-import { UserRole } from '@fit-friends/shared';
-import { Expose } from 'class-transformer';
+import { Profile, User } from '@fit-friends/shared';
+import { Expose, Type } from 'class-transformer';
+import { ProfileRdo } from '../../profile/rdo/profile.rdo';
 
-export class UserRdo {
+export class UserRdo implements User {
   @Expose()
   id: number;
 
@@ -11,45 +12,7 @@ export class UserRdo {
   @Expose()
   role: string;
 
+  @Type(() => ProfileRdo)
   @Expose()
-  name: string;
-
-  @Expose()
-  avatar: string;
-
-  @Expose()
-  gender: string;
-
-  @Expose()
-  birthDay: string;
-
-  @Expose()
-  location: string;
-
-  @Expose()
-  trainingLevel: string;
-
-  @Expose()
-  trainingType: string[];
-
-  @Expose({ groups: [UserRole.Customer] })
-  trainingTime: string;
-
-  @Expose({ groups: [UserRole.Customer] })
-  caloriesAmountToLose: string;
-
-  @Expose({ groups: [UserRole.Customer] })
-  caloriesAmountToLosePerDay: string;
-
-  @Expose({ groups: [UserRole.Customer] })
-  isReadyToTraining: boolean;
-
-  @Expose({ groups: [UserRole.Trainer] })
-  certificate: string;
-
-  @Expose({ groups: [UserRole.Trainer] })
-  resume: string;
-
-  @Expose({ groups: [UserRole.Trainer] })
-  isReadyToPersonalTraining: boolean;
+  profile: Profile;
 }

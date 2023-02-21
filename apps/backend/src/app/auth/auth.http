@@ -8,7 +8,7 @@ Content-Type: {{contentType}}
 
 {
   "name": "John",
-  "email": "test6@user.com",
+  "email": "test9@user.com",
   "password": "secret",
   "role": "пользователь",
   "gender": "мужской",
@@ -28,7 +28,7 @@ Content-Type: {{contentType}}
 
 {
   "name": "John",
-  "email": "test5@user.com",
+  "email": "test2@user.com",
   "password": "secret",
   "role": "тренер",
   "gender": "мужской",
@@ -98,7 +98,7 @@ Content-Type: {{contentType}}
 
 ### Refersh Tokens
 GET {{baseUrl}}/auth/refresh {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5MTU5ODcsImV4cCI6MTY3NjkxNjA0N30.UoC9ErBWRuli2eBMXr7EMgqIz1S1KTzcoaNHu6oOJRU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5NzI0NDgsImV4cCI6MTY3NzU3NzI0OH0.tKn8y2pmp8IHSj0UMi-h-53ivV8Z0UX6Cy6faMsB3xg
 
 
 ### Logout

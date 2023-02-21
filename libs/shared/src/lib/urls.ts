@@ -1,5 +1,6 @@
 export const UrlDomain = {
   Auth: 'auth',
+  Profile: 'profile',
 } as const;
 
 export const UrlRoute = {
@@ -7,4 +8,8 @@ export const UrlRoute = {
   Login: 'login',
   Logout: 'logout',
   Refresh: 'refresh',
+} as const;
+
+export const UrlParams = {
+  Id: 'id',
 } as const;

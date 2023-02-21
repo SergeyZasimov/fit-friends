@@ -4,13 +4,14 @@ export type User = {
   password?: string;
   passwordHash?: string;
   role: string;
+  profile?: Profile;
   refreshToken?: string;
   createdAt?: Date;
 };
 
 export type DefaultProfile = {
   id?: number;
-  user: number;
+  user?: number;
   name: string;
   gender: string;
   avatar?: string;
@@ -50,4 +51,9 @@ export type TokenPayload = {
   id: number;
   email: string;
   role: string;
+};
+
+export type UserTokens = {
+  access_token: string;
+  refresh_token: string;
 };

@@ -1,0 +1,7 @@
+@baseUrl = http://localhost:3333/api
+@contentType = application/json
+@protocol = HTTP/1.1
+
+### Get User
+GET {{baseUrl}}/profile/5 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5NzMxMjcsImV4cCI6MTY3Njk3NDAyN30.lhQ6jSSGinti78wNFe7vmjG4RTS7kOlzMrY-CiQWa5g
