@@ -1,7 +1,7 @@
 import { Profile } from '@fit-friends/shared';
 
 export class ProfileEntity implements Profile {
-  user: number;
+  user?: number;
   name: string;
   gender: string;
   avatar: string;

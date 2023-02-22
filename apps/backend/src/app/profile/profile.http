@@ -12,3 +12,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiO
 # ?limit=54 Bad Request
 GET {{baseUrl}}/profile {{protocol}}
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcwNDUyODIsImV4cCI6MTY3NzA0NjE4Mn0.rdW-xtwImYA6HSDIVE5DvoqqkouMSgXBEHmR0yVkR7w
+
+### Update Profile
+PATCH  {{baseUrl}}/profile {{protocol}}
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcwNDk3MTksImV4cCI6MTY3NzA1MDYxOX0.nZNqme6zxwo3IXKBDybts1NpzE2LvBJPXi4vJ0LfUR4
+
+{
+  "name": "Jack",
+  "trainingType": ["бокс", "пилатес"],
+}
