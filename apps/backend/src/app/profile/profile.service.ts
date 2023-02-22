@@ -1,3 +1,4 @@
+import { ProfileQuery, User } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../user/user.repository';
 import { ProfileRepository } from './profile.repository';
@@ -9,7 +10,11 @@ export class ProfileService {
     private readonly profileRepository: ProfileRepository
   ) {}
 
-  async getUser(id: number) {
+  async getUser(id: number): Promise<User> {
     return this.userRepository.findById(id);
+  }
+
+  async getUsers(query: ProfileQuery): Promise<User[]> {
+    return this.userRepository.find(query);
   }
 }

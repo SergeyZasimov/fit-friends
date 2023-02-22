@@ -62,3 +62,12 @@ export type Notification = {
   notifyAt?: Date;
   text: string;
 };
+
+export const SortType = {
+  Asc: 'asc',
+  Desc: 'desc',
+};
+
+export const SortOption = {
+  CreatedAt: 'createdAt',
+};

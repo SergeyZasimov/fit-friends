@@ -5,3 +5,10 @@
 ### Get User
 GET {{baseUrl}}/profile/5 {{protocol}}
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5NzMxMjcsImV4cCI6MTY3Njk3NDAyN30.lhQ6jSSGinti78wNFe7vmjG4RTS7kOlzMrY-CiQWa5g
+
+### Get Users
+# ?limit=2&page=2
+# ?sortType=asc
+# ?limit=54 Bad Request
+GET {{baseUrl}}/profile {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcwNDUyODIsImV4cCI6MTY3NzA0NjE4Mn0.rdW-xtwImYA6HSDIVE5DvoqqkouMSgXBEHmR0yVkR7w

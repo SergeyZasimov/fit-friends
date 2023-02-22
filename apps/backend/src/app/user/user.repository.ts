@@ -1,4 +1,4 @@
-import { User } from '@fit-friends/shared';
+import { ProfileQuery, User } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserEntity } from './user.entity';
@@ -11,7 +11,7 @@ export class UserRepository {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
-  async findById(id: number) {
+  async findById(id: number): Promise<User> {
     return this.prisma.user.findUnique({
       where: {
         id,
@@ -19,6 +19,20 @@ export class UserRepository {
       include: {
         profile: true,
       },
+    });
+  }
+
+  async find(query: ProfileQuery): Promise<User[]> {
+    const { limit, page, sortType, sortOption } = query;
+    return this.prisma.user.findMany({
+      include: {
+        profile: true,
+      },
+      orderBy: {
+        [sortOption]: sortType,
+      },
+      skip: limit * (page - 1) || undefined,
+      take: limit,
     });
   }
 

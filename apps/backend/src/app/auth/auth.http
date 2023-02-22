@@ -28,7 +28,7 @@ Content-Type: {{contentType}}
 
 {
   "name": "John",
-  "email": "test2@user.com",
+  "email": "test12@user.com",
   "password": "secret",
   "role": "тренер",
   "gender": "мужской",
@@ -63,7 +63,7 @@ POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "test5@user.com",
+  "email": "test6@user.com",
   "password": "secret"
 }
 
