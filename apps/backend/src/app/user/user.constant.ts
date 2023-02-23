@@ -30,6 +30,8 @@ export const UserConstraint = {
   TrainingType: {
     Max: 3,
   },
+  AvatarType: /(jpg|jpeg|png)$/,
+  AvatarSize: 1_000_000,
 } as const;
 
 export const UserValidationMessage = {
@@ -77,4 +79,11 @@ export const UserValidationMessage = {
   IsReadyToPersonalTraining:
     'Готовность проводить персональные тренировки - обязательно для заполнения',
   BirthdayNotValid: 'Неверная дата рождения',
+  AvatarNotValid: 'Аватар должен быть в формате jpg или png',
 } as const;
+
+export const CurrentUserField = {
+  Id: 'id',
+  Email: 'email',
+  Role: 'role',
+};

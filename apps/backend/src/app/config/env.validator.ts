@@ -16,6 +16,9 @@ class EnvironmentConfig {
 
   @IsString({ message: StringRequired })
   DATABASE_URL: string;
+
+  @IsString({ message: StringRequired })
+  UPLOAD_FOLDER: string;
 }
 
 export const validateEnvironments = (

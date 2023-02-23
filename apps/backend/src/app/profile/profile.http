@@ -22,3 +22,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiO
   "name": "Jack",
   "trainingType": ["бокс", "пилатес"],
 }
+
+### Upload Files
+POST {{baseUrl}}/profile/upload-avatar {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcxMzM3NTIsImV4cCI6MTY3NzEzNDY1Mn0.maQ285OCwPQEg4SZSCjwWoht0tXGvyVWQUhiY4w7r4M
+Content-Type: multipart/form-data; boundary=Upload
+
+--Upload
+Content-Disposition: form-data; name="avatar"; filename="photo-1.png"
+Content-Type: image/png
+
+< ../../../../../test-img/photo-1.png
+--Upload--
+# --Upload
+# Content-Disposition: form-data; name="certificate"; filename="certificate-1.jpg"
+# Content-Type: image/jpeg
+
+# < ../../../../../test-img/certificate-1.jpg
+

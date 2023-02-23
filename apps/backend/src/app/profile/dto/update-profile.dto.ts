@@ -133,4 +133,6 @@ export class UpdateProfileDto implements Partial<Profile> {
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
   @IsOptional()
   isReadyToPersonalTraining?: boolean;
+
+  avatar?: string;
 }

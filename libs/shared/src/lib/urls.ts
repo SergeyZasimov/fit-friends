@@ -8,6 +8,7 @@ export const UrlRoute = {
   Login: 'login',
   Logout: 'logout',
   Refresh: 'refresh',
+  UploadAvatar: 'upload-avatar',
 } as const;
 
 export const UrlParams = {

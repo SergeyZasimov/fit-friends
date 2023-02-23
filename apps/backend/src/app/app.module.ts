@@ -5,7 +5,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { validateEnvironments } from './config/env.validator';
-import { appConfig, jwtConfig } from './config/namespaces';
+import { appConfig, jwtConfig, multerConfig } from './config/namespaces';
 import { JwtGuard } from './guards/jwt.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
@@ -19,7 +19,7 @@ const ENV_FILE_PATH = join('..', '..', '.env');
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [appConfig, jwtConfig],
+      load: [appConfig, jwtConfig, multerConfig],
       validate: validateEnvironments,
     }),
     UserModule,

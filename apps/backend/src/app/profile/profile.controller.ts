@@ -1,10 +1,23 @@
-import { UrlDomain, UrlParams, UserRole } from '@fit-friends/shared';
-import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { UrlDomain, UrlParams, UrlRoute, UserRole } from '@fit-friends/shared';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
+import { AvatarInterceptor } from '../interceptors/avatar.interceptor';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
 import { UserRdo } from '../user/rdo/user.rdo';
+import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -31,9 +44,20 @@ export class ProfileController {
   @Patch('')
   async update(
     @Body() dto: UpdateProfileDto,
-    @GetCurrentUser('id') userId: number
+    @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     const user = await this.profileService.update(userId, dto);
+    return fillObject(UserRdo, user, user.role);
+  }
+
+  @UseInterceptors(AvatarInterceptor())
+  @Post(UrlRoute.UploadAvatar)
+  async uploadAvatar(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @UploadedFile()
+    file: Express.Multer.File
+  ) {
+    const user = await this.profileService.setAvatar(userId, file.path);
     return fillObject(UserRdo, user, user.role);
   }
 }

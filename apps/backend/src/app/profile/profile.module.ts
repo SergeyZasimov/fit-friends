@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
+import { getMulterConfig } from '../config/multer.config';
 import { UserModule } from '../user/user.module';
 import { ProfileController } from './profile.controller';
 import { ProfileRepository } from './profile.repository';
 import { ProfileService } from './profile.service';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, MulterModule.registerAsync(getMulterConfig())],
   providers: [ProfileRepository, ProfileService],
   exports: [ProfileRepository],
   controllers: [ProfileController],
