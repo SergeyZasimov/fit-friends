@@ -7,6 +7,7 @@ import {
   TrainingTypes,
   UserRole,
 } from '@fit-friends/shared';
+import { Transform } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsBoolean,
@@ -139,6 +140,7 @@ export class CreateUserDto implements CreateUser {
   resume: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
+  @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
   isReadyToPersonalTraining: boolean;
 }

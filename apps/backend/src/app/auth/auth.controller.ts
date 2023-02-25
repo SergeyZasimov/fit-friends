@@ -1,9 +1,18 @@
 import { UrlDomain, UrlRoute, User } from '@fit-friends/shared';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { SkipAccessJwt } from '../decorators/skip-access-jwt.decorator';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { AvatarInterceptor } from '../interceptors/avatar.interceptor';
 import { UserRdo } from '../user/rdo/user.rdo';
 import { fillObject } from '../utils/helpers';
 import { AuthService } from './auth.service';
@@ -14,9 +23,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseInterceptors(AvatarInterceptor())
   @Post(UrlRoute.Register)
-  async register(@Body() dto: CreateUserDto) {
-    const newUser = await this.authService.register(dto);
+  async register(
+    @Body() dto: CreateUserDto,
+    @UploadedFile()
+    file: Express.Multer.File
+  ) {
+    const newUser = await this.authService.register(dto, file);
     return fillObject(UserRdo, newUser, newUser.role);
   }
 

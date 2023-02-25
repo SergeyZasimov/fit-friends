@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { MulterModule } from '@nestjs/platform-express';
 import { getJwtConfig } from '../config/jwt.config';
+import { getMulterConfig } from '../config/multer.config';
 import { ProfileModule } from '../profile/profile.module';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
@@ -16,6 +18,7 @@ import { LocalStrategy } from './strategies/local-auth.strategy';
     ProfileModule,
     PassportModule,
     JwtModule.registerAsync(getJwtConfig()),
+    MulterModule.registerAsync(getMulterConfig()),
   ],
   providers: [AuthService, LocalStrategy, JwtRefreshStrategy, JwtStrategy],
   controllers: [AuthController],

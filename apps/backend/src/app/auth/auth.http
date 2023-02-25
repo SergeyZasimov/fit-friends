@@ -24,21 +24,63 @@ Content-Type: {{contentType}}
 
 ### Register New User Trainer
 POST {{baseUrl}}/auth/register {{protocol}}
-Content-Type: {{contentType}}
+Content-Type: multipart/form-data; boundary=Register
 
-{
-  "name": "John",
-  "email": "test12@user.com",
-  "password": "secret",
-  "role": "тренер",
-  "gender": "мужской",
-  "birthDay": "2000-04-12",
-  "location": "Пионерская",
-  "trainingLevel": "новичок",
-  "trainingType": ["кроссфит"],
-  "resume": "Lorem ipsum dol",
-  "isReadyToPersonalTraining": true
-}
+--Register
+Content-Disposition: form-data; name="name"
+
+John
+--Register
+Content-Disposition: form-data; name="email"
+
+test16@user.com
+--Register
+Content-Disposition: form-data; name="password"
+
+secret
+--Register
+Content-Disposition: form-data; name="role"
+
+тренер
+--Register
+Content-Disposition: form-data; name="gender"
+
+мужской
+--Register
+Content-Disposition: form-data; name="birthDay"
+
+2000-04-12
+--Register
+Content-Disposition: form-data; name="location"
+
+Пионерская
+--Register
+Content-Disposition: form-data; name="trainingLevel"
+
+новичок
+--Register
+Content-Disposition: form-data; name="trainingType"
+
+кроссфит
+--Register
+Content-Disposition: form-data; name="trainingType"
+
+бег
+--Register
+Content-Disposition: form-data; name="resume"
+
+Lorem ipsum dol
+--Register
+Content-Disposition: form-data; name="isReadyToPersonalTraining"
+
+true
+--Register
+Content-Disposition: form-data; name="avatar"; filename="photo-1.png"
+Content-Type: image/png
+
+< ../../../../../test-content/test-img/photo-1.png
+--Register--
+
 
 ### Register New User Trainer Bad Request
 POST {{baseUrl}}/auth/register {{protocol}}

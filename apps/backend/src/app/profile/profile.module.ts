@@ -9,7 +9,7 @@ import { ProfileService } from './profile.service';
 @Module({
   imports: [UserModule, MulterModule.registerAsync(getMulterConfig())],
   providers: [ProfileRepository, ProfileService],
-  exports: [ProfileRepository],
+  exports: [ProfileService],
   controllers: [ProfileController],
 })
 export class ProfileModule {}

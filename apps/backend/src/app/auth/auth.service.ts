@@ -1,11 +1,4 @@
-import {
-  CustomerProfile,
-  TokenPayload,
-  TrainerProfile,
-  User,
-  UserRole,
-  UserTokens,
-} from '@fit-friends/shared';
+import { TokenPayload, User, UserTokens } from '@fit-friends/shared';
 import {
   ConflictException,
   Inject,
@@ -16,8 +9,7 @@ import {
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConfig } from '../config/namespaces';
-import { ProfileEntity } from '../profile/profile.entity';
-import { ProfileRepository } from '../profile/profile.repository';
+import { ProfileService } from '../profile/profile.service';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
 import { AuthExceptionMessage } from './auth.constant';
@@ -27,13 +19,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly profileRepository: ProfileRepository,
+    private readonly profileService: ProfileService,
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
-  async register(dto: CreateUserDto): Promise<User> {
+  async register(dto: CreateUserDto, file: Express.Multer.File): Promise<User> {
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {
@@ -48,38 +40,7 @@ export class AuthService {
 
     const newUser = await this.userRepository.create(userEntity);
 
-    let profile: CustomerProfile | TrainerProfile;
-
-    if (newUser.role === UserRole.Customer) {
-      profile = {
-        name: dto.name,
-        gender: dto.gender,
-        location: dto.location,
-        birthDay: dto.birthDay,
-        caloriesAmountToLose: dto.caloriesAmountToLose,
-        caloriesAmountToLosePerDay: dto.caloriesAmountToLosePerDay,
-        isReadyToTraining: dto.isReadyToTraining,
-        trainingLevel: dto.trainingLevel,
-        trainingTime: dto.trainingTime,
-        trainingType: dto.trainingType,
-        user: newUser.id,
-      };
-    } else {
-      profile = {
-        name: dto.name,
-        gender: dto.gender,
-        location: dto.location,
-        birthDay: dto.birthDay,
-        trainingLevel: dto.trainingLevel,
-        trainingType: dto.trainingType,
-        resume: dto.resume,
-        isReadyToPersonalTraining: dto.isReadyToPersonalTraining,
-        user: newUser.id,
-      };
-    }
-
-    const profileEntity = new ProfileEntity(profile);
-    const newProfile = await this.profileRepository.create(profileEntity);
+    const newProfile = await this.profileService.create(newUser, dto, file);
     return { ...newUser, profile: newProfile };
   }
 
