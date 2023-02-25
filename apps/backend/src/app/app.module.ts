@@ -2,10 +2,17 @@ import { Module } from '@nestjs/common';
 
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { validateEnvironments } from './config/env.validator';
-import { appConfig, jwtConfig, multerConfig } from './config/namespaces';
+import {
+  appConfig,
+  jwtConfig,
+  multerConfig,
+  staticConfig,
+} from './config/namespaces';
+import { getStaticConfig } from './config/static.config';
 import { JwtGuard } from './guards/jwt.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
@@ -19,13 +26,14 @@ const ENV_FILE_PATH = join('..', '..', '.env');
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [appConfig, jwtConfig, multerConfig],
+      load: [appConfig, jwtConfig, multerConfig, staticConfig],
       validate: validateEnvironments,
     }),
     UserModule,
     PrismaModule,
     ProfileModule,
     AuthModule,
+    ServeStaticModule.forRootAsync(getStaticConfig()),
   ],
   controllers: [],
   providers: [

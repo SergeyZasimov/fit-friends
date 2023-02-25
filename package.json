@@ -13,6 +13,7 @@
     "@nestjs/jwt": "^10.0.2",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/serve-static": "^3.0.1",
     "@prisma/client": "^4.10.1",
     "@types/nanoid": "^2.1.0",
     "axios": "^1.0.0",

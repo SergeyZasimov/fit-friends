@@ -19,6 +19,9 @@ class EnvironmentConfig {
 
   @IsString({ message: StringRequired })
   UPLOAD_FOLDER: string;
+
+  @IsString({ message: StringRequired })
+  STATIC_FOLDER: string;
 }
 
 export const validateEnvironments = (

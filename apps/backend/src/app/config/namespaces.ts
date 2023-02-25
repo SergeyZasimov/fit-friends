@@ -16,3 +16,7 @@ export const jwtConfig = registerAs('jwt', () => ({
 export const multerConfig = registerAs('multer', () => ({
   storage: process.env.UPLOAD_FOLDER,
 }));
+
+export const staticConfig = registerAs('static', () => ({
+  folder: process.env.STATIC_FOLDER,
+}));
