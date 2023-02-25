@@ -74,19 +74,28 @@ export class ProfileService {
       };
     }
 
-    const avatar = await this.setAvatar(file);
+    const avatar = this.setAvatar(file);
     const profileEntity = new ProfileEntity({ ...profile, avatar });
     return await this.profileRepository.create(profileEntity);
   }
 
-  async update(userId: number, dto: UpdateProfileDto): Promise<User> {
+  async update(
+    userId: number,
+    dto: UpdateProfileDto,
+    file: Express.Multer.File
+  ): Promise<User> {
     const user = await this.getOne(userId);
-    const profileEntity = new ProfileEntity({ ...user.profile, ...dto });
+    const avatar = file ? this.setAvatar(file) : user.profile.avatar;
+    const profileEntity = new ProfileEntity({
+      ...user.profile,
+      ...dto,
+      avatar,
+    });
     await this.profileRepository.update(userId, profileEntity);
     return this.getOne(userId);
   }
 
-  async setAvatar(file: Express.Multer.File) {
+  private setAvatar(file: Express.Multer.File) {
     return new URL(
       `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`
     ).href;

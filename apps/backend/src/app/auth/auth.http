@@ -4,23 +4,70 @@
 
 ### Register New User Customer
 POST {{baseUrl}}/auth/register {{protocol}}
-Content-Type: {{contentType}}
+Content-Type: multipart/form-data; boundary=Register
 
-{
-  "name": "John",
-  "email": "test9@user.com",
-  "password": "secret",
-  "role": "пользователь",
-  "gender": "мужской",
-  "birthDay": "2000-04-12",
-  "location": "Пионерская",
-  "trainingLevel": "новичок",
-  "trainingType": ["кроссфит", "бег"],
-  "trainingTime": "10-30 мин",
-  "caloriesAmountToLose": 1200,
-  "caloriesAmountToLosePerDay": 1200,
-  "isReadyToTraining": true
-}
+--Register
+Content-Disposition: form-data; name="name"
+
+John
+--Register
+Content-Disposition: form-data; name="email"
+
+test5@user.com
+--Register
+Content-Disposition: form-data; name="password"
+
+secret
+--Register
+Content-Disposition: form-data; name="role"
+
+пользователь
+--Register
+Content-Disposition: form-data; name="gender"
+
+мужской
+--Register
+Content-Disposition: form-data; name="birthDay"
+
+2000-04-12
+--Register
+Content-Disposition: form-data; name="location"
+
+Пионерская
+--Register
+Content-Disposition: form-data; name="trainingLevel"
+
+новичок
+--Register
+Content-Disposition: form-data; name="trainingType"
+
+кроссфит
+--Register
+Content-Disposition: form-data; name="trainingType"
+
+бокс
+--Register
+Content-Disposition: form-data; name="trainingTime"
+
+10-30 мин
+--Register
+Content-Disposition: form-data; name="caloriesAmountToLose"
+
+1200
+--Register
+Content-Disposition: form-data; name="caloriesAmountToLosePerDay"
+
+1200
+--Register
+Content-Disposition: form-data; name="isReadyToTraining"
+
+true
+--Register
+Content-Disposition: form-data; name="avatar"; filename="photo-1.png"
+Content-Type: image/png
+
+< ../../../../../test-content/test-img/photo-1.png
+--Register--
 
 ### Register New User Trainer
 POST {{baseUrl}}/auth/register {{protocol}}
@@ -82,61 +129,14 @@ Content-Type: image/png
 --Register--
 
 
-### Register New User Trainer Bad Request
-POST {{baseUrl}}/auth/register {{protocol}}
-Content-Type: {{contentType}}
-
-{
-  "name": "John1",
-  "email": "test4user.com",
-  "password": "secet",
-  "role": "тренер",
-  "gender": "",
-  "birthDay": "2000",
-  "location": "Fh",
-  "trainingLevel": "новичк",
-  "trainingType": ["кроссфит", "ab", "bd", "er"],
-  "resume": "Lorem",
-  "isReadyToPersonalTraining": ""
-}
-
 ### Login User
 POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "test6@user.com",
+  "email": "test16@user.com",
   "password": "secret"
 }
-
-
-### Login User Bad Request
-POST {{baseUrl}}/auth/login {{protocol}}
-Content-Type: {{contentType}}
-
-{
-  "email": "test5user.com",
-  "password": "secre"
-}
-
-### Login User Forbidden
-POST {{baseUrl}}/auth/login {{protocol}}
-Content-Type: {{contentType}}
-
-{
-  "email": "test5@user.com",
-  "password": "secrett"
-}
-
-### Login User Not Found
-POST {{baseUrl}}/auth/login {{protocol}}
-Content-Type: {{contentType}}
-
-{
-  "email": "test105@user.com",
-  "password": "secret"
-}
-
 
 ### Refersh Tokens
 GET {{baseUrl}}/auth/refresh {{protocol}}

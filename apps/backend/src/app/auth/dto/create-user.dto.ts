@@ -116,6 +116,7 @@ export class CreateUserDto implements CreateUser {
     message: CaloriesAmountToLoseNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLoseRequired })
+  @Transform(({ value }) => +value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
   caloriesAmountToLose: number;
 
@@ -126,10 +127,12 @@ export class CreateUserDto implements CreateUser {
     message: CaloriesAmountToLosePerDayNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLosePerDayRequired })
+  @Transform(({ value }) => +value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
   caloriesAmountToLosePerDay: number;
 
   @IsBoolean({ message: IsReadyToTraining })
+  @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
   isReadyToTraining: boolean;
 

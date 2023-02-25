@@ -15,28 +15,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiO
 
 ### Update Profile
 PATCH  {{baseUrl}}/profile {{protocol}}
-Content-Type: {{contentType}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcwNDk3MTksImV4cCI6MTY3NzA1MDYxOX0.nZNqme6zxwo3IXKBDybts1NpzE2LvBJPXi4vJ0LfUR4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3MzQwNTExLCJleHAiOjE2NzczNDE0MTF9.wttw9ywkjCquu8zWJoRd6641q3z77SQIY2UxD2cyvDw
+Content-Type: multipart/form-data; boundary=UpdateUser
 
-{
-  "name": "Jack",
-  "trainingType": ["бокс", "пилатес"],
-}
+--UpdateUser
+Content-Disposition: form-data; name="name"
 
-### Upload Files
-POST {{baseUrl}}/profile/upload-avatar {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcxMzM3NTIsImV4cCI6MTY3NzEzNDY1Mn0.maQ285OCwPQEg4SZSCjwWoht0tXGvyVWQUhiY4w7r4M
-Content-Type: multipart/form-data; boundary=Upload
+Jack
+--UpdateUser
+Content-Disposition: form-data; name="trainingType"
 
---Upload
-Content-Disposition: form-data; name="avatar"; filename="photo-1.png"
+кроссфит
+--UpdateUser
+Content-Disposition: form-data; name="trainingType"
+
+бег
+--UpdateUser
+Content-Disposition: form-data; name="avatar"; filename="photo-1-coach.png"
 Content-Type: image/png
 
-< ../../../../../test-img/photo-1.png
---Upload--
-# --Upload
-# Content-Disposition: form-data; name="certificate"; filename="certificate-1.jpg"
-# Content-Type: image/jpeg
+< ../../../../../test-content/test-img/photo-1-coach.png
+--UpdateUser--
 
-# < ../../../../../test-img/certificate-1.jpg
 
