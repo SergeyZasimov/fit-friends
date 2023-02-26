@@ -58,9 +58,3 @@ export type UserTokens = {
   refresh_token: string;
 };
 
-export type ProfileQuery = {
-  limit?: number;
-  page?: number;
-  sortType?: string;
-  sortOption?: string;
-};

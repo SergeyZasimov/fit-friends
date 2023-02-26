@@ -1,7 +1,3 @@
-import { User } from './user.types';
-
-
-
 export type SportGym = {
   id?: number;
   title: string;
@@ -57,4 +53,11 @@ export const SortType = {
 
 export const SortOption = {
   CreatedAt: 'createdAt',
+};
+
+export type BasicQuery = {
+  limit?: number;
+  page?: number;
+  sortType?: string;
+  sortOption?: string;
 };

@@ -64,6 +64,7 @@ model Workout {
   trainer              User     @relation(fields: [trainerId], references: [id], onDelete: Cascade)
   isSpecial            Boolean
   reviews              Review[]
+  createdAt            DateTime @default(now())
 
   @@map("workouts")
 }

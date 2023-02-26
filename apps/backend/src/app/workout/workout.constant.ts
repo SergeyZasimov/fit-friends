@@ -25,7 +25,11 @@ export const WORKOUT_CONSTRAINT = {
     MAX: 140,
   },
   VIDEO_TYPE: /(mov|avi|mp4)$/,
-};
+  RATING: {
+    MIN: 1,
+    MAX: 5,
+  },
+} as const;
 
 export const WorkoutValidationMessage = {
   TitleNotValid: `Название тренировки должно быть строкой длиной от ${WORKOUT_CONSTRAINT.TITLE.MIN} до ${WORKOUT_CONSTRAINT.TITLE.MAX} символов`,
@@ -35,7 +39,7 @@ export const WorkoutValidationMessage = {
   TrainingTypeNotValid: `Тип тренировки должен быть одним из значений: ${formatEnumToValidationMessage(
     TrainingTypes
   )}`,
-  TrainingTimeNotValid: `Длительность тренировки должна быть одной из значений: ${formatEnumToValidationMessage(
+  TrainingTimeNotValid: `Длительность тренировки должна быть из предопределённых диапазонов: ${formatEnumToValidationMessage(
     TrainingTimes
   )}`,
   PriceNotValid: 'Цена должна быть целым числом',
@@ -49,4 +53,10 @@ export const WorkoutValidationMessage = {
   VideoNotValid: 'Видео должно быть в формате mov, avi, mp4',
   IsSpecialNovValid: 'Неверный формат флага специального предложения',
   DescriptionNotValid: `Описание должно быть строкой длиной от ${WORKOUT_CONSTRAINT.DESCRIPTION.MIN} до ${WORKOUT_CONSTRAINT.DESCRIPTION.MAX} символов`,
-};
+  RatingNotValid: `Рейтинг должен быть целым числом между ${WORKOUT_CONSTRAINT.RATING.MIN} и ${WORKOUT_CONSTRAINT.RATING.MAX}`,
+} as const;
+
+export const WorkoutExceptionMessage = {
+  NotFound: 'Тренировка не найдена',
+  ForeignWorkout: 'Нельзя редактировать чужую тренировку',
+} as const;

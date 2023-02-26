@@ -4,7 +4,7 @@
 
 ### Create Workout
 POST {{baseUrl}}/workout {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3Mzg2NzM4LCJleHAiOjE2NzczODc2Mzh9.mqaf_FMTmENuTji1f47M5HUcSaJ-tlVzS-FoozkZSIY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDA5ODk1LCJleHAiOjE2Nzc0MTA3OTV9.IqFLzPR-hD0L8Dg063xYtHZrFqYKYmyaC-PafwoNtsU
 Content-Type: multipart/form-data; boundary=CreateWorkout
 
 --CreateWorkout
@@ -22,7 +22,7 @@ Content-Disposition: form-data; name="trainingType"
 --CreateWorkout
 Content-Disposition: form-data; name="trainingTime"
 
-50-80 мин
+10-30 мин
 --CreateWorkout
 Content-Disposition: form-data; name="price"
 
@@ -48,3 +48,35 @@ Content-Disposition: form-data; name="video"; filename="Video_HTML_Academy_1.mp4
 
 < ../../../../../test-content\test-video\Video_HTML_Academy_1.mp4
 --CreateWorkout--
+
+
+### Update Workout
+PATCH {{baseUrl}}/workout/2 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDAzOTkyLCJleHAiOjE2Nzc0MDQ4OTJ9.K8-3D-5kHQ67UEYGb1yp5KgAaCT65KlngsRr0te5XGE
+Content-Type: multipart/form-data; boundary=UpdateWorkout
+
+--UpdateWorkout
+Content-Disposition: form-data; name="title"
+
+Lorem ipsum
+--UpdateWorkout
+Content-Disposition: form-data; name="customerLevel"
+
+профессионал
+--UpdateWorkout
+Content-Disposition: form-data; name="isSpecial"
+
+false
+--UpdateWorkout
+Content-Disposition: form-data; name="video"; filename="Video_html_Academy.mov"
+
+< ../../../../../test-content/test-video/Video_html_Academy.mov
+--UpdateWorkout--
+
+### Get Workout
+GET {{baseUrl}}/workout/2 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDA1NTU3LCJleHAiOjE2Nzc0MDY0NTd9.c4g_0652UsxvJLibAxNS1ILSMcf1v6olf7GpnoGvbVM
+
+### Get Workouts
+GET {{baseUrl}}/workout?trainingTime=10-30 мин {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDA5ODk1LCJleHAiOjE2Nzc0MTA3OTV9.IqFLzPR-hD0L8Dg063xYtHZrFqYKYmyaC-PafwoNtsU

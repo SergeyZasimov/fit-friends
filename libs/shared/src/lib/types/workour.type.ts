@@ -1,3 +1,4 @@
+import { BasicQuery } from './types';
 import { User } from './user.types';
 
 export type Workout = {
@@ -14,6 +15,7 @@ export type Workout = {
   video: string;
   rating?: number;
   trainer: number | User;
+  trainerId?: number;
   isSpecial: boolean;
 };
 
@@ -21,3 +23,10 @@ export type CreateWorkout = Omit<
   Workout,
   'id' | 'trainer' | 'backgroundImage' | 'rating' | 'video'
 >;
+
+export type WorkoutQuery = BasicQuery & {
+  priceRange?: number[];
+  caloriesRange?: number[];
+  rating?: number;
+  trainingTime?: string[];
+};

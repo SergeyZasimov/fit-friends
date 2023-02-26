@@ -1,10 +1,18 @@
-import { Workout } from '@fit-friends/shared';
-import { Injectable } from '@nestjs/common';
+import { Workout, WorkoutQuery } from '@fit-friends/shared';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { readdir } from 'fs/promises';
 import path from 'path';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
-import { WORKOUT_BACKGROUNDS_FOLDER } from './workout.constant';
+import { UpdateWorkoutDto } from './dto/update-workout.dto';
+import {
+  WORKOUT_BACKGROUNDS_FOLDER,
+  WorkoutExceptionMessage,
+} from './workout.constant';
 import { WorkoutEntity } from './workout.entity';
 import { WorkoutRepository } from './workout.repository';
 
@@ -25,6 +33,14 @@ export class WorkoutService {
     this.staticFolder = config.get<string>('static.folder');
   }
 
+  async getOne(id: number): Promise<Workout> {
+    return this.workoutRepository.findOne(id);
+  }
+
+  async getMany(query: WorkoutQuery, userId: number): Promise<Workout[]> {
+    return this.workoutRepository.findMany(query, userId);
+  }
+
   async create(
     dto: CreateWorkoutDto,
     file: Express.Multer.File,
@@ -39,6 +55,32 @@ export class WorkoutService {
       backgroundImage,
     });
     return this.workoutRepository.create(workoutEntity);
+  }
+
+  async update(
+    id: number,
+    dto: UpdateWorkoutDto,
+    file: Express.Multer.File,
+    userId: number
+  ): Promise<Workout> {
+    const existWorkout = await this.workoutRepository.findOne(id);
+
+    if (!existWorkout) {
+      throw new NotFoundException(WorkoutExceptionMessage.NotFound);
+    }
+
+    if (existWorkout.trainerId !== userId) {
+      throw new ForbiddenException(WorkoutExceptionMessage.ForeignWorkout);
+    }
+
+    const video = file ? this.setVideoHref(file) : undefined;
+    const updatedWorkout = new WorkoutEntity({
+      ...existWorkout,
+      ...dto,
+      trainer: existWorkout.trainerId,
+      video,
+    });
+    return this.workoutRepository.update(id, updatedWorkout);
   }
 
   private setVideoHref(file: Express.Multer.File): string {

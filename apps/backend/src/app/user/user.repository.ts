@@ -1,6 +1,7 @@
-import { ProfileQuery, User } from '@fit-friends/shared';
+import { User } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { ProfileQueryDto } from '../profile/dto/profile-query.dto';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -22,7 +23,7 @@ export class UserRepository {
     });
   }
 
-  async find(query: ProfileQuery): Promise<User[]> {
+  async find(query: ProfileQueryDto): Promise<User[]> {
     const { limit, page, sortType, sortOption } = query;
     return this.prisma.user.findMany({
       include: {

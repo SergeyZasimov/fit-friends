@@ -10,8 +10,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiO
 # ?limit=2&page=2
 # ?sortType=asc
 # ?limit=54 Bad Request
-GET {{baseUrl}}/profile {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0NkB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzcwNDUyODIsImV4cCI6MTY3NzA0NjE4Mn0.rdW-xtwImYA6HSDIVE5DvoqqkouMSgXBEHmR0yVkR7w
+GET {{baseUrl}}/profile?limit=1&page=1 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc0MDc3MDMsImV4cCI6MTY3NzQwODYwM30.PVK9BWB8dQbZidHGNI08xhA1ww_cISUXlKTtgHqPOFU
 
 ### Update Profile
 PATCH  {{baseUrl}}/profile {{protocol}}

@@ -1,7 +1,6 @@
 import {
   CustomerProfile,
   Profile,
-  ProfileQuery,
   TrainerProfile,
   User,
   UserRole,
@@ -11,6 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { URL } from 'url';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { UserRepository } from '../user/user.repository';
+import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileEntity } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
@@ -35,7 +35,7 @@ export class ProfileService {
     return this.userRepository.findById(id);
   }
 
-  async getMany(query: ProfileQuery): Promise<User[]> {
+  async getMany(query: ProfileQueryDto): Promise<User[]> {
     return this.userRepository.find(query);
   }
 
