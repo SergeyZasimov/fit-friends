@@ -20,6 +20,7 @@ model User {
   requestTrainings PersonalTrainingRequest[] @relation("Requester")
   conductTrainings PersonalTrainingRequest[] @relation("Conductor")
   notifications    Notification[]
+  Workout          Workout[]
 
   @@map("users")
 }
@@ -59,7 +60,8 @@ model Workout {
   favorGender          String
   video                String
   rating               Int
-  trainerId            String
+  trainerId            Int
+  trainer              User     @relation(fields: [trainerId], references: [id], onDelete: Cascade)
   isSpecial            Boolean
   reviews              Review[]
 

@@ -1,0 +1,50 @@
+@baseUrl = http://localhost:3333/api
+
+@protocol = HTTP/1.1
+
+### Create Workout
+POST {{baseUrl}}/workout {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3Mzg2NzM4LCJleHAiOjE2NzczODc2Mzh9.mqaf_FMTmENuTji1f47M5HUcSaJ-tlVzS-FoozkZSIY
+Content-Type: multipart/form-data; boundary=CreateWorkout
+
+--CreateWorkout
+Content-Disposition: form-data; name="title"
+
+Lorem
+--CreateWorkout
+Content-Disposition: form-data; name="customerLevel"
+
+любитель
+--CreateWorkout
+Content-Disposition: form-data; name="trainingType"
+
+стрейчинг
+--CreateWorkout
+Content-Disposition: form-data; name="trainingTime"
+
+50-80 мин
+--CreateWorkout
+Content-Disposition: form-data; name="price"
+
+1000
+--CreateWorkout
+Content-Disposition: form-data; name="caloriesAmountToLose"
+
+1200
+--CreateWorkout
+Content-Disposition: form-data; name="description"
+
+Lorem ipsum dolor sit amet, consectetuer adipiscin
+--CreateWorkout
+Content-Disposition: form-data; name="favorGender"
+
+для всех
+--CreateWorkout
+Content-Disposition: form-data; name="isSpecial"
+
+true
+--CreateWorkout
+Content-Disposition: form-data; name="video"; filename="Video_HTML_Academy_1.mp4"
+
+< ../../../../../test-content\test-video\Video_HTML_Academy_1.mp4
+--CreateWorkout--

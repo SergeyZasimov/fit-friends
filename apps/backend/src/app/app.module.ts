@@ -17,6 +17,7 @@ import { JwtGuard } from './guards/jwt.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
 import { UserModule } from './user/user.module';
+import { WorkoutModule } from './workout/workout.module';
 
 const ENV_FILE_PATH = join('..', '..', '.env');
 
@@ -34,6 +35,7 @@ const ENV_FILE_PATH = join('..', '..', '.env');
     ProfileModule,
     AuthModule,
     ServeStaticModule.forRootAsync(getStaticConfig()),
+    WorkoutModule,
   ],
   controllers: [],
   providers: [

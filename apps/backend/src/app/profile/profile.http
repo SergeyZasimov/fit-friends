@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333/api
-@contentType = application/json
+
 @protocol = HTTP/1.1
 
 ### Get User

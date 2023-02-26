@@ -1,19 +1,6 @@
-export type Workout = {
-  id?: number;
-  title: string;
-  backgroundImage: string;
-  customerLevel: string;
-  trainingType: string;
-  trainingTime: string;
-  price: number;
-  caloriesAmountToLose: number;
-  description: string;
-  favorGender: string;
-  video: string;
-  rating: number;
-  trainerId: string;
-  isSpecial: boolean;
-};
+import { User } from './user.types';
+
+
 
 export type SportGym = {
   id?: number;
