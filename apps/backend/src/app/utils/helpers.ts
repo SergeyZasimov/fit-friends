@@ -7,10 +7,10 @@ export const formatEnumToValidationMessage = (obj: object) => {
 export const fillObject = <T, V>(
   dto: ClassConstructor<T>,
   plainObject: V,
-  role?: string
+  group?: string
 ): T => {
   return plainToInstance(dto, plainObject, {
     excludeExtraneousValues: true,
-    groups: [role],
+    groups: [group],
   });
 };

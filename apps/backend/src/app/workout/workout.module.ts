@@ -9,5 +9,6 @@ import { WorkoutService } from './workout.service';
   imports: [MulterModule.registerAsync(getMulterConfig())],
   providers: [WorkoutService, WorkoutRepository],
   controllers: [WorkoutController],
+  exports: [WorkoutService],
 })
 export class WorkoutModule {}

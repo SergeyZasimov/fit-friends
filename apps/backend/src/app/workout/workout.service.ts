@@ -63,11 +63,7 @@ export class WorkoutService {
     file: Express.Multer.File,
     userId: number
   ): Promise<Workout> {
-    const existWorkout = await this.workoutRepository.findOne(id);
-
-    if (!existWorkout) {
-      throw new NotFoundException(WorkoutExceptionMessage.NotFound);
-    }
+    const existWorkout = await this.checkWorkoutExist(id);
 
     if (existWorkout.trainerId !== userId) {
       throw new ForbiddenException(WorkoutExceptionMessage.ForeignWorkout);
@@ -81,6 +77,14 @@ export class WorkoutService {
       video,
     });
     return this.workoutRepository.update(id, updatedWorkout);
+  }
+
+  async checkWorkoutExist(id: number): Promise<Workout> {
+    const existWorkout = await this.workoutRepository.findOne(id);
+    if (!existWorkout) {
+      throw new NotFoundException(WorkoutExceptionMessage.NotFound);
+    }
+    return existWorkout;
   }
 
   private setVideoHref(file: Express.Multer.File): string {

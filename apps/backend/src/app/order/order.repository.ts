@@ -50,4 +50,21 @@ export class OrderRepository {
       },
     });
   }
+
+  async findOrdersForTrainer(userId: number) {
+    return this.prisma.order.groupBy({
+      by: ['workoutId'],
+      where: {
+        workout: {
+          trainerId: userId,
+        },
+      },
+      _count: {
+        id: true,
+      },
+      _sum: {
+        totalCost: true,
+      },
+    });
+  }
 }
