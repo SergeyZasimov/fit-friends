@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:3333/api
+
+@protocol = HTTP/1.1
+
+### Create Order
+POST {{baseUrl}}/order {{protocol}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc1MDA2NzUsImV4cCI6MTY3NzUwMTU3NX0.RPF3K3X7NhN0-9Q1ZL6diUBsqvTNeFzeTHnswJIKPQ8
+
+{
+  "orderType": "тренировка",
+  "price": 120,
+  "amount": 5,
+  "paymentMethod": "visa",
+  "purchaseId": 1
+}

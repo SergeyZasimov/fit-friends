@@ -21,6 +21,7 @@ model User {
   conductTrainings PersonalTrainingRequest[] @relation("Conductor")
   notifications    Notification[]
   Workout          Workout[]
+  Order            Order[]
 
   @@map("users")
 }
@@ -65,6 +66,7 @@ model Workout {
   isSpecial            Boolean
   reviews              Review[]
   createdAt            DateTime @default(now())
+  orders               Order[]
 
   @@map("workouts")
 }
@@ -79,6 +81,7 @@ model SportGym {
   description     String
   oneWorkoutPrice Int
   createdAt       DateTime @default(now())
+  orders          Order[]
 
   @@map("sport_gyms")
 }
@@ -97,14 +100,19 @@ model Review {
 }
 
 model Order {
-  id            Int      @id @default(autoincrement())
-  purchaseType  String
-  purchaseId    Int
-  workoutPrice  Int
-  workoutAmount Int
+  id            Int       @id @default(autoincrement())
+  orderType     String
+  userId        Int
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutId     Int?
+  workout       Workout?  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  sportGymId    Int?
+  sportGym      SportGym? @relation(fields: [sportGymId], references: [id], onDelete: Cascade)
+  price         Int
+  amount        Int
   totalCost     Int
   paymentMethod String
-  createdAt     DateTime @default(now())
+  createdAt     DateTime  @default(now())
 
   @@map("orders")
 }

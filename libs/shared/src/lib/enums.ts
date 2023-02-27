@@ -45,7 +45,10 @@ export const GymParameters = [
   'массаж',
 ] as const;
 
-export const Purchases = ['абонемент', 'тренировка'] as const;
+export const OrderTypes = {
+  Workout: 'тренировка',
+  SportGym: 'абонемент',
+} as const;
 
 export const PaymentMethods = ['visa', 'mir', 'umoney'] as const;
 
@@ -53,4 +56,13 @@ export const TrainingStatus = {
   UnderConsideration: 'на рассмотрении',
   Canceled: 'отклонён',
   Accept: 'принят',
+} as const;
+
+export const SortType = {
+  Asc: 'asc',
+  Desc: 'desc',
+} as const;
+
+export const SortOption = {
+  CreatedAt: 'createdAt',
 } as const;

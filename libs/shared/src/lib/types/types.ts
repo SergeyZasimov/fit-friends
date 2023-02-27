@@ -19,17 +19,6 @@ export type Review = {
   createdAt?: Date;
 };
 
-export type Order = {
-  id?: number;
-  purchaseType: string;
-  purchaseId: number;
-  workoutPrice: number;
-  workoutAmount: number;
-  totalCost: number;
-  paymentMethod: string;
-  createdAt?: Date;
-};
-
 export type PersonalTrainingRequest = {
   id?: number;
   requesterId: number;
@@ -44,15 +33,6 @@ export type Notification = {
   userId: number;
   notifyAt?: Date;
   text: string;
-};
-
-export const SortType = {
-  Asc: 'asc',
-  Desc: 'desc',
-};
-
-export const SortOption = {
-  CreatedAt: 'createdAt',
 };
 
 export type BasicQuery = {

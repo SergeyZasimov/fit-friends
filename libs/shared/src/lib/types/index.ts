@@ -1,3 +1,4 @@
+export * from './order.type';
 export * from './types';
 export * from './user.types';
-export * from './workour.type';
+export * from './workout.type';

@@ -18,6 +18,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
 import { UserModule } from './user/user.module';
 import { WorkoutModule } from './workout/workout.module';
+import { OrderModule } from './order/order.module';
 
 const ENV_FILE_PATH = join('..', '..', '.env');
 
@@ -36,6 +37,7 @@ const ENV_FILE_PATH = join('..', '..', '.env');
     AuthModule,
     ServeStaticModule.forRootAsync(getStaticConfig()),
     WorkoutModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [
