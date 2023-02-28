@@ -1,6 +1,7 @@
-import { Order } from '@fit-friends/shared';
+import { Order, SortOption, SortType } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TrainerOrdersQuery } from './dto/query-trainer-orders.dto';
 import { OrderEntity } from './order.entity';
 
 @Injectable()
@@ -51,7 +52,9 @@ export class OrderRepository {
     });
   }
 
-  async findOrdersForTrainer(userId: number) {
+  async findOrdersForTrainer(query: TrainerOrdersQuery, userId: number) {
+    const { sortOption, limit, page, sortType } = query;
+    const sortOrder = sortType === SortType.Desc ? 'desc': 'asc'
     return this.prisma.order.groupBy({
       by: ['workoutId'],
       where: {
@@ -65,6 +68,24 @@ export class OrderRepository {
       _sum: {
         totalCost: true,
       },
+      orderBy: [
+        sortOption === SortOption.Price
+          ? {
+              _sum: {
+                totalCost: sortOrder,
+              },
+            }
+          : undefined,
+        sortOption === SortOption.Count
+          ? {
+              _count: {
+                id: sortOrder,
+              },
+            }
+          : undefined,
+      ],
+      skip: limit * (page - 1) || undefined,
+      take: limit,
     });
   }
 }

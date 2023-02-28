@@ -2,6 +2,7 @@ import { Order, OrderTypes } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { WorkoutService } from '../workout/workout.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { TrainerOrdersQuery } from './dto/query-trainer-orders.dto';
 import { OrderEntity } from './order.entity';
 import { OrderRepository } from './order.repository';
 
@@ -26,8 +27,11 @@ export class OrderService {
     return this.orderRepository.create(orderEntity);
   }
 
-  async getOrdersForTrainer(userId: number) {
-    const summary = await this.orderRepository.findOrdersForTrainer(userId);
+  async getOrdersForTrainer(query: TrainerOrdersQuery, userId: number) {
+    const summary = await this.orderRepository.findOrdersForTrainer(
+      query,
+      userId
+    );
     const ordersSummary = [];
     for (const item of summary) {
       const workout = await this.workoutService.getOne(item.workoutId);

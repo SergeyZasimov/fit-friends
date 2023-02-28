@@ -65,4 +65,6 @@ export const SortType = {
 
 export const SortOption = {
   CreatedAt: 'createdAt',
+  Price: 'price',
+  Count: 'count',
 } as const;

@@ -16,5 +16,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 }
 
 ### Get Orders For Trainer
+# ?sortOption=price&sortType=asc
 GET {{baseUrl}}/order/trainer {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NTEyODQ5LCJleHAiOjE2Nzc1MTM3NDl9.hz5HKpPHkK0raxrZMukBI9Jc9u03tNxVA_iMN6rzwB0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NTgzMzAyLCJleHAiOjE2Nzc1ODQyMDJ9.0OuODYktxrcgY6oY2QQcx8_cdh1LgpMs7S6ZAGhaPsw
