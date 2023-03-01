@@ -95,6 +95,14 @@ export class ProfileService {
     return this.getOne(userId);
   }
 
+  async addFriend(userId: number, friendId: number): Promise<User> {
+    return this.userRepository.addFriend(userId, friendId);
+  }
+
+  async getFriends(userId: number) {
+    return this.userRepository.findFriends(userId);
+  }
+
   private setAvatar(file: Express.Multer.File) {
     return new URL(
       `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`

@@ -7,6 +7,8 @@ export type User = {
   profile?: Profile;
   refreshToken?: string;
   createdAt?: Date;
+  followedBy?: User[];
+  following?: User[];
 };
 
 export type DefaultProfile = {
@@ -57,4 +59,3 @@ export type UserTokens = {
   access_token: string;
   refresh_token: string;
 };
-

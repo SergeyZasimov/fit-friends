@@ -34,6 +34,12 @@ export class ProfileController {
     return users.map((user) => fillObject(UserRdo, user, user.role));
   }
 
+  @Get('friends')
+  async showFriends(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    const { friends } = await this.profileService.getFriends(userId);
+    return friends.map((user) => fillObject(UserRdo, user, user.role));
+  }
+
   @Get(`:${UrlParams.Id}`)
   async showMany(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
     const user = await this.profileService.getOne(id);
@@ -50,5 +56,13 @@ export class ProfileController {
   ) {
     const user = await this.profileService.update(userId, dto, file);
     return fillObject(UserRdo, user, user.role);
+  }
+
+  @Get('add-friend/:id')
+  async addToFriends(
+    @Param('id', DbIdValidationPipe) friendId: number,
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    await this.profileService.addFriend(userId, friendId);
   }
 }

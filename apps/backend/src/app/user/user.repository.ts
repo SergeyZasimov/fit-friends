@@ -49,4 +49,34 @@ export class UserRepository {
       data: { ...user },
     });
   }
+
+  async addFriend(userId: number, friendId: number): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        friends: {
+          connect: {
+            id: friendId,
+          },
+        },
+      },
+    });
+  }
+
+  async findFriends(id: number) {
+    return this.prisma.user.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        friends: {
+          include: {
+            profile: true,
+          },
+        },
+      },
+    });
+  }
 }

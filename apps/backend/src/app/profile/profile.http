@@ -37,4 +37,10 @@ Content-Type: image/png
 < ../../../../../test-content/test-img/photo-1-coach.png
 --UpdateUser--
 
+### Add friend
+GET {{baseUrl}}/profile/add-friend/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc2NzM4NjcsImV4cCI6MTY3NzY3NDc2N30.V0p65TMCCFr9heDvNxIt4-24NCR9L0tfL2VCwg3yNlQ
 
+### Get Friends
+GET {{baseUrl}}/profile/friends
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc2NzM4NjcsImV4cCI6MTY3NzY3NDc2N30.V0p65TMCCFr9heDvNxIt4-24NCR9L0tfL2VCwg3yNlQ

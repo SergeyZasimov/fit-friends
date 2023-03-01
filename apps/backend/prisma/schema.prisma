@@ -20,8 +20,10 @@ model User {
   requestTrainings PersonalTrainingRequest[] @relation("Requester")
   conductTrainings PersonalTrainingRequest[] @relation("Conductor")
   notifications    Notification[]
-  Workout          Workout[]
-  Order            Order[]
+  workouts         Workout[]
+  orders           Order[]
+  friendBy         User[]                    @relation("UserFriends")
+  friends          User[]                    @relation("UserFriends")
 
   @@map("users")
 }
