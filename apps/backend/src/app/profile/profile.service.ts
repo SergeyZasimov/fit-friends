@@ -42,7 +42,8 @@ export class ProfileService {
   async create(
     newUser: User,
     dto: CreateUserDto,
-    file?: Express.Multer.File
+    avatarFile?: Express.Multer.File,
+    certificateFile?: Express.Multer.File
   ): Promise<Profile> {
     let profile: CustomerProfile | TrainerProfile;
 
@@ -71,10 +72,11 @@ export class ProfileService {
         resume: dto.resume,
         isReadyToPersonalTraining: dto.isReadyToPersonalTraining,
         user: newUser.id,
+        certificate: certificateFile && this.setFileUrl(certificateFile),
       };
     }
 
-    const avatar = file && this.setAvatar(file);
+    const avatar = avatarFile && this.setFileUrl(avatarFile);
     const profileEntity = new ProfileEntity({ ...profile, avatar });
     return await this.profileRepository.create(profileEntity);
   }
@@ -85,7 +87,7 @@ export class ProfileService {
     file: Express.Multer.File
   ): Promise<User> {
     const user = await this.getOne(userId);
-    const avatar = file ? this.setAvatar(file) : user.profile.avatar;
+    const avatar = file ? this.setFileUrl(file) : user.profile.avatar;
     const profileEntity = new ProfileEntity({
       ...user.profile,
       ...dto,
@@ -103,7 +105,7 @@ export class ProfileService {
     return this.userRepository.findFriends(userId);
   }
 
-  private setAvatar(file: Express.Multer.File) {
+  private setFileUrl(file: Express.Multer.File) {
     return new URL(
       `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`
     ).href;

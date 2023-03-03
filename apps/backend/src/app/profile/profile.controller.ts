@@ -8,12 +8,10 @@ import {
   Query,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
-import { AvatarInterceptor } from '../interceptors/avatar.interceptor';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
 import { UserRdo } from '../user/rdo/user.rdo';
 import { CurrentUserField } from '../user/user.constant';
@@ -46,7 +44,7 @@ export class ProfileController {
     return fillObject(UserRdo, user, user.role);
   }
 
-  @UseInterceptors(AvatarInterceptor())
+  // @UseInterceptors(AvatarInterceptor())
   @Patch('')
   async update(
     @Body() dto: UpdateProfileDto,

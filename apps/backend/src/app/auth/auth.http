@@ -13,7 +13,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test5@user.com
+test8@user.com
 --Register
 Content-Disposition: form-data; name="password"
 
@@ -80,7 +80,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test13@user.com
+test18user.com
 --Register
 Content-Disposition: form-data; name="password"
 
@@ -121,6 +121,11 @@ Lorem ipsum dol
 Content-Disposition: form-data; name="isReadyToPersonalTraining"
 
 true
+--Register
+Content-Disposition: form-data; name="certificate"; filename="certificate-1.pdf"
+Content-Type: application/pdf
+
+< ../../../../../test-content/test-img/certificate-1.pdf
 --Register
 Content-Disposition: form-data; name="avatar"; filename="photo-1.png"
 Content-Type: image/png

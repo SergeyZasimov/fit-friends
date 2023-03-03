@@ -1,5 +1,4 @@
 import {
-  CreateUser,
   Gender,
   Locations,
   TrainingLevels,
@@ -58,7 +57,7 @@ const {
   BirthdayNotValid,
 } = UserValidationMessage;
 
-export class CreateUserDto implements CreateUser {
+export class CreateUserDto {
   @IsEmail({}, { message: EmailNotValid })
   @IsNotEmpty({ message: EmailRequired })
   email: string;

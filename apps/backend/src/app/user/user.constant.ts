@@ -31,7 +31,8 @@ export const USER_CONSTRAINT = {
     MAX: 3,
   },
   AVATAR_TYPE: /(jpg|jpeg|png)$/,
-  AVATAR_SIZE: 1_000_000,
+  CERTIFICATE_TYPE: /(pdf)$/,
+  FILE_SIZE: 1_000_000,
 } as const;
 
 export const UserValidationMessage = {
@@ -80,6 +81,9 @@ export const UserValidationMessage = {
     'Готовность проводить персональные тренировки - обязательно для заполнения',
   BirthdayNotValid: 'Неверная дата рождения',
   AvatarNotValid: 'Аватар должен быть в формате jpg или png',
+  CertificateNotValid: 'Сертификат должен быть в формате pdf',
+  AvatarRequired: 'Добавьте аватар',
+  CertificateRequired: 'Добавьте сертификат',
 } as const;
 
 export const CurrentUserField = {
