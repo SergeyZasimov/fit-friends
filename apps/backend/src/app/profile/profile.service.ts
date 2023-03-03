@@ -42,7 +42,7 @@ export class ProfileService {
   async create(
     newUser: User,
     dto: CreateUserDto,
-    file: Express.Multer.File
+    file?: Express.Multer.File
   ): Promise<Profile> {
     let profile: CustomerProfile | TrainerProfile;
 
@@ -74,7 +74,7 @@ export class ProfileService {
       };
     }
 
-    const avatar = this.setAvatar(file);
+    const avatar = file && this.setAvatar(file);
     const profileEntity = new ProfileEntity({ ...profile, avatar });
     return await this.profileRepository.create(profileEntity);
   }

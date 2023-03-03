@@ -21,7 +21,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import {
-  UserConstraint,
+  USER_CONSTRAINT,
   UserValidationMessage,
 } from '../../user/user.constant';
 import { BirthdayValidator } from '../../validators/birthday.validator';
@@ -53,7 +53,7 @@ const {
 
 export class UpdateProfileDto implements Partial<Profile> {
   @Matches(/^[a-zA-Zа-яА-ЯЁё]+$/, { message: NameNotValid })
-  @Length(UserConstraint.Name.Min, UserConstraint.Name.Max, {
+  @Length(USER_CONSTRAINT.NAME.MIN, USER_CONSTRAINT.NAME.MAX, {
     message: NameLengthNotValid,
   })
   @IsNotEmpty({ message: NameRequired })
@@ -82,7 +82,7 @@ export class UpdateProfileDto implements Partial<Profile> {
   trainingLevel?: string;
 
   @IsEnum(TrainingTypes, { each: true, message: TrainingTypeNotValid })
-  @ArrayMaxSize(UserConstraint.TrainingType.Max, {
+  @ArrayMaxSize(USER_CONSTRAINT.TRAINING_TYPE.MAX, {
     message: TrainingTypeArrayNotValid,
   })
   @IsNotEmpty({ message: TrainingTypeRequired })
@@ -95,10 +95,10 @@ export class UpdateProfileDto implements Partial<Profile> {
   @IsOptional()
   trainingTime?: string;
 
-  @Max(UserConstraint.CaloriesAmount.Max, {
+  @Max(USER_CONSTRAINT.CALORIES_AMOUNT.MAX, {
     message: CaloriesAmountToLoseNotValid,
   })
-  @Min(UserConstraint.CaloriesAmount.Min, {
+  @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLoseNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLoseRequired })
@@ -106,10 +106,10 @@ export class UpdateProfileDto implements Partial<Profile> {
   @IsOptional()
   caloriesAmountToLose?: number;
 
-  @Max(UserConstraint.CaloriesAmount.Max, {
+  @Max(USER_CONSTRAINT.CALORIES_AMOUNT.MAX, {
     message: CaloriesAmountToLosePerDayNotValid,
   })
-  @Min(UserConstraint.CaloriesAmount.Min, {
+  @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLosePerDayNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLosePerDayRequired })
@@ -122,7 +122,7 @@ export class UpdateProfileDto implements Partial<Profile> {
   @IsOptional()
   isReadyToTraining?: boolean;
 
-  @Length(UserConstraint.Resume.Min, UserConstraint.Resume.Max, {
+  @Length(USER_CONSTRAINT.RESUME.MIN, USER_CONSTRAINT.RESUME.MAX, {
     message: ResumeNotValid,
   })
   @ValidateIf((obj) => obj.role === UserRole.Trainer)

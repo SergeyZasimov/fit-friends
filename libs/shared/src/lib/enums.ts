@@ -45,7 +45,7 @@ export const GymParameters = [
   'массаж',
 ] as const;
 
-export const OrderTypes = {
+export const OrderType = {
   Workout: 'тренировка',
   SportGym: 'абонемент',
 } as const;

@@ -1,10 +1,4 @@
-import {
-  Order,
-  OrderTypes,
-  SportGym,
-  User,
-  Workout,
-} from '@fit-friends/shared';
+import { Order, OrderType, SportGym, User, Workout } from '@fit-friends/shared';
 import { Expose, Type } from 'class-transformer';
 import { UserRdo } from '../../user/rdo/user.rdo';
 import { WorkoutRdo } from '../../workout/rdo/workout.rdo';
@@ -20,11 +14,11 @@ export class OrderRdo implements Order {
   @Expose()
   orderType: string;
 
-  @Expose({ groups: [OrderTypes.Workout] })
+  @Expose({ groups: [OrderType.Workout] })
   @Type(() => WorkoutRdo)
   workout: Workout;
 
-  @Expose({ groups: [OrderTypes.SportGym] })
+  @Expose({ groups: [OrderType.SportGym] })
   sportGym: SportGym;
 
   @Expose()

@@ -1,7 +1,7 @@
 import { LoginUser } from '@fit-friends/shared';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import {
-  UserConstraint,
+  USER_CONSTRAINT,
   UserValidationMessage,
 } from '../../user/user.constant';
 
@@ -17,7 +17,7 @@ export class LoginUserDto implements LoginUser {
   @IsNotEmpty({ message: EmailRequired })
   email: string;
 
-  @Length(UserConstraint.Password.Min, UserConstraint.Password.Max, {
+  @Length(USER_CONSTRAINT.PASSWORD.MIN, USER_CONSTRAINT.PASSWORD.MAX, {
     message: PasswordLengthNotValid,
   })
   @IsNotEmpty({ message: PasswordRequired })

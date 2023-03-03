@@ -43,10 +43,10 @@ export class WorkoutService {
 
   async create(
     dto: CreateWorkoutDto,
-    file: Express.Multer.File,
-    userId: number
+    userId: number,
+    file?: Express.Multer.File,
   ): Promise<Workout> {
-    const video = this.setVideoHref(file);
+    const video = file && this.setVideoHref(file);
     const backgroundImage = await this.setBackgroundImage();
     const workoutEntity = new WorkoutEntity({
       ...dto,

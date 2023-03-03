@@ -43,7 +43,7 @@ export class WorkoutController {
     @UploadedFile() file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    const workout = await this.workoutService.create(dto, file, userId);
+    const workout = await this.workoutService.create(dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
 

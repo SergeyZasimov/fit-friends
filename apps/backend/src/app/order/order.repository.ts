@@ -54,7 +54,7 @@ export class OrderRepository {
 
   async findOrdersForTrainer(query: TrainerOrdersQuery, userId: number) {
     const { sortOption, limit, page, sortType } = query;
-    const sortOrder = sortType === SortType.Desc ? 'desc': 'asc'
+    const sortOrder = sortType === SortType.Desc ? 'desc' : 'asc';
     return this.prisma.order.groupBy({
       by: ['workoutId'],
       where: {

@@ -22,7 +22,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import {
-  UserConstraint,
+  USER_CONSTRAINT,
   UserValidationMessage,
 } from '../../user/user.constant';
 import { BirthdayValidator } from '../../validators/birthday.validator';
@@ -63,7 +63,7 @@ export class CreateUserDto implements CreateUser {
   @IsNotEmpty({ message: EmailRequired })
   email: string;
 
-  @Length(UserConstraint.Password.Min, UserConstraint.Password.Max, {
+  @Length(USER_CONSTRAINT.PASSWORD.MIN, USER_CONSTRAINT.PASSWORD.MAX, {
     message: PasswordLengthNotValid,
   })
   @IsNotEmpty({ message: PasswordRequired })
@@ -74,7 +74,7 @@ export class CreateUserDto implements CreateUser {
   role: string;
 
   @Matches(/^[a-zA-Zа-яА-ЯЁё]+$/, { message: NameNotValid })
-  @Length(UserConstraint.Name.Min, UserConstraint.Name.Max, {
+  @Length(USER_CONSTRAINT.NAME.MIN, USER_CONSTRAINT.NAME.MAX, {
     message: NameLengthNotValid,
   })
   @IsNotEmpty({ message: NameRequired })
@@ -98,7 +98,7 @@ export class CreateUserDto implements CreateUser {
   trainingLevel: string;
 
   @IsEnum(TrainingTypes, { each: true, message: TrainingTypeNotValid })
-  @ArrayMaxSize(UserConstraint.TrainingType.Max, {
+  @ArrayMaxSize(USER_CONSTRAINT.TRAINING_TYPE.MAX, {
     message: TrainingTypeArrayNotValid,
   })
   @IsNotEmpty({ message: TrainingTypeRequired })
@@ -107,43 +107,43 @@ export class CreateUserDto implements CreateUser {
   @IsEnum(TrainingTimes, { message: TrainingTimeNotValid })
   @IsNotEmpty({ message: TrainingTimeRequired })
   @ValidateIf((obj) => obj.role === UserRole.Customer)
-  trainingTime: string;
+  trainingTime?: string;
 
-  @Max(UserConstraint.CaloriesAmount.Max, {
+  @Max(USER_CONSTRAINT.CALORIES_AMOUNT.MAX, {
     message: CaloriesAmountToLoseNotValid,
   })
-  @Min(UserConstraint.CaloriesAmount.Min, {
+  @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLoseNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLoseRequired })
   @Transform(({ value }) => +value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
-  caloriesAmountToLose: number;
+  caloriesAmountToLose?: number;
 
-  @Max(UserConstraint.CaloriesAmount.Max, {
+  @Max(USER_CONSTRAINT.CALORIES_AMOUNT.MAX, {
     message: CaloriesAmountToLosePerDayNotValid,
   })
-  @Min(UserConstraint.CaloriesAmount.Min, {
+  @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLosePerDayNotValid,
   })
   @IsNotEmpty({ message: CaloriesAmountToLosePerDayRequired })
   @Transform(({ value }) => +value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
-  caloriesAmountToLosePerDay: number;
+  caloriesAmountToLosePerDay?: number;
 
   @IsBoolean({ message: IsReadyToTraining })
   @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Customer)
-  isReadyToTraining: boolean;
+  isReadyToTraining?: boolean;
 
-  @Length(UserConstraint.Resume.Min, UserConstraint.Resume.Max, {
+  @Length(USER_CONSTRAINT.RESUME.MIN, USER_CONSTRAINT.RESUME.MAX, {
     message: ResumeNotValid,
   })
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
-  resume: string;
+  resume?: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
   @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
-  isReadyToPersonalTraining: boolean;
+  isReadyToPersonalTraining?: boolean;
 }

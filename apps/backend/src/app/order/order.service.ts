@@ -1,4 +1,4 @@
-import { Order, OrderTypes } from '@fit-friends/shared';
+import { Order, OrderType } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { WorkoutService } from '../workout/workout.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -16,7 +16,7 @@ export class OrderService {
   async create(dto: CreateOrderDto, userId: number): Promise<Order> {
     const { purchaseId, ...orderData } = dto;
     let orderEntity: OrderEntity;
-    if (dto.orderType === OrderTypes.Workout) {
+    if (dto.orderType === OrderType.Workout) {
       const workoutId = purchaseId;
       await this.workoutService.checkWorkoutExist(workoutId);
       orderEntity = new OrderEntity({ ...orderData, workoutId, userId });

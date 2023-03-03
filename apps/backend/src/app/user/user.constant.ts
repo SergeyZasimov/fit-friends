@@ -10,41 +10,41 @@ import { formatEnumToValidationMessage } from '../utils/helpers';
 
 export const SAULT_ROUNDS = 10;
 
-export const UserConstraint = {
-  Name: {
-    Min: 1,
-    Max: 15,
+export const USER_CONSTRAINT = {
+  NAME: {
+    MIN: 1,
+    MAX: 15,
   },
-  Password: {
-    Min: 6,
-    Max: 12,
+  PASSWORD: {
+    MIN: 6,
+    MAX: 12,
   },
-  CaloriesAmount: {
-    Min: 1000,
-    Max: 5000,
+  CALORIES_AMOUNT: {
+    MIN: 1000,
+    MAX: 5000,
   },
-  Resume: {
-    Min: 10,
-    Max: 140,
+  RESUME: {
+    MIN: 10,
+    MAX: 140,
   },
-  TrainingType: {
-    Max: 3,
+  TRAINING_TYPE: {
+    MAX: 3,
   },
-  AvatarType: /(jpg|jpeg|png)$/,
-  AvatarSize: 1_000_000,
+  AVATAR_TYPE: /(jpg|jpeg|png)$/,
+  AVATAR_SIZE: 1_000_000,
 } as const;
 
 export const UserValidationMessage = {
   EmailRequired: 'Почта - обязательно для заполнения',
   EmailNotValid: 'Неверный формат почты',
   PasswordRequired: 'Пароль - обязательно для заполнения',
-  PasswordLengthNotValid: `Пароль должен быть строкой длиной от ${UserConstraint.Password.Min} до ${UserConstraint.Password.Max} символов`,
+  PasswordLengthNotValid: `Пароль должен быть строкой длиной от ${USER_CONSTRAINT.PASSWORD.MIN} до ${USER_CONSTRAINT.PASSWORD.MAX} символов`,
   RoleRequired: 'Роль - обязательно для заполнения',
   RoleNotValid: `Роль должна быть одним из значений: ${formatEnumToValidationMessage(
     UserRole
   )}`,
   NameRequired: 'Имя - обязательно для заполнения',
-  NameLengthNotValid: `Имя должно быть строкой длиной от ${UserConstraint.Name.Min} до ${UserConstraint.Name.Max} символов`,
+  NameLengthNotValid: `Имя должно быть строкой длиной от ${USER_CONSTRAINT.NAME.MIN} до ${USER_CONSTRAINT.NAME.MAX} символов`,
   NameNotValid:
     'Имя должно состоять только из букв русского или английского алфавита',
   GenderRequired: 'Пол - обязательно для заполнения',
@@ -60,7 +60,7 @@ export const UserValidationMessage = {
     TrainingLevels
   )}`,
   TrainingTypeRequired: 'Тип тренировки - обязательно для заполнения',
-  TrainingTypeArrayNotValid: `Тип тренировки  - возможно выбрать на более ${UserConstraint.TrainingType.Max} значений`,
+  TrainingTypeArrayNotValid: `Тип тренировки  - возможно выбрать на более ${USER_CONSTRAINT.TRAINING_TYPE.MAX} значений`,
   TrainingTypeNotValid: `Допустимые значения типов тренировок: ${formatEnumToValidationMessage(
     TrainingTypes
   )}`,
@@ -70,11 +70,11 @@ export const UserValidationMessage = {
   )}`,
   CaloriesAmountToLoseRequired:
     'Количество калорий для сброса - обязательно для заполнения',
-  CaloriesAmountToLoseNotValid: `Количество калорий для сброса должно быть числом от ${UserConstraint.CaloriesAmount.Min} до ${UserConstraint.CaloriesAmount.Max}`,
+  CaloriesAmountToLoseNotValid: `Количество калорий для сброса должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
   CaloriesAmountToLosePerDayRequired:
     'Количество калорий для траты в день - обязательно для заполнения',
-  CaloriesAmountToLosePerDayNotValid: `Количество калорий для траты в день должно быть числом от ${UserConstraint.CaloriesAmount.Min} до ${UserConstraint.CaloriesAmount.Max}`,
-  ResumeNotValid: `Заслуги тренера должны быть текстом с количеством символов от ${UserConstraint.Resume.Min} до ${UserConstraint.Resume.Max}`,
+  CaloriesAmountToLosePerDayNotValid: `Количество калорий для траты в день должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
+  ResumeNotValid: `Заслуги тренера должны быть текстом с количеством символов от ${USER_CONSTRAINT.RESUME.MIN} до ${USER_CONSTRAINT.RESUME.MAX}`,
   IsReadyToTraining: 'Готовность к тренировке - обязательно для заполнения',
   IsReadyToPersonalTraining:
     'Готовность проводить персональные тренировки - обязательно для заполнения',
@@ -86,4 +86,4 @@ export const CurrentUserField = {
   Id: 'id',
   Email: 'email',
   Role: 'role',
-};
+} as const;

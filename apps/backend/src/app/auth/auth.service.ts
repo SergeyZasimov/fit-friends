@@ -25,7 +25,7 @@ export class AuthService {
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
-  async register(dto: CreateUserDto, file: Express.Multer.File): Promise<User> {
+  async register(dto: CreateUserDto, file?: Express.Multer.File): Promise<User> {
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {

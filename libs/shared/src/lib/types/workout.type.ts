@@ -14,7 +14,7 @@ export type Workout = {
   favorGender: string;
   video: string;
   rating?: number;
-  trainer: number | User;
+  trainer?: number | User;
   trainerId?: number;
   isSpecial: boolean;
 };

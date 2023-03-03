@@ -25,6 +25,20 @@
         }
       }
     },
+    "cli-build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/backend/cli",
+        "main": "apps/backend/src/cli.ts",
+        "tsConfig": "apps/backend/tsconfig.app.json",
+        "assets": ["apps/backend/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/backend/webpack.config.js"
+      }
+    },
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
@@ -85,17 +99,10 @@
         "cwd": "apps/backend"
       }
     },
-    "db-generate": {
+    "db-generate-client": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma generate --schema ./prisma/schema.prisma",
-        "cwd": "apps/backend"
-      }
-    },
-    "db-fill": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma db seed",
         "cwd": "apps/backend"
       }
     },

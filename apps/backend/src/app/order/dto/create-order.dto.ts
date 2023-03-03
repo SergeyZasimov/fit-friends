@@ -1,4 +1,4 @@
-import { CreateOrder, OrderTypes, PaymentMethods } from '@fit-friends/shared';
+import { CreateOrder, OrderType, PaymentMethods } from '@fit-friends/shared';
 import { IsEnum, Min } from 'class-validator';
 import { MIN_VALUE, OrderValidationMessage } from '../order.constant';
 
@@ -11,7 +11,7 @@ const {
 } = OrderValidationMessage;
 
 export class CreateOrderDto implements CreateOrder {
-  @IsEnum(OrderTypes, { message: OrderTypeNotValid })
+  @IsEnum(OrderType, { message: OrderTypeNotValid })
   orderType: string;
 
   @Min(MIN_VALUE, { message: PriceNotValid })
