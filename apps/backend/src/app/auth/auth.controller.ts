@@ -8,27 +8,34 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { SkipAccessJwt } from '../decorators/skip-access-jwt.decorator';
 import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
-import { UserFilesInterceptor } from '../interceptors/user-files.interceptor';
+import { UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
+import { UserRdo } from '../user/rdo/user.rdo';
+import { UserFiles } from '../user/user.constant';
+import { fillObject } from '../utils/helpers';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRdo } from '../user/rdo/user.rdo';
-import { fillObject } from '../utils/helpers';
 
 @SkipAccessJwt()
 @Controller(UrlDomain.Auth)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseInterceptors(UserFilesInterceptor())
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatar', maxCount: 1 },
+      { name: 'certificate', maxCount: 1 },
+    ])
+  )
   @Post(UrlRoute.Register)
   async register(
     @Body() dto: CreateUserDto,
-    @UploadedFiles()
-    files: { avatar: Express.Multer.File[]; certificate: Express.Multer.File[] }
+    @UploadedFiles(new UserFilesValidationPipe())
+    files: UserFiles
   ) {
     const newUser = await this.authService.register(dto, files);
     return fillObject(UserRdo, newUser, newUser.role);

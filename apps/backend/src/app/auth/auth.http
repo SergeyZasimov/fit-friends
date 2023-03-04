@@ -80,7 +80,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test18user.com
+test18@user.com
 --Register
 Content-Disposition: form-data; name="password"
 

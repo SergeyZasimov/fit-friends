@@ -84,6 +84,7 @@ export const UserValidationMessage = {
   CertificateNotValid: 'Сертификат должен быть в формате pdf',
   AvatarRequired: 'Добавьте аватар',
   CertificateRequired: 'Добавьте сертификат',
+  FileTooLarge: `Файл превышает ${USER_CONSTRAINT.FILE_SIZE}`,
 } as const;
 
 export const CurrentUserField = {
@@ -91,3 +92,8 @@ export const CurrentUserField = {
   Email: 'email',
   Role: 'role',
 } as const;
+
+export type UserFiles = {
+  avatar: Express.Multer.File[];
+  certificate: Express.Multer.File[];
+};

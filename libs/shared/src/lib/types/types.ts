@@ -41,3 +41,4 @@ export type BasicQuery = {
   sortType?: string;
   sortOption?: string;
 };
+

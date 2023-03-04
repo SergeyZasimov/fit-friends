@@ -19,4 +19,5 @@ export const multerConfig = registerAs('multer', () => ({
 
 export const staticConfig = registerAs('static', () => ({
   folder: process.env.STATIC_FOLDER,
+  upload: process.env.UPLOAD_FOLDER,
 }));

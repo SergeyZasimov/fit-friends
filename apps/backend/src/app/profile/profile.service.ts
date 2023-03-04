@@ -7,6 +7,10 @@ import {
 } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import nanoid from 'nanoid';
+import { constants } from 'node:fs';
+import { access, mkdir, unlink, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { URL } from 'url';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { UserRepository } from '../user/user.repository';
@@ -19,6 +23,7 @@ import { ProfileRepository } from './profile.repository';
 export class ProfileService {
   private host: string;
   private port: number;
+  private staticFolder: string;
   private uploadFolder: string;
 
   constructor(
@@ -28,7 +33,8 @@ export class ProfileService {
   ) {
     this.host = configService.get<string>('app.host');
     this.port = configService.get<number>('app.port');
-    this.uploadFolder = configService.get<string>('multer.storage');
+    this.staticFolder = this.configService.get<string>('static.folder');
+    this.uploadFolder = this.configService.get<string>('static.upload');
   }
 
   async getOne(id: number): Promise<User> {
@@ -47,6 +53,9 @@ export class ProfileService {
   ): Promise<Profile> {
     let profile: CustomerProfile | TrainerProfile;
 
+    const avatar = avatarFile && this.setFilename(avatarFile);
+    const certificate = certificateFile && this.setFilename(certificateFile);
+
     if (newUser.role === UserRole.Customer) {
       profile = {
         name: dto.name,
@@ -60,6 +69,7 @@ export class ProfileService {
         trainingTime: dto.trainingTime,
         trainingType: dto.trainingType,
         user: newUser.id,
+        avatar: avatar && this.setFileUrl(avatar),
       };
     } else {
       profile = {
@@ -72,13 +82,23 @@ export class ProfileService {
         resume: dto.resume,
         isReadyToPersonalTraining: dto.isReadyToPersonalTraining,
         user: newUser.id,
-        certificate: certificateFile && this.setFileUrl(certificateFile),
+        certificate: certificate && this.setFileUrl(certificate),
+        avatar: avatar && this.setFileUrl(avatar),
       };
     }
 
-    const avatar = avatarFile && this.setFileUrl(avatarFile);
-    const profileEntity = new ProfileEntity({ ...profile, avatar });
-    return await this.profileRepository.create(profileEntity);
+    const profileEntity = new ProfileEntity({ ...profile });
+    const newProfile = await this.profileRepository.create(profileEntity);
+
+    if (avatar) {
+      await this.writeUserFile(avatar);
+    }
+
+    if (certificate) {
+      await this.writeUserFile(certificate);
+    }
+
+    return newProfile;
   }
 
   async update(
@@ -109,5 +129,41 @@ export class ProfileService {
     return new URL(
       `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`
     ).href;
+  }
+
+  private setFilename(file: Express.Multer.File): Express.Multer.File {
+    const filename = nanoid();
+    const ext = path.extname(file.originalname);
+    file.filename = `${filename}${ext}`;
+    return file;
+  }
+
+  private async checkFolderExist(file: Express.Multer.File): Promise<string> {
+    const folderPath = path.resolve(
+      this.staticFolder,
+      this.uploadFolder,
+      file.fieldname
+    );
+    await access(folderPath, constants.F_OK).catch(async () => {
+      await mkdir(folderPath, { recursive: true });
+    });
+    return folderPath;
+  }
+
+  private async writeUserFile(file: Express.Multer.File): Promise<void> {
+    const folderPath = await this.checkFolderExist(file);
+    const filePath = path.join(folderPath, file.filename);
+    await writeFile(filePath, file.buffer);
+  }
+
+  private async deleteFile(file: Express.Multer.File): Promise<void> {
+    await unlink(
+      path.join(
+        this.staticFolder,
+        this.uploadFolder,
+        file.fieldname,
+        file.filename
+      )
+    );
   }
 }
