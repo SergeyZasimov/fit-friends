@@ -1,5 +1,6 @@
-import { UrlDomain, UrlRoute, User } from '@fit-friends/shared';
+import { UrlDomain, UrlRoute, User, UserRole } from '@fit-friends/shared';
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -15,7 +16,7 @@ import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
 import { UserRdo } from '../user/rdo/user.rdo';
-import { UserFiles } from '../user/user.constant';
+import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,6 +38,18 @@ export class AuthController {
     @UploadedFiles(new UserFilesValidationPipe())
     files: UserFiles
   ) {
+    if (!files.avatar) {
+      throw new BadRequestException(UserValidationMessage.AvatarRequired);
+    }
+
+    if (dto.role === UserRole.Trainer && !files.certificate) {
+      throw new BadRequestException(UserValidationMessage.CertificateRequired);
+    }
+
+    if (dto.role === UserRole.Customer && files.certificate) {
+      throw new BadRequestException(UserValidationMessage.CustomerNotUploadCertificate)
+    }
+    
     const newUser = await this.authService.register(dto, files);
     return fillObject(UserRdo, newUser, newUser.role);
   }

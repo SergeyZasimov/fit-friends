@@ -78,9 +78,7 @@ export class WorkoutController {
     @UploadedFile(new VideoFileValidationPipe()) file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    console.log(file);
-
-    const workout = await this.workoutService.update(id, dto, file, userId);
+    const workout = await this.workoutService.update(id, dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
 }

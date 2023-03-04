@@ -13,9 +13,9 @@ export const jwtConfig = registerAs('jwt', () => ({
   refreshTokenExpiresIn: process.env.JWT_RT_EXPIRES_IN,
 }));
 
-export const multerConfig = registerAs('multer', () => ({
-  storage: process.env.UPLOAD_FOLDER,
-}));
+// export const multerConfig = registerAs('multer', () => ({
+//   storage: process.env.UPLOAD_FOLDER,
+// }));
 
 export const staticConfig = registerAs('static', () => ({
   folder: process.env.STATIC_FOLDER,

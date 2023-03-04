@@ -1,6 +1,5 @@
-import { TokenPayload, User, UserRole, UserTokens } from '@fit-friends/shared';
+import { TokenPayload, User, UserTokens } from '@fit-friends/shared';
 import {
-  BadRequestException,
   ConflictException,
   Inject,
   Injectable,
@@ -11,7 +10,6 @@ import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConfig } from '../config/namespaces';
 import { ProfileService } from '../profile/profile.service';
-import { UserValidationMessage } from '../user/user.constant';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
 import { AuthExceptionMessage } from './auth.constant';
@@ -34,20 +32,8 @@ export class AuthService {
       certificate: Express.Multer.File[];
     }
   ): Promise<User> {
-    const avatar = files.avatar && files.avatar[0];
-    const certificate = files.certificate && files.certificate[0];
-
-    if (!files.avatar) {
-      throw new BadRequestException(UserValidationMessage.AvatarRequired);
-    }
-
-    if (dto.role === UserRole.Trainer && !files.certificate) {
-      throw new BadRequestException(UserValidationMessage.CertificateRequired);
-    }
-
-    if (dto.role === UserRole.Customer && files.certificate) {
-      throw new BadRequestException(UserValidationMessage.CustomerNotUploadCertificate)
-    }
+    const avatar = files && files.avatar && files.avatar[0];
+    const certificate = files && files.certificate && files.certificate[0];
 
     const existUser = await this.userRepository.findByEmail(dto.email);
 

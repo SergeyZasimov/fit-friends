@@ -49,7 +49,9 @@ export class WorkoutService extends ServiceWithFiles {
     });
     const newWorkout = await this.workoutRepository.create(workoutEntity);
 
-    await this.writeUserFile(video);
+    if (video) {
+      await this.writeUserFile(video);
+    }
 
     return newWorkout;
   }
@@ -57,8 +59,8 @@ export class WorkoutService extends ServiceWithFiles {
   async update(
     id: number,
     dto: UpdateWorkoutDto,
-    file: Express.Multer.File,
-    userId: number
+    userId: number,
+    file?: Express.Multer.File
   ): Promise<Workout> {
     const existWorkout = await this.checkWorkoutExist(id);
 
