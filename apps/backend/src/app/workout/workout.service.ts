@@ -7,6 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { readdir } from 'fs/promises';
 import path from 'path';
+import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
 import {
@@ -17,20 +18,12 @@ import { WorkoutEntity } from './workout.entity';
 import { WorkoutRepository } from './workout.repository';
 
 @Injectable()
-export class WorkoutService {
-  private host: string;
-  private port: number;
-  private uploadFolder: string;
-  private staticFolder: string;
-
+export class WorkoutService extends ServiceWithFiles {
   constructor(
     private readonly workoutRepository: WorkoutRepository,
-    private readonly config: ConfigService
+    private readonly configService: ConfigService
   ) {
-    this.host = config.get<string>('app.host');
-    this.port = config.get<number>('app.port');
-    this.uploadFolder = config.get<string>('multer.storage');
-    this.staticFolder = config.get<string>('static.folder');
+    super(configService);
   }
 
   async getOne(id: number): Promise<Workout> {
@@ -44,17 +37,21 @@ export class WorkoutService {
   async create(
     dto: CreateWorkoutDto,
     userId: number,
-    file?: Express.Multer.File,
+    file?: Express.Multer.File
   ): Promise<Workout> {
-    const video = file && this.setVideoHref(file);
+    const video = file && this.setFilename(file);
     const backgroundImage = await this.setBackgroundImage();
     const workoutEntity = new WorkoutEntity({
       ...dto,
       trainer: userId,
-      video,
+      video: video && this.setFileUrl(video),
       backgroundImage,
     });
-    return this.workoutRepository.create(workoutEntity);
+    const newWorkout = await this.workoutRepository.create(workoutEntity);
+
+    await this.writeUserFile(video);
+
+    return newWorkout;
   }
 
   async update(
@@ -69,14 +66,23 @@ export class WorkoutService {
       throw new ForbiddenException(WorkoutExceptionMessage.ForeignWorkout);
     }
 
-    const video = file ? this.setVideoHref(file) : undefined;
+    const currentVideo = existWorkout.video;
+
+    const video = file && this.setFilename(file);
     const updatedWorkout = new WorkoutEntity({
       ...existWorkout,
       ...dto,
       trainer: existWorkout.trainerId,
-      video,
+      video: video && this.setFileUrl(video),
     });
-    return this.workoutRepository.update(id, updatedWorkout);
+    const updatedWokrout = this.workoutRepository.update(id, updatedWorkout);
+
+    if (video) {
+      await this.deleteUserFile(currentVideo);
+      await this.writeUserFile(video);
+    }
+
+    return updatedWokrout;
   }
 
   async checkWorkoutExist(id: number): Promise<Workout> {
@@ -85,12 +91,6 @@ export class WorkoutService {
       throw new NotFoundException(WorkoutExceptionMessage.NotFound);
     }
     return existWorkout;
-  }
-
-  private setVideoHref(file: Express.Multer.File): string {
-    return new URL(
-      `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`
-    ).href;
   }
 
   private async setBackgroundImage(): Promise<string> {

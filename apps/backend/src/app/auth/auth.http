@@ -13,7 +13,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test8@user.com
+test9@user.com
 --Register
 Content-Disposition: form-data; name="password"
 
@@ -139,7 +139,7 @@ POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "test8@user.com",
+  "email": "test18@user.com",
   "password": "secret"
 }
 

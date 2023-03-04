@@ -6,12 +6,6 @@ import {
   UserRole,
 } from '@fit-friends/shared';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import nanoid from 'nanoid';
-import { constants } from 'node:fs';
-import { access, mkdir, unlink, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import { URL } from 'url';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
@@ -19,23 +13,17 @@ import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileEntity } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
+import { ServiceWithFiles } from '../abstract/service-with-files';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class ProfileService {
-  private host: string;
-  private port: number;
-  private staticFolder: string;
-  private uploadFolder: string;
-
+export class ProfileService extends ServiceWithFiles {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly profileRepository: ProfileRepository,
     private readonly configService: ConfigService
   ) {
-    this.host = configService.get<string>('app.host');
-    this.port = configService.get<number>('app.port');
-    this.staticFolder = this.configService.get<string>('static.folder');
-    this.uploadFolder = this.configService.get<string>('static.upload');
+    super(configService)
   }
 
   async getOne(id: number): Promise<User> {
@@ -149,44 +137,5 @@ export class ProfileService {
 
   async getFriends(userId: number) {
     return this.userRepository.findFriends(userId);
-  }
-
-  private setFileUrl(file: Express.Multer.File) {
-    return new URL(
-      `http://${this.host}:${this.port}/${this.uploadFolder}/${file.fieldname}/${file.filename}`
-    ).href;
-  }
-
-  private setFilename(file: Express.Multer.File): Express.Multer.File {
-    const filename = nanoid();
-    const ext = path.extname(file.originalname);
-    file.filename = `${filename}${ext}`;
-    return file;
-  }
-
-  private async checkFolderExist(file: Express.Multer.File): Promise<string> {
-    const folderPath = path.resolve(
-      this.staticFolder,
-      this.uploadFolder,
-      file.fieldname
-    );
-    await access(folderPath, constants.F_OK).catch(async () => {
-      await mkdir(folderPath, { recursive: true });
-    });
-    return folderPath;
-  }
-
-  private async writeUserFile(file: Express.Multer.File): Promise<void> {
-    const folderPath = await this.checkFolderExist(file);
-    const filePath = path.join(folderPath, file.filename);
-    await writeFile(filePath, file.buffer);
-  }
-
-  private async deleteUserFile(url: string): Promise<void> {
-    const filePath = path.resolve(
-      this.staticFolder,
-      ...url.split('/').slice(-3)
-    );
-    await unlink(filePath);
   }
 }

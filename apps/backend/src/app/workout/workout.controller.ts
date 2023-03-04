@@ -18,11 +18,12 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
-import { VideoInterceptor } from '../interceptors/video.interceptor';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
+import { VideoFileValidationPipe } from '../pipes/video-file-validation.pipe';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
@@ -34,15 +35,16 @@ import { WorkoutService } from './workout.service';
 export class WorkoutController {
   constructor(private readonly workoutService: WorkoutService) {}
 
-  @UseInterceptors(VideoInterceptor())
+  @UseInterceptors(FileInterceptor('video'))
   @UseGuards(RoleGuard)
   @Role(UserRole.Trainer)
   @Post('')
   async create(
     @Body() dto: CreateWorkoutDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(new VideoFileValidationPipe()) file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
+    console.log(file);
     const workout = await this.workoutService.create(dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
@@ -66,16 +68,18 @@ export class WorkoutController {
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
 
-  @UseInterceptors(VideoInterceptor())
+  @UseInterceptors(FileInterceptor('video'))
   @UseGuards(RoleGuard)
   @Role(UserRole.Trainer)
   @Patch(`:${UrlParams.Id}`)
   async update(
     @Param(UrlParams.Id, DbIdValidationPipe) id: number,
     @Body() dto: UpdateWorkoutDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(new VideoFileValidationPipe()) file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
+    console.log(file);
+
     const workout = await this.workoutService.update(id, dto, file, userId);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }

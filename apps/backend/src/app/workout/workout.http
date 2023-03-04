@@ -4,7 +4,7 @@
 
 ### Create Workout
 POST {{baseUrl}}/workout {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NTExODU2LCJleHAiOjE2Nzc1MTI3NTZ9.n3MnMQZBo3y9Vzn1ahL6-KCkR8J2GfwNTx3UXEwGndM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI4NzEwLCJleHAiOjE2Nzc5Mjk2MTB9.YqE2JTlUa_xJZNBxzpp1zHePkS1B9kyWr_FN9mFKVtI
 Content-Type: multipart/form-data; boundary=CreateWorkout
 
 --CreateWorkout
@@ -45,14 +45,15 @@ Content-Disposition: form-data; name="isSpecial"
 true
 --CreateWorkout
 Content-Disposition: form-data; name="video"; filename="Video_HTML_Academy_1.mp4"
+Content-Type: video/mp4
 
 < ../../../../../test-content\test-video\Video_HTML_Academy_1.mp4
 --CreateWorkout--
 
 
 ### Update Workout
-PATCH {{baseUrl}}/workout/2 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDAzOTkyLCJleHAiOjE2Nzc0MDQ4OTJ9.K8-3D-5kHQ67UEYGb1yp5KgAaCT65KlngsRr0te5XGE
+PATCH {{baseUrl}}/workout/1 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI4NzEwLCJleHAiOjE2Nzc5Mjk2MTB9.YqE2JTlUa_xJZNBxzpp1zHePkS1B9kyWr_FN9mFKVtI
 Content-Type: multipart/form-data; boundary=UpdateWorkout
 
 --UpdateWorkout
@@ -69,6 +70,7 @@ Content-Disposition: form-data; name="isSpecial"
 false
 --UpdateWorkout
 Content-Disposition: form-data; name="video"; filename="Video_html_Academy.mov"
+Content-Type: video/mov
 
 < ../../../../../test-content/test-video/Video_html_Academy.mov
 --UpdateWorkout--

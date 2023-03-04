@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 
 ### Update Profile
 PATCH  {{baseUrl}}/profile {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0OEB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc5MjAyNzYsImV4cCI6MTY3NzkyMTE3Nn0.OVIOUSuD52Egw0s1qbtpVt9ctYRGsf5bOyoQMY7PEdc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI3OTkxLCJleHAiOjE2Nzc5Mjg4OTF9.g5vWoMizMJoHHloSSpkR2UOPtGAPn7hgj6RtNxUcti8
 Content-Type: multipart/form-data; boundary=UpdateUser
 
 --UpdateUser
