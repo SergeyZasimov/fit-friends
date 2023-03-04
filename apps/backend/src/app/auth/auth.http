@@ -139,7 +139,7 @@ POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "Norma.Heathcote@yahoo.com",
+  "email": "test8@user.com",
   "password": "secret"
 }
 

@@ -5,7 +5,7 @@ import {
   User,
   UserRole,
 } from '@fit-friends/shared';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import nanoid from 'nanoid';
 import { constants } from 'node:fs';
@@ -13,6 +13,7 @@ import { access, mkdir, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { URL } from 'url';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -104,16 +105,41 @@ export class ProfileService {
   async update(
     userId: number,
     dto: UpdateProfileDto,
-    file: Express.Multer.File
+    files: UserFiles
   ): Promise<User> {
     const user = await this.getOne(userId);
-    const avatar = file ? this.setFileUrl(file) : user.profile.avatar;
+
+    if (user.role === UserRole.Customer && files.certificate) {
+      throw new BadRequestException(
+        UserValidationMessage.CustomerNotUploadCertificate
+      );
+    }
+
+    const avatar = files.avatar && this.setFilename(files.avatar[0]);
+    const certificate =
+      files.certificate && this.setFilename(files.certificate[0]);
+
+    const currentAvatar = user.profile.avatar;
+    const currentCertificate = user.profile.certificate;
+
     const profileEntity = new ProfileEntity({
       ...user.profile,
       ...dto,
-      avatar,
+      avatar: avatar && this.setFileUrl(avatar),
+      certificate: certificate && this.setFileUrl(certificate),
     });
     await this.profileRepository.update(userId, profileEntity);
+
+    if (avatar) {
+      await this.deleteUserFile(currentAvatar);
+      await this.writeUserFile(avatar);
+    }
+
+    if (certificate) {
+      await this.deleteUserFile(currentCertificate);
+      await this.writeUserFile(certificate);
+    }
+
     return this.getOne(userId);
   }
 
@@ -156,14 +182,11 @@ export class ProfileService {
     await writeFile(filePath, file.buffer);
   }
 
-  private async deleteFile(file: Express.Multer.File): Promise<void> {
-    await unlink(
-      path.join(
-        this.staticFolder,
-        this.uploadFolder,
-        file.fieldname,
-        file.filename
-      )
+  private async deleteUserFile(url: string): Promise<void> {
+    const filePath = path.resolve(
+      this.staticFolder,
+      ...url.split('/').slice(-3)
     );
+    await unlink(filePath);
   }
 }

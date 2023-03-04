@@ -3,8 +3,8 @@
 @protocol = HTTP/1.1
 
 ### Get User
-GET {{baseUrl}}/profile/5 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5NzMxMjcsImV4cCI6MTY3Njk3NDAyN30.lhQ6jSSGinti78wNFe7vmjG4RTS7kOlzMrY-CiQWa5g
+GET {{baseUrl}}/profile/2 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTE5MjE5LCJleHAiOjE2Nzc5MjAxMTl9.sTm0TfeUg5LxN2B99en0F1wit-NTfeBNKPlHa61Nx60
 
 ### Get Users
 # ?limit=2&page=2
@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 
 ### Update Profile
 PATCH  {{baseUrl}}/profile {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3MzQwNTExLCJleHAiOjE2NzczNDE0MTF9.wttw9ywkjCquu8zWJoRd6641q3z77SQIY2UxD2cyvDw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0OEB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc5MjAyNzYsImV4cCI6MTY3NzkyMTE3Nn0.OVIOUSuD52Egw0s1qbtpVt9ctYRGsf5bOyoQMY7PEdc
 Content-Type: multipart/form-data; boundary=UpdateUser
 
 --UpdateUser
@@ -35,6 +35,11 @@ Content-Disposition: form-data; name="avatar"; filename="photo-1-coach.png"
 Content-Type: image/png
 
 < ../../../../../test-content/test-img/photo-1-coach.png
+--UpdateUser
+Content-Disposition: form-data; name="certificate"; filename="certificate-3.pdf"
+Content-Type: application/pdf
+
+< ../../../../../test-content/test-img/certificate-3.pdf
 --UpdateUser--
 
 ### Add friend

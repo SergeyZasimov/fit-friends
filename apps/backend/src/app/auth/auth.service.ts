@@ -45,6 +45,10 @@ export class AuthService {
       throw new BadRequestException(UserValidationMessage.CertificateRequired);
     }
 
+    if (dto.role === UserRole.Customer && files.certificate) {
+      throw new BadRequestException(UserValidationMessage.CustomerNotUploadCertificate)
+    }
+
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {

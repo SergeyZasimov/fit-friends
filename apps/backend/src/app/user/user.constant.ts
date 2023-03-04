@@ -85,6 +85,7 @@ export const UserValidationMessage = {
   AvatarRequired: 'Добавьте аватар',
   CertificateRequired: 'Добавьте сертификат',
   FileTooLarge: `Файл превышает ${USER_CONSTRAINT.FILE_SIZE}`,
+  CustomerNotUploadCertificate: 'Пользователь не может загружать сертификаты',
 } as const;
 
 export const CurrentUserField = {

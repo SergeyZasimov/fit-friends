@@ -6,15 +6,18 @@ import {
   Param,
   Patch,
   Query,
-  UploadedFile,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
+import { UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
 import { UserRdo } from '../user/rdo/user.rdo';
-import { CurrentUserField } from '../user/user.constant';
+import { CurrentUserField, UserFiles } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -44,15 +47,20 @@ export class ProfileController {
     return fillObject(UserRdo, user, user.role);
   }
 
-  // @UseInterceptors(AvatarInterceptor())
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatar', maxCount: 1 },
+      { name: 'certificate', maxCount: 1 },
+    ])
+  )
   @Patch('')
   async update(
     @Body() dto: UpdateProfileDto,
     @GetCurrentUser(CurrentUserField.Id) userId: number,
-    @UploadedFile()
-    file: Express.Multer.File
+    @UploadedFiles(new UserFilesValidationPipe())
+    files: UserFiles
   ) {
-    const user = await this.profileService.update(userId, dto, file);
+    const user = await this.profileService.update(userId, dto, files);
     return fillObject(UserRdo, user, user.role);
   }
 
