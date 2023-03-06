@@ -13,7 +13,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test9@user.com
+test11@user.com
 --Register
 Content-Disposition: form-data; name="password"
 
@@ -41,11 +41,7 @@ Content-Disposition: form-data; name="trainingLevel"
 --Register
 Content-Disposition: form-data; name="trainingType"
 
-кроссфит
---Register
-Content-Disposition: form-data; name="trainingType"
-
-бокс
+бокс,бег
 --Register
 Content-Disposition: form-data; name="trainingTime"
 
@@ -80,7 +76,7 @@ John
 --Register
 Content-Disposition: form-data; name="email"
 
-test18@user.com
+test19@user.com
 --Register
 Content-Disposition: form-data; name="password"
 
@@ -108,11 +104,7 @@ Content-Disposition: form-data; name="trainingLevel"
 --Register
 Content-Disposition: form-data; name="trainingType"
 
-кроссфит
---Register
-Content-Disposition: form-data; name="trainingType"
-
-бег
+кроссфит,бег
 --Register
 Content-Disposition: form-data; name="resume"
 
@@ -139,15 +131,15 @@ POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "test18@user.com",
+  "email": "Elizabeth_Fisher@yahoo.com",
   "password": "secret"
 }
 
 ### Refersh Tokens
 GET {{baseUrl}}/auth/refresh {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5NzI0NDgsImV4cCI6MTY3NzU3NzI0OH0.tKn8y2pmp8IHSj0UMi-h-53ivV8Z0UX6Cy6faMsB3xg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzU0LCJleHAiOjE2Nzg2OTg1NTR9._hj5eR0fGpcabuEDgcFdzDb8xF2Cc1V_wPgQmkyLXcE
 
 
 ### Logout
 GET {{baseUrl}}/auth/logout {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzY5MTU5MjYsImV4cCI6MTY3NjkxNTk4Nn0.0KwsORVUyFrT-fSz-9oBUByirpcNGsUtndCLFhBUVZA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzY2LCJleHAiOjE2Nzg2OTg1NjZ9.jNSCnJJqUdbqqiVCfvWmLPKdJ_Hde563f_8j6Ym7MY0

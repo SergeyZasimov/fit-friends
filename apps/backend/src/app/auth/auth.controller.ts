@@ -4,6 +4,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Post,
   UploadedFiles,
   UseGuards,
@@ -47,14 +49,17 @@ export class AuthController {
     }
 
     if (dto.role === UserRole.Customer && files.certificate) {
-      throw new BadRequestException(UserValidationMessage.CustomerNotUploadCertificate)
+      throw new BadRequestException(
+        UserValidationMessage.CustomerNotUploadCertificate
+      );
     }
-    
+
     const newUser = await this.authService.register(dto, files);
     return fillObject(UserRdo, newUser, newUser.role);
   }
 
   @UseGuards(LocalAuthGuard)
+  @HttpCode(HttpStatus.OK)
   @Post(UrlRoute.Login)
   async login(@GetCurrentUser() user: User) {
     return this.authService.login(user);
@@ -69,6 +74,6 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   @Get(UrlRoute.Logout)
   async logout(@GetCurrentUser() user: User) {
-    return this.authService.logout(user);
+    await this.authService.logout(user);
   }
 }

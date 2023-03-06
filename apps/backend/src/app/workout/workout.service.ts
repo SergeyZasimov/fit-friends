@@ -1,4 +1,4 @@
-import { Workout, WorkoutQuery } from '@fit-friends/shared';
+import { Workout } from '@fit-friends/shared';
 import {
   ForbiddenException,
   Injectable,
@@ -9,6 +9,7 @@ import { readdir } from 'fs/promises';
 import path from 'path';
 import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
+import { QueryWorkoutDto } from './dto/query-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
 import {
   WORKOUT_BACKGROUNDS_FOLDER,
@@ -30,7 +31,7 @@ export class WorkoutService extends ServiceWithFiles {
     return this.workoutRepository.findOne(id);
   }
 
-  async getMany(query: WorkoutQuery, userId: number): Promise<Workout[]> {
+  async getMany(query: QueryWorkoutDto, userId: number): Promise<Workout[]> {
     return this.workoutRepository.findMany(query, userId);
   }
 
@@ -71,20 +72,23 @@ export class WorkoutService extends ServiceWithFiles {
     const currentVideo = existWorkout.video;
 
     const video = file && this.setFilename(file);
-    const updatedWorkout = new WorkoutEntity({
+    const updatedWorkoutEntity = new WorkoutEntity({
       ...existWorkout,
       ...dto,
       trainer: existWorkout.trainerId,
-      video: video && this.setFileUrl(video),
+      video: (video && this.setFileUrl(video)) ?? existWorkout.video,
     });
-    const updatedWokrout = this.workoutRepository.update(id, updatedWorkout);
+    const updatedWorkout = this.workoutRepository.update(
+      id,
+      updatedWorkoutEntity
+    );
 
     if (video) {
-      await this.deleteUserFile(currentVideo);
+      existWorkout.video && (await this.deleteUserFile(currentVideo));
       await this.writeUserFile(video);
     }
 
-    return updatedWokrout;
+    return updatedWorkout;
   }
 
   async checkWorkoutExist(id: number): Promise<Workout> {

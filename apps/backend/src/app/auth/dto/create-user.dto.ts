@@ -13,6 +13,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   Length,
   Matches,
   Max,
@@ -100,6 +101,7 @@ export class CreateUserDto {
   @ArrayMaxSize(USER_CONSTRAINT.TRAINING_TYPE.MAX, {
     message: TrainingTypeArrayNotValid,
   })
+  @Transform(({ value }) => value.split(','))
   @IsNotEmpty({ message: TrainingTypeRequired })
   trainingType: string[];
 
@@ -139,10 +141,12 @@ export class CreateUserDto {
     message: ResumeNotValid,
   })
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
+  @IsOptional()
   resume?: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
   @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
+  @IsOptional()
   isReadyToPersonalTraining?: boolean;
 }

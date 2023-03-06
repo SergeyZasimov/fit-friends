@@ -1,0 +1,1388 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: API сервер для проекта «Fit Friends»
+  description: Список ресурсов и маршрутов сервера «Fit Friends»
+
+tags:
+  - name: user
+    description: Пользователь
+  - name: workout
+    description: Тренировка
+  - name: order
+    description: Заказ
+
+servers:
+  - url: http://localhost:3333/api
+
+paths:
+  /auth/register:
+    post:
+      description: Регистрация пользователя
+      tags:
+        - user
+
+      requestBody:
+        description: Данные для регистрации
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/register_user'
+
+      responses:
+        201:
+          description: Возвращает данные созданного пользователя
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/user_trainer'
+                  - $ref: '#/components/schemas/user_customer'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        409:
+          $ref: '#/components/responses/conflict_error'
+
+  /auth/login:
+    post:
+      description: Авторизация пользователя
+      tags:
+        - user
+
+      requestBody:
+        description: Данные для авторизации
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login_user'
+
+      responses:
+        200:
+          description: Возвращает пару JWT токенов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokens'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /auth/refresh:
+    get:
+      description: Обновление пары JWT токенов с помощью refresh_token
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает пару JWT токенов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokens'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+  /auth/logout:
+    get:
+      description: Выход из приложения с помощью refresh_token
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Успешное удаление refresh_token
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+  /profile:
+    get:
+      description: Список пользователей для клиента
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/limit_query'
+        - $ref: '#/components/parameters/page_query'
+        - $ref: '#/components/parameters/sort_type_query'
+        - $ref: '#/components/parameters/basic_sort_option_query'
+
+      responses:
+        200:
+          description: Возвращает информацию о пользователях
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user_customer'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+    patch:
+      description: Изменение информации о пользователе
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Информация для изменения
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/update_profile'
+
+      responses:
+        200:
+          description: Возвращает изменённую информацию о пользователе
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/user_trainer'
+                  - $ref: '#/components/schemas/user_customer'
+
+  /profile/{entityId}:
+    get:
+      description: Информация о пользователе
+      security:
+        - BearerAuth: []
+
+      tags:
+        - user
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Возвращает информацию о пользователе
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/user_trainer'
+                  - $ref: '#/components/schemas/user_customer'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /profile/friends:
+    get:
+      description: Список друзей пользователя
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/limit_query'
+        - $ref: '#/components/parameters/page_query'
+        - $ref: '#/components/parameters/sort_type_query'
+        - $ref: '#/components/parameters/basic_sort_option_query'
+
+      responses:
+        200:
+          description: Возвращает список друзей пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/user_trainer'
+                    - $ref: '#/components/schemas/user_customer'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+  /profile/add-friend/{entityId}:
+    get:
+      description: Добавление пользователя в друзья
+      tags:
+        - user
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Успешное добавление в друзья
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /workout:
+    post:
+      description: Создание тренировки
+      security:
+        - BearerAuth: []
+      tags:
+        - workout
+
+      requestBody:
+        description: Данные для создания тренировки
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/create_workout'
+
+      responses:
+        201:
+          description: Возвращает информацию о новой тренировке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workout'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+    get:
+      description: Список тренировок тренера
+      security:
+        - BearerAuth: []
+      tags:
+        - workout
+      parameters:
+        - $ref: '#/components/parameters/limit_query'
+        - $ref: '#/components/parameters/page_query'
+        - $ref: '#/components/parameters/sort_type_query'
+        - $ref: '#/components/parameters/basic_sort_option_query'
+        - $ref: '#/components/parameters/price_range_query'
+        - $ref: '#/components/parameters/calories_range_query'
+        - $ref: '#/components/parameters/rating_query'
+        - $ref: '#/components/parameters/training_time_query'
+
+      responses:
+        200:
+          description: Возвращает список тренировок тренера
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/workout'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+  /workout/{entityId}:
+    patch:
+      description: Редактирование данных о тренировке
+      tags:
+        - workout
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      requestBody:
+        description: Данные для изменения
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/update_workout'
+
+      responses:
+        200:
+          description: Возвращает обновлённые данные о тренировке
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    get:
+      description: Детальная информация о тренировка
+      tags:
+        - workout
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Возвращает детальную информацию о тренировке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workout'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /order:
+    post:
+      description: Создание заказа
+      security:
+        - BearerAuth: []
+      tags:
+        - order
+
+      requestBody:
+        description: Данные для создания нового заказа
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_order'
+
+      responses:
+        201:
+          description: Возвращает данные нового заказа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+  /order/trainer:
+    get:
+      description: Список заказов на тренировки тренера
+      tags:
+        - order
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/limit_query'
+        - $ref: '#/components/parameters/page_query'
+        - $ref: '#/components/parameters/sort_type_query'
+        - $ref: '#/components/parameters/order_sort_option_query'
+
+      responses:
+        200:
+          description: Возвращает список заказов на тренировки тренера
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orders_list'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    register_user:
+      type: object
+      properties:
+        email:
+          description: Email пользователя
+          type: string
+          example: test@user.local
+
+        password:
+          description: Пароль пользователя
+          type: string
+          minLength: 6
+          maxLength: 12
+          example: secret
+
+        role:
+          description: Роль пользователя
+          type: string
+          enum:
+            - пользователь
+            - тренер
+          example: пользователь
+
+        name:
+          description: Имя пользователя
+          type: string
+          minLength: 1
+          maxLength: 15
+          example: John
+
+        gender:
+          description: Пол пользователя
+          type: string
+          enum:
+            - мужской
+            - женский
+            - неважно
+          example: мужской
+
+        birthDay:
+          description: День рождения пользователя
+          type: string
+          example: '2000-01-01'
+
+        location:
+          description: Станция метро
+          type: string
+          enum:
+            - Пионерская
+            - Петроградская
+            - Удельная
+            - Звёздная
+            - Спортивная
+
+        trainingLevel:
+          description: Уровень подготовки
+          type: string
+          enum:
+            - новичок
+            - любитель
+            - профессионал
+          example: любитель
+
+        trainingType:
+          description: Тип тренировки
+          type: array
+          maxItems: 3
+          items:
+            type: string
+            enum:
+              - йога
+              - бег
+              - бокс
+              - стрейчинг
+              - кроссфит
+              - аэробика
+              - пилатес
+          example: [йога, бег, бокс]
+
+        trainingTime:
+          description: Время на тренировку (обязательно для роли "Пользователь")
+          type: string
+          enum:
+            - 10-30 мин
+            - 30-50 мин
+            - 50-80 мин
+            - больше 80 мин
+          example: 30-50 мин
+
+        caloriesAmountToLose:
+          description: Количество калорий для сброса (обязательно для роли "Пользователь")
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 4500
+
+        caloriesAmountToLosePerDay:
+          description: Количество калорий для сброса в день (обязательно для роли "Пользователь")
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 1200
+
+        isReadyToTraining:
+          description: Готовность к тренировке (обязательно для роли "Пользователь")
+          type: boolean
+          example: true
+
+        resume:
+          description: Заслуги тренера (для роли "Тренер")
+          type: string
+          minLength: 10
+          maxLength: 140
+          example: Lorem ipsum dolor sit amet
+
+        isReadyToPersonalTraining:
+          description: Готовность проводить персональные тренировки (для роли "Тренер")
+          type: boolean
+          example: true
+
+        avatar:
+          description: Фотография пользователя
+          type: string
+          format: binary
+
+        certificate:
+          description: Сертификат (для роли "Тренер")
+          type: string
+          format: binary
+
+      required:
+        - email
+        - password
+        - name
+        - gender
+        - role
+        - location
+        - trainingLevel
+        - trainingType
+        - avatar
+
+    login_user:
+      type: object
+      properties:
+        email:
+          description: Email пользователя
+          type: string
+          example: test@user.local
+
+        password:
+          description: Пароль пользователя
+          type: string
+          minLength: 6
+          maxLength: 12
+          example: secret
+
+    user_trainer:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        email:
+          type: string
+          example: test@user.local
+
+        role:
+          type: string
+          example: тренер
+
+        profile:
+          $ref: '#/components/schemas/profile_trainer'
+
+    user_customer:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        email:
+          type: string
+          example: test@user.local
+
+        role:
+          type: string
+          example: пользователь
+
+        profile:
+          $ref: '#/components/schemas/profile_customer'
+
+    update_profile:
+      type: object
+      properties:
+        name:
+          description: Имя пользователя
+
+          type: string
+          minLength: 1
+          maxLength: 15
+          example: John
+
+        gender:
+          description: Пол пользователя
+          type: string
+          enum:
+            - мужской
+            - женский
+            - неважно
+          example: мужской
+
+        birthDay:
+          description: День рождения пользователя
+          type: string
+          example: '2000-01-01'
+
+        location:
+          description: Станция метро
+          type: string
+          enum:
+            - Пионерская
+            - Петроградская
+            - Удельная
+            - Звёздная
+            - Спортивная
+          example: Пионерская
+
+        trainingLevel:
+          description: Уровень подготовки
+          type: string
+          enum:
+            - новичок
+            - любитель
+            - профессионал
+          example: любитель
+
+        trainingType:
+          description: Тип тренировки
+          type: array
+          maxItems: 3
+          items:
+            type: string
+            enum:
+              - йога
+              - бег
+              - бокс
+              - стрейчинг
+              - кроссфит
+              - аэробика
+              - пилатес
+          example: [йога, бег, бокс]
+
+        trainingTime:
+          description: Время на тренировку (для роли "Пользователь")
+          type: string
+          enum:
+            - 10-30 мин
+            - 30-50 мин
+            - 50-80 мин
+            - больше 80 мин
+          example: 30-50 мин
+
+        caloriesAmountToLose:
+          description: Количество калорий для сброса (для роли "Пользователь")
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 4500
+
+        caloriesAmountToLosePerDay:
+          description: Количество калорий для сброса в день (для роли "Пользователь")
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 1200
+
+        isReadyToTraining:
+          description: Готовность к тренировке (для роли "Пользователь")
+          type: boolean
+          example: true
+
+        resume:
+          description: Заслуги тренера (для роли "Тренер")
+          type: string
+          minLength: 10
+          maxLength: 140
+          example: Lorem ipsum dolor sit amet
+
+        isReadyToPersonalTraining:
+          description: Готовность проводить персональные тренировки (для роли "Тренер")
+          type: boolean
+          example: true
+
+        avatar:
+          description: Фотография пользователя
+          type: string
+          format: binary
+
+        certificate:
+          description: Сертификат (для роли "Тренер")
+          type: string
+          format: binary
+
+    profile_trainer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John
+
+        avatar:
+          type: string
+          example: http://localhost:3333/upload/avatar/ZCCYl0fLXo_v4dSmigQOf.png
+
+        gender:
+          type: string
+          example: мужской
+
+        birthDay:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
+        location:
+          type: string
+          example: Пионерская
+
+        trainingLevel:
+          type: string
+          example: любитель
+
+        trainingType:
+          type: array
+          items:
+            type: string
+          example:
+            - йога
+            - бег
+
+        certificate:
+          type: string
+          example: http://localhost:3333/upload/certificate/0wG0yXjFGlQGYmASOoA7c.pdf
+
+        resume:
+          type: string
+          example: Lorem ipsum dolor sit amet
+
+        isReadyToPersonalTraining:
+          type: boolean
+          example: true
+
+    profile_customer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John
+
+        avatar:
+          type: string
+          example: http://localhost:3333/upload/avatar/ZCCYl0fLXo_v4dSmigQOf.png
+
+        gender:
+          type: string
+          example: мужской
+
+        birthDay:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
+        location:
+          type: string
+          example: Пионерская
+
+        trainingLevel:
+          type: string
+          example: любитель
+
+        trainingType:
+          type: array
+          items:
+            type: string
+          example:
+            - йога
+            - бег
+
+        trainingTime:
+          type: string
+          example: 30-50 мин
+
+        caloriesAmountToLose:
+          type: number
+          example: 4500
+
+        caloriesAmountToLosePerDay:
+          type: number
+          example: 1200
+
+        isReadyToTraining:
+          type: boolean
+          example: true
+
+    tokens:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoidGVzdEB1c2VyLmxvY2FsIiwicm9sZSI6ItC_0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImlhdCI6MTY3Nzk5OTMyNiwiZXhwIjoxNjc4MDAwMjI2fQ._T-muiMNosHmAASInSuTrPlK9Dv4vrMwT8_DUwck5GE
+
+        refresh_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoidGVzdEB1c2VyLmxvY2FsIiwicm9sZSI6ItC_0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImlhdCI6MTY3Nzk5OTM1MCwiZXhwIjoxNjc4NjA0MTUwfQ.urcErRpMvAv6rGTGMBL9yiHkIS39me0JU_zLgMEa8qs
+
+    create_workout:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 15
+          example: Lorem
+
+        customerLevel:
+          description: Уровень подготовки
+          type: string
+          enum:
+            - новичок
+            - любитель
+            - профессионал
+          example: любитель
+
+        trainingType:
+          description: Тип тренировки
+          type: string
+          enum:
+            - йога
+            - бег
+            - бокс
+            - стрейчинг
+            - кроссфит
+            - аэробика
+            - пилатес
+          example: бокс
+
+        trainingTime:
+          description: Время на тренировку
+          type: string
+          enum:
+            - 10-30 мин
+            - 30-50 мин
+            - 50-80 мин
+            - больше 80 мин
+          example: 30-50 мин
+
+        price:
+          description: Цена
+          type: number
+          minimum: 0
+          example: 50
+
+        caloriesAmountToLose:
+          description: Количество калорий для сброса
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 4500
+
+        description:
+          description: Описание тренировки
+          type: string
+          minLength: 10
+          maxLength: 140
+          example: Lorem ipsum dolor si
+
+        favorGender:
+          description: Пол клиента, для которого предназначена тренировка
+          type: string
+          enum:
+            - для женщин
+            - для мужчин
+            - для всех
+          example: для мужчин
+
+        isSpecial:
+          description: Признак специального предложения
+          type: boolean
+          example: true
+
+        video:
+          description: Видео тренировки
+          type: string
+          format: binary
+
+      required:
+        - title
+        - description
+        - customerLevel
+        - trainingType
+        - trainingTime
+        - price
+        - caloriesAmountToLose
+        - favorGender
+        - video
+
+    update_workout:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 15
+          example: Lorem
+
+        customerLevel:
+          description: Уровень подготовки
+          type: string
+          enum:
+            - новичок
+            - любитель
+            - профессионал
+          example: любитель
+
+        trainingType:
+          description: Тип тренировки
+          type: string
+          enum:
+            - йога
+            - бег
+            - бокс
+            - стрейчинг
+            - кроссфит
+            - аэробика
+            - пилатес
+          example: бокс
+
+        trainingTime:
+          description: Время на тренировку
+          type: string
+          enum:
+            - 10-30 мин
+            - 30-50 мин
+            - 50-80 мин
+            - больше 80 мин
+          example: 30-50 мин
+
+        price:
+          description: Цена
+          type: number
+          minimum: 0
+          example: 50
+
+        caloriesAmountToLose:
+          description: Количество калорий для сброса
+          type: number
+          minimum: 1000
+          maximum: 5000
+          example: 4500
+
+        description:
+          description: Описание тренировки
+          type: string
+          minLength: 10
+          maxLength: 140
+          example: Lorem ipsum dolor si
+
+        favorGender:
+          description: Пол клиента, для которого предназначена тренировка
+          type: string
+          enum:
+            - для женщин
+            - для мужчин
+            - для всех
+          example: для мужчин
+
+        isSpecial:
+          description: Признак специального предложения
+          type: boolean
+          example: true
+
+        video:
+          description: Видео тренировки
+          type: string
+          format: binary
+
+    workout:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        title:
+          type: string
+          example: Lorem
+
+        backgroundImage:
+          type: string
+          example: http://localhost:3333/workout-backgrounds/training-4.png
+
+        customerLevel:
+          type: string
+          example: любитель
+
+        trainingType:
+          type: string
+          example: бокс
+
+        trainingTime:
+          type: string
+          example: 30-50 мин
+
+        price:
+          type: number
+          example: 50
+
+        caloriesAmountToLose:
+          type: number
+          example: 4500
+
+        description:
+          type: string
+          example: Lorem ipsum dolor si
+
+        favorGender:
+          type: string
+          example: для мужчин
+
+        video:
+          type: string
+          example: http://localhost:3333/upload/video/ZPiStoC0BrHjevXtH0wgT.mp4
+
+        rating:
+          type: number
+          example: 3
+
+        trainer:
+          $ref: '#/components/schemas/user_trainer'
+
+        isSpecial:
+          type: boolean
+          example: true
+
+    create_order:
+      type: object
+      properties:
+        orderType:
+          description: Тип заказа
+          type: string
+          enum:
+            - тренировка
+            - абонемент
+          example: тренировка
+
+        amount:
+          type: number
+          description: Количество
+          minimum: 1
+          example: 2
+
+        paymentMethod:
+          description: Вариант оплаты заказа
+          type: string
+          enum:
+            - visa
+            - mir
+            - umoney
+          example: visa
+
+        purchaseId:
+          description: Id тренировки или абонемента в зал
+          type: number
+          example: 1
+
+    order:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        user:
+          $ref: '#/components/schemas/user_customer'
+
+        orderType:
+          type: string
+          example: тренировка
+
+        workout:
+          $ref: '#/components/schemas/workout'
+
+        price:
+          type: number
+          example: 50
+
+        amount:
+          type: number
+          example: 2
+
+        totalCost:
+          type: number
+          example: 1500
+
+        paymentMethod:
+          type: string
+          example: mir
+
+    orders_list:
+      type: array
+      items:
+        type: object
+        properties:
+          workout:
+            $ref: '#/components/schemas/order'
+
+          count:
+            type: number
+            example: 4
+
+          totalPrice:
+            type: number
+            example: 1200
+
+    error_bad_request_single:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 400
+
+        message:
+          type: string
+          example: Неверное ID. Должно быть целое число
+
+        error:
+          type: string
+          example: Bad Request
+
+    error_bad_request_array:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 400
+
+        message:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          example:
+            - Неверный формат почты
+            - Имя - обязательно для заполнения
+
+        error:
+          type: string
+          example: Bad Request
+
+  responses:
+    conflict_error:
+      description: Объект уже существует
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 409
+
+              message:
+                type: string
+                example: Объект уже существует
+
+              error:
+                type: string
+                example: Conflict
+
+    bad_request_error_variable:
+      description: Неверный запрос
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/error_bad_request_array'
+              - $ref: '#/components/schemas/error_bad_request_single'
+
+    bad_request_error:
+      description: Неверный запрос
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_bad_request_single'
+
+    not_found_error:
+      description: Объект не найден
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: '404'
+
+              message:
+                type: string
+                example: Объект не найден
+
+              error:
+                type: string
+                example: Not Found
+
+    unauthorized_error:
+      description: Пользователь не авторизован
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 401
+
+              message:
+                type: string
+                example: Unauthorized
+
+    role_forbidden_error:
+      description: Ресурс не доступен пользователю с данной ролью
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 403
+
+              message:
+                type: string
+                example: Неверная роль пользователя
+
+              error:
+                type: string
+                example: Forbidden
+
+  parameters:
+    entityId:
+      in: path
+      name: entityId
+      description: Id пользователя, тренировки, заказа
+      required: true
+      schema:
+        type: number
+        example: 1
+
+    limit_query:
+      in: query
+      name: limit
+      description: Количество возвращаемых объектов
+      allowEmptyValue: true
+      schema:
+        type: number
+        default: 50
+        example: 50
+
+    page_query:
+      in: query
+      name: page
+      description: Номер страницы пагинации
+      allowEmptyValue: true
+      schema:
+        type: number
+        default: 1
+        example: 1
+
+    sort_type_query:
+      in: query
+      name: sortType
+      description: Направление сортировки
+      allowEmptyValue: true
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+        default: desc
+        example: desc
+
+    basic_sort_option_query:
+      in: query
+      name: sortOption
+      description: Параметр сортировки
+      allowEmptyValue: true
+      schema:
+        type: string
+        default: createdAt
+        example: createdAt
+
+    order_sort_option_query:
+      in: query
+      name: sortOption
+      description: Параметр сортировки
+      allowEmptyValue: true
+      schema:
+        type: string
+        enum:
+          - price
+          - count
+        default: price
+        example: price
+
+    price_range_query:
+      in: query
+      name: priceRange
+      description: Диапазон цен
+      allowEmptyValue: true
+      schema:
+        type: string
+        example: 50,1000
+
+    calories_range_query:
+      in: query
+      name: caloriesRange
+      description: Диапазон калорий
+      allowEmptyValue: true
+      schema:
+        type: string
+        example: 1000,3000
+
+    rating_query:
+      in: query
+      name: rating
+      description: Рейтинг
+      allowEmptyValue: true
+      schema:
+        type: number
+        example: 3
+
+    training_time_query:
+      in: query
+      name: trainingTime
+      description: Время тренировки
+      allowEmptyValue: true
+      schema:
+        type: string
+        enum:
+          - 10-30 мин
+          - 30-50 мин
+          - 50-80 мин
+          - больше 80 мин
+        example: 30-50 мин

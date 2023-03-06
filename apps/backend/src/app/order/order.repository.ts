@@ -1,7 +1,7 @@
 import { Order, SortOption, SortType } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { TrainerOrdersQuery } from './dto/query-trainer-orders.dto';
+import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
 import { OrderEntity } from './order.entity';
 
 @Injectable()
@@ -52,7 +52,7 @@ export class OrderRepository {
     });
   }
 
-  async findOrdersForTrainer(query: TrainerOrdersQuery, userId: number) {
+  async findOrdersForTrainer(query: QueryTrainerOrders, userId: number) {
     const { sortOption, limit, page, sortType } = query;
     const sortOrder = sortType === SortType.Desc ? 'desc' : 'asc';
     return this.prisma.order.groupBy({

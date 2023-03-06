@@ -20,5 +20,5 @@ export type Order = {
 
 export type CreateOrder = Pick<
   Order,
-  'orderType' | 'price' | 'amount' | 'paymentMethod'
+  'orderType' | 'amount' | 'paymentMethod'
 > & { purchaseId: number };

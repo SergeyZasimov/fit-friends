@@ -4,7 +4,7 @@
 
 ### Create Workout
 POST {{baseUrl}}/workout {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI4NzEwLCJleHAiOjE2Nzc5Mjk2MTB9.YqE2JTlUa_xJZNBxzpp1zHePkS1B9kyWr_FN9mFKVtI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw
 Content-Type: multipart/form-data; boundary=CreateWorkout
 
 --CreateWorkout
@@ -47,13 +47,13 @@ true
 Content-Disposition: form-data; name="video"; filename="Video_HTML_Academy_1.mp4"
 Content-Type: video/mp4
 
-< ../../../../../test-content\test-video\Video_HTML_Academy_1.mp4
+< ../../../../../test-content/test-video/Video_HTML_Academy_1.mp4
 --CreateWorkout--
 
 
 ### Update Workout
-PATCH {{baseUrl}}/workout/1 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI4NzEwLCJleHAiOjE2Nzc5Mjk2MTB9.YqE2JTlUa_xJZNBxzpp1zHePkS1B9kyWr_FN9mFKVtI
+PATCH {{baseUrl}}/workout/4 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw
 Content-Type: multipart/form-data; boundary=UpdateWorkout
 
 --UpdateWorkout
@@ -76,9 +76,9 @@ Content-Type: video/mov
 --UpdateWorkout--
 
 ### Get Workout
-GET {{baseUrl}}/workout/2 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDA1NTU3LCJleHAiOjE2Nzc0MDY0NTd9.c4g_0652UsxvJLibAxNS1ILSMcf1v6olf7GpnoGvbVM
+GET {{baseUrl}}/workout/4 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw
 
 ### Get Workouts
 GET {{baseUrl}}/workout?trainingTime=10-30 мин {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0MTZAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3NDA5ODk1LCJleHAiOjE2Nzc0MTA3OTV9.IqFLzPR-hD0L8Dg063xYtHZrFqYKYmyaC-PafwoNtsU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw

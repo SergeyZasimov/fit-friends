@@ -24,7 +24,7 @@ export class QueryWorkoutDto extends BasicQueryDto implements WorkoutQuery {
 
   @IsInt({ each: true, message: CaloriesAmountNotValid })
   @Transform(({ value }) =>
-    value.split(', ').map((item: string) => parseInt(item))
+    value.split(',').map((item: string) => parseInt(item))
   )
   @IsOptional()
   caloriesRange?: number[];

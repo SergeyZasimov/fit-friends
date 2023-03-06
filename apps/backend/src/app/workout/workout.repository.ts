@@ -1,6 +1,7 @@
-import { Workout, WorkoutQuery } from '@fit-friends/shared';
+import { Workout } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { QueryWorkoutDto } from './dto/query-workout.dto';
 import { WorkoutEntity } from './workout.entity';
 
 @Injectable()
@@ -20,9 +21,7 @@ export class WorkoutRepository {
     });
   }
 
-  async findMany(query: WorkoutQuery, userId: number): Promise<Workout[]> {
-    console.log(query);
-
+  async findMany(query: QueryWorkoutDto, userId: number): Promise<Workout[]> {
     const {
       caloriesRange,
       priceRange,
@@ -42,7 +41,7 @@ export class WorkoutRepository {
         AND: [
           {
             price: {
-              lte: priceRange ? priceRange[0] : undefined,
+              lte: priceRange ? priceRange[1] : undefined,
             },
           },
           {
@@ -52,7 +51,7 @@ export class WorkoutRepository {
           },
           {
             caloriesAmountToLose: {
-              lte: caloriesRange ? caloriesRange[0] : undefined,
+              lte: caloriesRange ? caloriesRange[1] : undefined,
             },
           },
           {

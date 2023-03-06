@@ -11,6 +11,9 @@ export const UrlRoute = {
   Logout: 'logout',
   Refresh: 'refresh',
   UploadAvatar: 'upload-avatar',
+  Friends: 'friends',
+  AddFriend: 'add-friend',
+  Trainer: 'trainer',
 } as const;
 
 export const UrlParams = {

@@ -24,7 +24,7 @@ export const WORKOUT_CONSTRAINT = {
     MIN: 10,
     MAX: 140,
   },
-  VIDEO_TYPE: /(mov|avi|mp4)$/,
+  VIDEO_TYPE: /(mov|avi|mp4|quicktime)$/,
   RATING: {
     MIN: 1,
     MAX: 5,

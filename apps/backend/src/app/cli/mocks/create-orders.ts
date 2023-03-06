@@ -7,6 +7,5 @@ export const createWorkoutOrders = (workout: Workout): CreateOrderDto => ({
   amount: faker.datatype.number({ max: MOCKS_DEFAULT.ORDER.AMOUNT.MAX }),
   orderType: OrderType.Workout,
   paymentMethod: faker.helpers.arrayElement(PaymentMethods),
-  price: workout.price,
   purchaseId: workout.id,
 });

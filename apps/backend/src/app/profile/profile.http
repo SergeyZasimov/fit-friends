@@ -4,18 +4,18 @@
 
 ### Get User
 GET {{baseUrl}}/profile/2 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTE5MjE5LCJleHAiOjE2Nzc5MjAxMTl9.sTm0TfeUg5LxN2B99en0F1wit-NTfeBNKPlHa61Nx60
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJMdW5hMjhAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4MDk0MTQ4LCJleHAiOjE2NzgwOTUwNDh9.WWv5oVr-PbVTePpsEf9GbJGvNWYBIpHIje66KDsOUC0
 
 ### Get Users
 # ?limit=2&page=2
 # ?sortType=asc
 # ?limit=54 Bad Request
 GET {{baseUrl}}/profile?limit=1&page=1 {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc0MDc3MDMsImV4cCI6MTY3NzQwODYwM30.PVK9BWB8dQbZidHGNI08xhA1ww_cISUXlKTtgHqPOFU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJMdW5hMjhAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4MDk0MTQ4LCJleHAiOjE2NzgwOTUwNDh9.WWv5oVr-PbVTePpsEf9GbJGvNWYBIpHIje66KDsOUC0
 
 ### Update Profile
 PATCH  {{baseUrl}}/profile {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0MThAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc3OTI3OTkxLCJleHAiOjE2Nzc5Mjg4OTF9.g5vWoMizMJoHHloSSpkR2UOPtGAPn7hgj6RtNxUcti8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJFbGl6YWJldGhfRmlzaGVyQHlhaG9vLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzgwOTQ0NDMsImV4cCI6MTY3ODA5NTM0M30.SFDtDWH3YxHEsFYi635AqFcZs61-zVMTEdnKsl5ZNRs
 Content-Type: multipart/form-data; boundary=UpdateUser
 
 --UpdateUser
@@ -25,11 +25,7 @@ Jack
 --UpdateUser
 Content-Disposition: form-data; name="trainingType"
 
-кроссфит
---UpdateUser
-Content-Disposition: form-data; name="trainingType"
-
-бег
+кроссфит,бег
 --UpdateUser
 Content-Disposition: form-data; name="avatar"; filename="photo-1-coach.png"
 Content-Type: image/png
@@ -44,8 +40,8 @@ Content-Type: application/pdf
 
 ### Add friend
 GET {{baseUrl}}/profile/add-friend/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc2NzM4NjcsImV4cCI6MTY3NzY3NDc2N30.V0p65TMCCFr9heDvNxIt4-24NCR9L0tfL2VCwg3yNlQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJFbGl6YWJldGhfRmlzaGVyQHlhaG9vLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzgwOTQ0NDMsImV4cCI6MTY3ODA5NTM0M30.SFDtDWH3YxHEsFYi635AqFcZs61-zVMTEdnKsl5ZNRs
 
 ### Get Friends
 GET {{baseUrl}}/profile/friends
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiTm9ybWEuSGVhdGhjb3RlQHlhaG9vLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2Nzc3ODI2MzUsImV4cCI6MTY3Nzc4MzUzNX0.TMZ4Zar5bXWOuWtP8bHaL08Xgxhghy5YBRibbpRdd0g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJFbGl6YWJldGhfRmlzaGVyQHlhaG9vLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2NzgwOTQ0NDMsImV4cCI6MTY3ODA5NTM0M30.SFDtDWH3YxHEsFYi635AqFcZs61-zVMTEdnKsl5ZNRs

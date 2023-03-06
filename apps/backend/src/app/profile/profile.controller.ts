@@ -1,4 +1,4 @@
-import { UrlDomain, UrlParams, UserRole } from '@fit-friends/shared';
+import { UrlDomain, UrlParams, UrlRoute, UserRole } from '@fit-friends/shared';
 import {
   Body,
   Controller,
@@ -35,9 +35,12 @@ export class ProfileController {
     return users.map((user) => fillObject(UserRdo, user, user.role));
   }
 
-  @Get('friends')
-  async showFriends(@GetCurrentUser(CurrentUserField.Id) userId: number) {
-    const { friends } = await this.profileService.getFriends(userId);
+  @Get(UrlRoute.Friends)
+  async showFriends(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @Query() query: ProfileQueryDto
+  ) {
+    const { friends } = await this.profileService.getFriends(userId, query);
     return friends.map((user) => fillObject(UserRdo, user, user.role));
   }
 
@@ -64,9 +67,9 @@ export class ProfileController {
     return fillObject(UserRdo, user, user.role);
   }
 
-  @Get('add-friend/:id')
+  @Get(`${UrlRoute.AddFriend}/:${UrlParams.Id}`)
   async addToFriends(
-    @Param('id', DbIdValidationPipe) friendId: number,
+    @Param(UrlParams.Id, DbIdValidationPipe) friendId: number,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     await this.profileService.addFriend(userId, friendId);

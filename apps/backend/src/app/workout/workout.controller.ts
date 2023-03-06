@@ -4,7 +4,6 @@ import {
   User,
   UserRole,
   Workout,
-  WorkoutQuery,
 } from '@fit-friends/shared';
 import {
   Body,
@@ -23,10 +22,11 @@ import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
-import { VideoFileValidationPipe } from '../pipes/video-file-validation.pipe';
+import { ParseVideoFilePipe } from '../pipes/parse-video-file.pipe';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
+import { QueryWorkoutDto } from './dto/query-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
 import { WorkoutRdo } from './rdo/workout.rdo';
 import { WorkoutService } from './workout.service';
@@ -41,10 +41,10 @@ export class WorkoutController {
   @Post('')
   async create(
     @Body() dto: CreateWorkoutDto,
-    @UploadedFile(new VideoFileValidationPipe()) file: Express.Multer.File,
+    @UploadedFile(new ParseVideoFilePipe({ fileIsRequired: true }))
+    file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    console.log(file);
     const workout = await this.workoutService.create(dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
@@ -53,7 +53,7 @@ export class WorkoutController {
   @Role(UserRole.Trainer)
   @Get('')
   async showMany(
-    @Query() query: WorkoutQuery,
+    @Query() query: QueryWorkoutDto,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     const workouts = await this.workoutService.getMany(query, userId);
@@ -75,7 +75,8 @@ export class WorkoutController {
   async update(
     @Param(UrlParams.Id, DbIdValidationPipe) id: number,
     @Body() dto: UpdateWorkoutDto,
-    @UploadedFile(new VideoFileValidationPipe()) file: Express.Multer.File,
+    @UploadedFile(new ParseVideoFilePipe({ fileIsRequired: false }))
+    file: Express.Multer.File,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     const workout = await this.workoutService.update(id, dto, userId, file);

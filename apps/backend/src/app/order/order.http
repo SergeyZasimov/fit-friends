@@ -5,17 +5,16 @@
 ### Create Order
 POST {{baseUrl}}/order {{protocol}}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0NUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzc1MTE5ODQsImV4cCI6MTY3NzUxMjg4NH0.q6lGMzXXmiSdAYQXmRgAB7izH6MGPZn2q1pBIWfOTSM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJMdW5hMjhAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4MDkzOTgwLCJleHAiOjE2NzgwOTQ4ODB9.FlHF6L8CEaKuk7JB-jW7dXyqMEsQaH8x7oU87kM7xrk
 
 {
   "orderType": "тренировка",
-  "price": 120,
   "amount": 5,
   "paymentMethod": "visa",
-  "purchaseId": 2
+  "purchaseId": 4
 }
 
 ### Get Orders For Trainer
 # ?sortOption=price&sortType=asc
 GET {{baseUrl}}/order/trainer {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiTm9ybWEuSGVhdGhjb3RlQHlhaG9vLmNvbSIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJpYXQiOjE2Nzc3ODI2MzUsImV4cCI6MTY3Nzc4MzUzNX0.TMZ4Zar5bXWOuWtP8bHaL08Xgxhghy5YBRibbpRdd0g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw

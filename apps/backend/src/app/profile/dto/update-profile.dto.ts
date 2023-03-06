@@ -7,11 +7,11 @@ import {
   TrainingTypes,
   UserRole,
 } from '@fit-friends/shared';
+import { Transform } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsBoolean,
   IsEnum,
-  IsNotEmpty,
   IsOptional,
   Length,
   Matches,
@@ -28,23 +28,15 @@ import { BirthdayValidator } from '../../validators/birthday.validator';
 
 const {
   NameLengthNotValid,
-  NameRequired,
   NameNotValid,
   GenderNotValid,
-  GenderRequired,
   LocationNotValid,
-  LocationRequired,
   TrainingLevelNotValid,
-  TrainingLevelRequired,
   TrainingTypeArrayNotValid,
   TrainingTypeNotValid,
-  TrainingTypeRequired,
   TrainingTimeNotValid,
-  TrainingTimeRequired,
   CaloriesAmountToLoseNotValid,
-  CaloriesAmountToLoseRequired,
   CaloriesAmountToLosePerDayNotValid,
-  CaloriesAmountToLosePerDayRequired,
   IsReadyToPersonalTraining,
   IsReadyToTraining,
   ResumeNotValid,
@@ -56,12 +48,10 @@ export class UpdateProfileDto implements Partial<Profile> {
   @Length(USER_CONSTRAINT.NAME.MIN, USER_CONSTRAINT.NAME.MAX, {
     message: NameLengthNotValid,
   })
-  @IsNotEmpty({ message: NameRequired })
   @IsOptional()
   name?: string;
 
   @IsEnum(Gender, { message: GenderNotValid })
-  @IsNotEmpty({ message: GenderRequired })
   @IsOptional()
   gender?: string;
 
@@ -72,12 +62,10 @@ export class UpdateProfileDto implements Partial<Profile> {
   birthDay?: string;
 
   @IsEnum(Locations, { message: LocationNotValid })
-  @IsNotEmpty({ message: LocationRequired })
   @IsOptional()
   location?: string;
 
   @IsEnum(TrainingLevels, { message: TrainingLevelNotValid })
-  @IsNotEmpty({ message: TrainingLevelRequired })
   @IsOptional()
   trainingLevel?: string;
 
@@ -85,12 +73,11 @@ export class UpdateProfileDto implements Partial<Profile> {
   @ArrayMaxSize(USER_CONSTRAINT.TRAINING_TYPE.MAX, {
     message: TrainingTypeArrayNotValid,
   })
-  @IsNotEmpty({ message: TrainingTypeRequired })
+  @Transform(({ value }) => value.split(','))
   @IsOptional()
   trainingType?: string[];
 
   @IsEnum(TrainingTimes, { message: TrainingTimeNotValid })
-  @IsNotEmpty({ message: TrainingTimeRequired })
   @ValidateIf((obj) => obj.role === UserRole.Customer)
   @IsOptional()
   trainingTime?: string;
@@ -101,8 +88,8 @@ export class UpdateProfileDto implements Partial<Profile> {
   @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLoseNotValid,
   })
-  @IsNotEmpty({ message: CaloriesAmountToLoseRequired })
   @ValidateIf((obj) => obj.role === UserRole.Customer)
+  @Transform(({ value }) => +value)
   @IsOptional()
   caloriesAmountToLose?: number;
 
@@ -112,13 +99,14 @@ export class UpdateProfileDto implements Partial<Profile> {
   @Min(USER_CONSTRAINT.CALORIES_AMOUNT.MIN, {
     message: CaloriesAmountToLosePerDayNotValid,
   })
-  @IsNotEmpty({ message: CaloriesAmountToLosePerDayRequired })
   @ValidateIf((obj) => obj.role === UserRole.Customer)
+  @Transform(({ value }) => +value)
   @IsOptional()
   caloriesAmountToLosePerDay?: number;
 
   @IsBoolean({ message: IsReadyToTraining })
   @ValidateIf((obj) => obj.role === UserRole.Customer)
+  @Transform(({ value }) => !!value)
   @IsOptional()
   isReadyToTraining?: boolean;
 
@@ -130,9 +118,8 @@ export class UpdateProfileDto implements Partial<Profile> {
   resume?: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
+  @Transform(({ value }) => !!value)
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
   @IsOptional()
   isReadyToPersonalTraining?: boolean;
-
-  avatar?: string;
 }

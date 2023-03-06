@@ -6,6 +6,8 @@ import {
   UserRole,
 } from '@fit-friends/shared';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
@@ -13,8 +15,6 @@ import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileEntity } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
-import { ServiceWithFiles } from '../abstract/service-with-files';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ProfileService extends ServiceWithFiles {
@@ -23,7 +23,7 @@ export class ProfileService extends ServiceWithFiles {
     private readonly profileRepository: ProfileRepository,
     private readonly configService: ConfigService
   ) {
-    super(configService)
+    super(configService);
   }
 
   async getOne(id: number): Promise<User> {
@@ -68,8 +68,8 @@ export class ProfileService extends ServiceWithFiles {
         birthDay: dto.birthDay,
         trainingLevel: dto.trainingLevel,
         trainingType: dto.trainingType,
-        resume: dto.resume,
-        isReadyToPersonalTraining: dto.isReadyToPersonalTraining,
+        resume: dto.resume ?? '',
+        isReadyToPersonalTraining: dto.isReadyToPersonalTraining ?? false,
         user: newUser.id,
         certificate: certificate && this.setFileUrl(certificate),
         avatar: avatar && this.setFileUrl(avatar),
@@ -119,12 +119,12 @@ export class ProfileService extends ServiceWithFiles {
     await this.profileRepository.update(userId, profileEntity);
 
     if (avatar) {
-      await this.deleteUserFile(currentAvatar);
+      currentAvatar && (await this.deleteUserFile(currentAvatar));
       await this.writeUserFile(avatar);
     }
 
     if (certificate) {
-      await this.deleteUserFile(currentCertificate);
+      currentCertificate && (await this.deleteUserFile(currentCertificate));
       await this.writeUserFile(certificate);
     }
 
@@ -135,7 +135,7 @@ export class ProfileService extends ServiceWithFiles {
     return this.userRepository.addFriend(userId, friendId);
   }
 
-  async getFriends(userId: number) {
-    return this.userRepository.findFriends(userId);
+  async getFriends(userId: number, query: ProfileQueryDto) {
+    return this.userRepository.findFriends(userId, query);
   }
 }

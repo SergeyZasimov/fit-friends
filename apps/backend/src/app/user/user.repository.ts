@@ -65,7 +65,8 @@ export class UserRepository {
     });
   }
 
-  async findFriends(id: number) {
+  async findFriends(id: number, query: ProfileQueryDto) {
+    const { limit, page, sortType, sortOption } = query;
     return this.prisma.user.findFirst({
       where: {
         id,
@@ -75,6 +76,11 @@ export class UserRepository {
           include: {
             profile: true,
           },
+          orderBy: {
+            [sortOption]: sortType,
+          },
+          skip: limit * (page - 1) || undefined,
+          take: limit,
         },
       },
     });

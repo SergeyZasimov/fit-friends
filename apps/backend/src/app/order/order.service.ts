@@ -2,7 +2,7 @@ import { Order, OrderType } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { WorkoutService } from '../workout/workout.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { TrainerOrdersQuery } from './dto/query-trainer-orders.dto';
+import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
 import { OrderEntity } from './order.entity';
 import { OrderRepository } from './order.repository';
 
@@ -18,16 +18,21 @@ export class OrderService {
     let orderEntity: OrderEntity;
     if (dto.orderType === OrderType.Workout) {
       const workoutId = purchaseId;
-      await this.workoutService.checkWorkoutExist(workoutId);
-      orderEntity = new OrderEntity({ ...orderData, workoutId, userId });
+      const workout = await this.workoutService.checkWorkoutExist(workoutId);
+      orderEntity = new OrderEntity({
+        ...orderData,
+        workoutId,
+        price: workout.price,
+        userId,
+      });
     } else {
       const sportGymId = purchaseId;
-      orderEntity = new OrderEntity({ ...orderData, sportGymId, userId });
+      orderEntity = new OrderEntity({ ...orderData, sportGymId, userId, price: undefined });
     }
     return this.orderRepository.create(orderEntity);
   }
 
-  async getOrdersForTrainer(query: TrainerOrdersQuery, userId: number) {
+  async getOrdersForTrainer(query: QueryTrainerOrders, userId: number) {
     const summary = await this.orderRepository.findOrdersForTrainer(
       query,
       userId
