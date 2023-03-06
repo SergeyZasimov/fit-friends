@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "backend-docker:up": "nx run backend:docker-up",
-    "generate-mocks": "nx run backend:cli-build && node dist/apps/backend/cli/main.js"
+    "backend-db:init": "nx run backend:db-migrate && nx run backend:db-generate-client",
+    "backend-db:generate-mocks": "nx run backend:cli-build && node dist/apps/backend/cli/main.js",
+    "backend:start": "nx run backend:serve"
   },
   "private": true,
   "dependencies": {

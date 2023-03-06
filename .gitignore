@@ -45,4 +45,5 @@ db/
 migrations/
 fitfriends-markup/
 upload/
-test-content/
+*.mp4
+*.mov

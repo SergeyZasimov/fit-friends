@@ -1,26 +1,40 @@
 import chalk from 'chalk';
 import { plainToInstance } from 'class-transformer';
-import { IsInt, IsString, Max, Min, validateSync } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Max,
+  Min,
+  validateSync,
+} from 'class-validator';
 import { EnvConstraint, EnvValidationMessage } from './config.constant';
 
-const { StringRequired, PortNotValid, IntRequired } = EnvValidationMessage;
+const { StringRequired, PortNotValid, IntRequired, Required } =
+  EnvValidationMessage;
 
 class EnvironmentConfig {
   @IsString({ message: StringRequired })
-  HOST: string;
+  @IsNotEmpty({ message: Required })
+  APP_HOST: string;
 
   @Max(EnvConstraint.Port.Max, { message: PortNotValid })
   @Min(EnvConstraint.Port.Min, { message: PortNotValid })
   @IsInt({ message: IntRequired })
-  PORT: number;
+  @IsNotEmpty({ message: Required })
+  APP_PORT: number;
 
   @IsString({ message: StringRequired })
+  @IsNotEmpty({ message: Required })
+  @IsNotEmpty({ message: Required })
   DATABASE_URL: string;
 
   @IsString({ message: StringRequired })
+  @IsNotEmpty({ message: Required })
   UPLOAD_FOLDER: string;
 
   @IsString({ message: StringRequired })
+  @IsNotEmpty({ message: Required })
   STATIC_FOLDER: string;
 }
 
@@ -32,7 +46,7 @@ export const validateEnvironments = (
   });
 
   const errors = validateSync(environmentConfig, {
-    skipMissingProperties: true,
+    skipMissingProperties: false,
   });
 
   if (errors.length > 0) {
