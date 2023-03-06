@@ -12,6 +12,8 @@
 
 Папка для тестирования загрузки файлов: `test-content`
 
-Документация в формате OpenApi:  `specification/specification.yml`
+Документация в формате OpenApi: `specification/specification.yml`
 
 Пароль для авторизации тестовых пользователей: `secret`
+
+Для просмотра БД выполните команду `npm run backend-db:studio`. По адресу `http://localhost:5555` будет доступна `prisma studio`

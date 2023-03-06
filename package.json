@@ -6,6 +6,7 @@
     "backend-docker:up": "nx run backend:docker-up",
     "backend-db:init": "nx run backend:db-migrate && nx run backend:db-generate-client",
     "backend-db:generate-mocks": "nx run backend:cli-build && node dist/apps/backend/cli/main.js",
+    "backend-db:studio": "nx run backend:db-studio",
     "backend:start": "nx run backend:serve"
   },
   "private": true,
