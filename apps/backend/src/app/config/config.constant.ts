@@ -15,4 +15,4 @@ export const EnvConstraint = {
   },
 };
 
-export const ENV_FILE_PATH = path.resolve('environment', '.env');
+export const ENV_FILE_PATH = path.resolve('environment', '.backend.env');
