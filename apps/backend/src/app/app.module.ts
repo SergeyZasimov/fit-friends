@@ -3,9 +3,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import 'multer';
 import { AuthModule } from './auth/auth.module';
-import { CliModule } from './cli/cli.module';
 import { validateEnvironments } from './config/env.validator';
 import { appConfig, jwtConfig, staticConfig } from './config/namespaces';
 import { getStaticConfig } from './config/static.config';
@@ -15,9 +14,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
 import { UserModule } from './user/user.module';
 import { WorkoutModule } from './workout/workout.module';
-import { Multer } from 'multer';
-
-const ENV_FILE_PATH = join('..', '..', '.env');
+import { ENV_FILE_PATH } from './config/config.constant';
 
 @Module({
   imports: [
@@ -35,7 +32,6 @@ const ENV_FILE_PATH = join('..', '..', '.env');
     ServeStaticModule.forRootAsync(getStaticConfig()),
     WorkoutModule,
     OrderModule,
-    CliModule,
   ],
   controllers: [],
   providers: [

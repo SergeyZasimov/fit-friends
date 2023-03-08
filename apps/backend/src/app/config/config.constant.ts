@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 export const EnvValidationMessage = {
   Required: 'required',
   StringRequired: 'must be string',
@@ -12,3 +14,5 @@ export const EnvConstraint = {
     Max: 65535,
   },
 };
+
+export const ENV_FILE_PATH = path.resolve('environment', '.env');
