@@ -4,6 +4,7 @@ export const UrlDomain = {
   Workout: 'workout',
   Order: 'order',
   FoodDiary: 'food-diary',
+  WorkoutDiary: 'workout-diary',
 } as const;
 
 export const UrlRoute = {

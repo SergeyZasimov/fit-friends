@@ -12,4 +12,4 @@ export const FoodDiaryValidationMessage = {
 export const FoodDiaryExceptionMessage = {
   NotFound: 'Запись в дневнике питания не найдена',
   ForeignFoodDiary: 'Запрещены действия с чужими записями',
-};
+} as const;

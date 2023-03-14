@@ -45,13 +45,3 @@ export type BasicQuery = {
   sortOption?: string;
 };
 
-export type WorkoutDiary = {
-  id?: number;
-  userId?: number;
-  user?: User;
-  workoutId?: number;
-  workout?: Workout;
-  lostCaloriesAmount: number;
-  lostTrainingTime: number;
-  workoutDate: Date;
-};

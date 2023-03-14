@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:3333/api
+
+@protocol = HTTP/1.1
+
+### Create Workout Diary Record
+POST {{baseUrl}}/workout-diary {{protocol}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzg3OTk5OTMsImV4cCI6MTY3ODgwMDg5M30.V_TFZnxHySP25K-PEuxVfFq3mb_eb28F6jU3T00QpQ0
+
+{
+  "workoutId": 1,
+  "lostCaloriesAmount": 500,
+  "lostTrainingTime": 30
+}
+
+
+### Get Workout Diary Records
+GET {{baseUrl}}/workout-diary {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4ODAwMTQ1LCJleHAiOjE2Nzg4MDEwNDV9.qd2RdFjtYsuFYhJusb_Heu9zJOJjpLt50HBw3TiUcPU

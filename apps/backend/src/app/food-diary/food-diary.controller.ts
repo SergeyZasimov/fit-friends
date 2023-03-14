@@ -25,12 +25,13 @@ import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
 import { FoodDiaryService } from './food-diary.service';
 import { FoodDiaryRdo } from './rdo/food-diary.rdo';
 
+@UseGuards(RoleGuard)
 @Role(UserRole.Customer)
 @Controller(UrlDomain.FoodDiary)
 export class FoodDiaryController {
   constructor(private readonly foodDiaryService: FoodDiaryService) {}
 
-  @UseGuards(RoleGuard)
+
   @Post()
   async create(
     @Body() dto: CreateFoodDiaryDto,
@@ -40,7 +41,6 @@ export class FoodDiaryController {
     return fillObject(FoodDiaryRdo, result, result.user.role);
   }
 
-  @UseGuards(RoleGuard)
   @Get(`:${UrlParams.Id}`)
   async showOne(
     @Param(UrlParams.Id, DbIdValidationPipe) id: number,
@@ -50,7 +50,6 @@ export class FoodDiaryController {
     return fillObject(FoodDiaryRdo, result, result.user.role);
   }
 
-  @UseGuards(RoleGuard)
   @Get()
   async showMany(@GetCurrentUser(CurrentUserField.Id) userId: number) {
     const results = await this.foodDiaryService.getMany(userId);
@@ -59,7 +58,6 @@ export class FoodDiaryController {
     );
   }
 
-  @UseGuards(RoleGuard)
   @Patch(`:${UrlParams.Id}`)
   async update(
     @Body() dto: UpdateFoodDiary,
@@ -70,7 +68,6 @@ export class FoodDiaryController {
     return fillObject(FoodDiaryRdo, result, result.user.role);
   }
 
-  @UseGuards(RoleGuard)
   @Delete(`:${UrlParams.Id}`)
   async delete(
     @GetCurrentUser(CurrentUserField.Id) userId: number,
