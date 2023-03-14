@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3333/api
+
+@protocol = HTTP/1.1
+
+### Create Food Diary Record
+POST {{baseUrl}}/food-diary {{protocol}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4NzkzMzgwLCJleHAiOjE2Nzg3OTQyODB9.KW3bEketH68HEDMRhtsyeFucope6bQCJeg9HmQfbUJs
+
+{
+  "caloriesAmount": 1200,
+  "dateOfMeal": "2023-03-12",
+  "typeOfMeal": "завтрак"
+}
+
+### Get Food Diary Records
+GET {{baseUrl}}/food-diary {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4NzkzMzgwLCJleHAiOjE2Nzg3OTQyODB9.KW3bEketH68HEDMRhtsyeFucope6bQCJeg9HmQfbUJs
+
+### Get Food Diary Record
+GET {{baseUrl}}/food-diary/3 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4NzkzMzgwLCJleHAiOjE2Nzg3OTQyODB9.KW3bEketH68HEDMRhtsyeFucope6bQCJeg9HmQfbUJs
+
+### Update Food Diary Record
+PATCH {{baseUrl}}/food-diary/3 {{protocol}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4NzkzMzgwLCJleHAiOjE2Nzg3OTQyODB9.KW3bEketH68HEDMRhtsyeFucope6bQCJeg9HmQfbUJs
+
+{
+  "caloriesAmount": 200
+}
+
+### Delete Food Diary Record
+DELETE {{baseUrl}}/food-diary/2 {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4NzkzMzgwLCJleHAiOjE2Nzg3OTQyODB9.KW3bEketH68HEDMRhtsyeFucope6bQCJeg9HmQfbUJs
+
+

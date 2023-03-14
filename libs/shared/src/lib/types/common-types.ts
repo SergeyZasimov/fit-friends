@@ -45,15 +45,6 @@ export type BasicQuery = {
   sortOption?: string;
 };
 
-export type FoodDiary = {
-  id?: number;
-  userId?: number;
-  user?: User;
-  caloriesAmount: number;
-  dateOfMeal: Date;
-  typeOfMeal: string;
-};
-
 export type WorkoutDiary = {
   id?: number;
   userId?: number;

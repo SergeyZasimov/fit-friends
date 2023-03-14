@@ -3,6 +3,7 @@ export const UrlDomain = {
   Profile: 'profile',
   Workout: 'workout',
   Order: 'order',
+  FoodDiary: 'food-diary',
 } as const;
 
 export const UrlRoute = {

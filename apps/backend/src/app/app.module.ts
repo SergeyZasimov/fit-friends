@@ -15,6 +15,7 @@ import { ProfileModule } from './profile/profile.module';
 import { UserModule } from './user/user.module';
 import { WorkoutModule } from './workout/workout.module';
 import { ENV_FILE_PATH } from './config/config.constant';
+import { FoodDiaryModule } from './food-diary/food-diary.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ENV_FILE_PATH } from './config/config.constant';
     ServeStaticModule.forRootAsync(getStaticConfig()),
     WorkoutModule,
     OrderModule,
+    FoodDiaryModule,
   ],
   controllers: [],
   providers: [
