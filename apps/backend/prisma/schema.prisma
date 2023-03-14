@@ -6,6 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 model User {
@@ -24,6 +25,8 @@ model User {
   orders           Order[]
   friendBy         User[]                    @relation("UserFriends")
   friends          User[]                    @relation("UserFriends")
+  foodDiary        FoodDiary[]
+  workoutDiary     WorkoutDiary[]
 
   @@map("users")
 }
@@ -51,7 +54,7 @@ model Profile {
 }
 
 model Workout {
-  id                   Int      @id @default(autoincrement())
+  id                   Int            @id @default(autoincrement())
   title                String
   backgroundImage      String
   customerLevel        String
@@ -64,11 +67,12 @@ model Workout {
   video                String
   rating               Int
   trainerId            Int
-  trainer              User     @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+  trainer              User           @relation(fields: [trainerId], references: [id], onDelete: Cascade)
   isSpecial            Boolean
   reviews              Review[]
-  createdAt            DateTime @default(now())
+  createdAt            DateTime       @default(now())
   orders               Order[]
+  workoutDiary         WorkoutDiary[]
 
   @@map("workouts")
 }
@@ -140,4 +144,28 @@ model Notification {
   text     String
 
   @@map("notificatons")
+}
+
+model FoodDiary {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  caloriesAmount Int
+  dateOfMeal     DateTime
+  typeOfMeal     String
+
+  @@map("food_diaries")
+}
+
+model WorkoutDiary {
+  id                 Int      @id @default(autoincrement())
+  userId             Int
+  user               User     @relation(fields: [userId], references: [id])
+  workoutId          Int
+  workout            Workout  @relation(fields: [workoutId], references: [id])
+  lostCaloriesAmount Int
+  lostTrainingTime   Int
+  workoutDate        DateTime @default(now())
+
+  @@map("workout_diares")
 }

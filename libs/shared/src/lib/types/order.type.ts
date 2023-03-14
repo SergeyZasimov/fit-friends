@@ -1,4 +1,4 @@
-import { SportGym } from './types';
+import { SportGym } from './common-types';
 import { User } from './user.types';
 import { Workout } from './workout.type';
 

@@ -81,35 +81,35 @@
     "db-validate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma validate --schema ./prisma/schema.prisma",
+        "command": "dotenv -e ../../environment/.backend.env -- npx prisma validate --schema ./prisma/schema.prisma",
         "cwd": "apps/backend"
       }
     },
     "db-migrate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma migrate dev --schema ./prisma/schema.prisma --name initial --skip-generate --skip-seed",
+        "command": "dotenv -e ../../environment/.backend.env -- npx prisma migrate dev --schema ./prisma/schema.prisma --name initial --skip-generate --skip-seed",
         "cwd": "apps/backend"
       }
     },
     "db-reset": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma migrate reset --schema ./prisma/schema.prisma --force --skip-generate --skip-seed",
+        "command": "dotenv -e ../../environment/.backend.env -- npx prisma migrate reset --schema ./prisma/schema.prisma --force --skip-generate --skip-seed",
         "cwd": "apps/backend"
       }
     },
     "db-generate-client": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma generate --schema ./prisma/schema.prisma",
+        "command": "dotenv -e ../../environment/.backend.env -- npx prisma generate --schema ./prisma/schema.prisma",
         "cwd": "apps/backend"
       }
     },
     "db-studio": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma studio --schema ./prisma/schema.prisma",
+        "command": "dotenv -e ../../environment/.backend.env -- npx prisma studio --schema ./prisma/schema.prisma",
         "cwd": "apps/backend"
       }
     }
