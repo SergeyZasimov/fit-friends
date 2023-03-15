@@ -1,5 +1,6 @@
 import {
   CustomerProfile,
+  FavoriteAction,
   Profile,
   TrainerProfile,
   User,
@@ -137,5 +138,24 @@ export class ProfileService extends ServiceWithFiles {
 
   async getFriends(userId: number, query: ProfileQueryDto) {
     return this.userRepository.findFriends(userId, query);
+  }
+
+  async updateFavoriteGym(userId: number, sportGymId: number) {
+    const { sportGyms } = await this.userRepository.findFavoriteGyms(userId);
+
+    const action = sportGyms.find((sportGym) => sportGym.id === sportGymId)
+      ? FavoriteAction.Remove
+      : FavoriteAction.Add;
+
+    return this.userRepository.updateSportGymToFavorite(
+      userId,
+      sportGymId,
+      action
+    );
+  }
+
+  async getFavoriteGyms(userId: number) {
+    const { sportGyms } = await this.userRepository.findFavoriteGyms(userId);
+    return sportGyms;
   }
 }

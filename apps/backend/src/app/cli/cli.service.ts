@@ -1,13 +1,15 @@
 import { faker } from '@faker-js/faker';
 import { User, UserRole, Workout } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth/auth.service';
 import { OrderService } from '../order/order.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { WorkoutService } from '../workout/workout.service';
 import { MOCKS_DEFAULT } from './cli.constant';
 import { createCustomer } from './mocks/create-customer';
-import { createWorkoutOrders } from './mocks/create-orders';
+import { createWorkoutOrder } from './mocks/create-order';
+import { createSportGym } from './mocks/create-sport-gym';
 import { createTrainer } from './mocks/create-trainer';
 import { createWorkout } from './mocks/create-workout';
 
@@ -17,10 +19,12 @@ export class CliService {
     private readonly authService: AuthService,
     private readonly prisma: PrismaService,
     private readonly workoutService: WorkoutService,
-    private readonly orderService: OrderService
+    private readonly orderService: OrderService,
+    private readonly config: ConfigService
   ) {}
 
   async execution() {
+    await this.generateSportGyms();
     await this.generateUsers();
     const customers = await this.prisma.user.findMany({
       where: { role: UserRole.Customer },
@@ -32,6 +36,20 @@ export class CliService {
     await this.generateWorkouts(trainers);
     const workouts = await this.prisma.workout.findMany();
     await this.generateWorkoutOrders(workouts, customers);
+  }
+
+  async generateSportGyms() {
+    const staticFolder = this.config.get<string>('static.folder');
+    await Promise.all(
+      Array.from({ length: 5 }, async () => {
+        const sportGym = await createSportGym(staticFolder);
+        await this.prisma.sportGym.create({
+          data: sportGym,
+        });
+      })
+    ).then(() => {
+      console.log('SportGyms were created');
+    });
   }
 
   async generateUsers() {
@@ -104,7 +122,7 @@ export class CliService {
         });
         for (let i = 0; i < ordersCount; i++) {
           const user = faker.helpers.arrayElement(customers);
-          await this.orderService.create(createWorkoutOrders(workout), user.id);
+          await this.orderService.create(createWorkoutOrder(workout), user.id);
         }
       })
     ).then(() => {

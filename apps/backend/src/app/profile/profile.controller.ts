@@ -44,12 +44,6 @@ export class ProfileController {
     return friends.map((user) => fillObject(UserRdo, user, user.role));
   }
 
-  @Get(`:${UrlParams.Id}`)
-  async showMany(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
-    const user = await this.profileService.getOne(id);
-    return fillObject(UserRdo, user, user.role);
-  }
-
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'avatar', maxCount: 1 },
@@ -73,5 +67,24 @@ export class ProfileController {
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     await this.profileService.addFriend(userId, friendId);
+  }
+
+  @Patch(`${UrlRoute.UpdateFavoriteGym}/:${UrlParams.Id}`)
+  async updateFavoriteGym(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @Param(UrlParams.Id, DbIdValidationPipe) gymId: number
+  ) {
+    await this.profileService.updateFavoriteGym(userId, gymId);
+  }
+
+  @Get(`${UrlRoute.UpdateFavoriteGym}`)
+  async showFavoriteGyms(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    return this.profileService.getFavoriteGyms(userId);
+  }
+
+  @Get(`:${UrlParams.Id}`)
+  async showMany(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
+    const user = await this.profileService.getOne(id);
+    return fillObject(UserRdo, user, user.role);
   }
 }

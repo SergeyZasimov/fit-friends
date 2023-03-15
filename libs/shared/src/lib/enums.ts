@@ -70,3 +70,8 @@ export const SortOption = {
 } as const;
 
 export const TypeOfMeal = ['завтрак', 'обед', 'ужин', 'перекус'] as const;
+
+export const FavoriteAction = {
+  Add: 'Add',
+  Remove: 'Remove',
+} as const;

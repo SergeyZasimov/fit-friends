@@ -1,16 +1,16 @@
 import { User } from './user.types';
-import { Workout } from './workout.type';
 
 export type SportGym = {
   id?: number;
   title: string;
-  location: Location;
+  location: string;
   isVerified: boolean;
   parameters: string[];
   photos: string[];
   description: string;
   oneWorkoutPrice: number;
   createdAd?: Date;
+  users?: User[];
 };
 
 export type Review = {
@@ -44,4 +44,3 @@ export type BasicQuery = {
   sortType?: string;
   sortOption?: string;
 };
-

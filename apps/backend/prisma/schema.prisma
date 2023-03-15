@@ -6,7 +6,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  
 }
 
 model User {
@@ -27,6 +26,7 @@ model User {
   friends          User[]                    @relation("UserFriends")
   foodDiary        FoodDiary[]
   workoutDiary     WorkoutDiary[]
+  sportGyms        SportGym[]
 
   @@map("users")
 }
@@ -88,6 +88,7 @@ model SportGym {
   oneWorkoutPrice Int
   createdAt       DateTime @default(now())
   orders          Order[]
+  users           User[]
 
   @@map("sport_gyms")
 }

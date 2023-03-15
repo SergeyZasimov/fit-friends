@@ -1,3 +1,5 @@
+import { SportGym } from './common-types';
+
 export type User = {
   id?: number;
   email: string;
@@ -9,6 +11,7 @@ export type User = {
   createdAt?: Date;
   followedBy?: User[];
   following?: User[];
+  sportGyms?: SportGym[];
 };
 
 export type DefaultProfile = {

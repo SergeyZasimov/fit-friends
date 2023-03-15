@@ -29,4 +29,10 @@ export const MOCKS_DEFAULT = {
       MAX: 5,
     },
   },
+  SPORT_GYM: {
+    PRICE: {
+      MIN: 100,
+      MAX: 5000,
+    },
+  },
 } as const;

@@ -1,4 +1,4 @@
-import { User } from '@fit-friends/shared';
+import { FavoriteAction, User } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ProfileQueryDto } from '../profile/dto/profile-query.dto';
@@ -82,6 +82,43 @@ export class UserRepository {
           skip: limit * (page - 1) || undefined,
           take: limit,
         },
+      },
+    });
+  }
+
+  async findFavoriteGyms(userId: number) {
+    return this.prisma.user.findFirst({
+      where: { id: userId },
+      select: {
+        sportGyms: true,
+      },
+    });
+  }
+
+  async updateSportGymToFavorite(
+    userId: number,
+    gymId: number,
+    favoriteAction: keyof typeof FavoriteAction
+  ) {
+    const action =
+      favoriteAction === FavoriteAction.Add
+        ? {
+            connect: {
+              id: gymId,
+            },
+          }
+        : {
+            disconnect: {
+              id: gymId,
+            },
+          };
+
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        sportGyms: action,
       },
     });
   }

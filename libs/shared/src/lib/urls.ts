@@ -16,6 +16,7 @@ export const UrlRoute = {
   Friends: 'friends',
   AddFriend: 'add-friend',
   Trainer: 'trainer',
+  UpdateFavoriteGym: 'update-favorite-gym',
 } as const;
 
 export const UrlParams = {
