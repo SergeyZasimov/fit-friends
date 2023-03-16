@@ -17,6 +17,7 @@ import { WorkoutModule } from './workout/workout.module';
 import { ENV_FILE_PATH } from './config/config.constant';
 import { FoodDiaryModule } from './food-diary/food-diary.module';
 import { WorkoutDiaryModule } from './workout-diary/workout-diary.module';
+import { SportGymModule } from './sport-gym/sport-gym.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { WorkoutDiaryModule } from './workout-diary/workout-diary.module';
     OrderModule,
     FoodDiaryModule,
     WorkoutDiaryModule,
+    SportGymModule,
   ],
   controllers: [],
   providers: [

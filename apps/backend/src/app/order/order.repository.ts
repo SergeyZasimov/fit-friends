@@ -88,4 +88,16 @@ export class OrderRepository {
       take: limit,
     });
   }
+
+  async findOrdersForCustomer(userId: number) {
+    return this.prisma.order.groupBy({
+      by: ['orderType'],
+      where: {
+        userId,
+      },
+      _count: {
+        id: true,
+      },
+    });
+  }
 }

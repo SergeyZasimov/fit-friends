@@ -1,5 +1,6 @@
 import { Order, OrderType } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
+import { SportGymService } from '../sport-gym/sport-gym.service';
 import { WorkoutService } from '../workout/workout.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
@@ -10,7 +11,8 @@ import { OrderRepository } from './order.repository';
 export class OrderService {
   constructor(
     private readonly orderRepository: OrderRepository,
-    private readonly workoutService: WorkoutService
+    private readonly workoutService: WorkoutService,
+    private readonly sportGymService: SportGymService
   ) {}
 
   async create(dto: CreateOrderDto, userId: number): Promise<Order> {
@@ -27,7 +29,13 @@ export class OrderService {
       });
     } else {
       const sportGymId = purchaseId;
-      orderEntity = new OrderEntity({ ...orderData, sportGymId, userId, price: undefined });
+      const sportGym = await this.sportGymService.getOne(sportGymId);
+      orderEntity = new OrderEntity({
+        ...orderData,
+        sportGymId,
+        userId,
+        price: sportGym.oneWorkoutPrice,
+      });
     }
     return this.orderRepository.create(orderEntity);
   }
@@ -47,5 +55,21 @@ export class OrderService {
       });
     }
     return ordersSummary;
+  }
+
+  async getOrdersForCustomer(userId: number) {
+    const summary = await this.orderRepository.findOrdersForCustomer(userId);
+    const result = {};
+    for (const item of summary) {
+      switch (item.orderType) {
+        case OrderType.SportGym:
+          result['sportGym'] = item._count.id;
+          break;
+        case OrderType.Workout:
+          result['workout'] = item._count.id;
+          break;
+      }
+    }
+    return result;
   }
 }

@@ -34,4 +34,13 @@ export class OrderController {
   ) {
     return this.orderService.getOrdersForTrainer(query, userId);
   }
+
+  @UseGuards(RoleGuard)
+  @Role(UserRole.Customer)
+  @Get(UrlRoute.Customer)
+  async showOrdersForCustomer(
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    return this.orderService.getOrdersForCustomer(userId);
+  }
 }

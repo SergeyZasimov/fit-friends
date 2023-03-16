@@ -24,6 +24,7 @@ export const MOCKS_DEFAULT = {
       MIN: 1,
       MAX: 5,
     },
+    SPORT_GYM_COUNT: 5,
     ORDERS_COUNT: {
       MIN: 1,
       MAX: 5,

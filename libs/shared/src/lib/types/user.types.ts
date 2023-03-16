@@ -1,4 +1,4 @@
-import { SportGym } from './common-types';
+import { SportGym } from './sport-gym.type';
 
 export type User = {
   id?: number;

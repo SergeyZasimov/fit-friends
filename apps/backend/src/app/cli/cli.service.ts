@@ -1,14 +1,15 @@
 import { faker } from '@faker-js/faker';
-import { User, UserRole, Workout } from '@fit-friends/shared';
+import { SportGym, User, UserRole, Workout } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth/auth.service';
 import { OrderService } from '../order/order.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { SportGymService } from '../sport-gym/sport-gym.service';
 import { WorkoutService } from '../workout/workout.service';
 import { MOCKS_DEFAULT } from './cli.constant';
 import { createCustomer } from './mocks/create-customer';
-import { createWorkoutOrder } from './mocks/create-order';
+import { createSportGymOrder, createWorkoutOrder } from './mocks/create-order';
 import { createSportGym } from './mocks/create-sport-gym';
 import { createTrainer } from './mocks/create-trainer';
 import { createWorkout } from './mocks/create-workout';
@@ -20,7 +21,8 @@ export class CliService {
     private readonly prisma: PrismaService,
     private readonly workoutService: WorkoutService,
     private readonly orderService: OrderService,
-    private readonly config: ConfigService
+    private readonly config: ConfigService,
+    private readonly sportGymService: SportGymService
   ) {}
 
   async execution() {
@@ -35,20 +37,21 @@ export class CliService {
     await this.generateFriends([...customers, ...trainers]);
     await this.generateWorkouts(trainers);
     const workouts = await this.prisma.workout.findMany();
+    const sportGyms = await this.prisma.sportGym.findMany();
     await this.generateWorkoutOrders(workouts, customers);
+    await this.generateSportGymOrders(sportGyms, customers);
   }
 
   async generateSportGyms() {
-    const staticFolder = this.config.get<string>('static.folder');
     await Promise.all(
-      Array.from({ length: 5 }, async () => {
-        const sportGym = await createSportGym(staticFolder);
-        await this.prisma.sportGym.create({
-          data: sportGym,
-        });
-      })
+      Array.from(
+        { length: MOCKS_DEFAULT.GENERATE.SPORT_GYM_COUNT },
+        async () => {
+          await this.sportGymService.create(createSportGym());
+        }
+      )
     ).then(() => {
-      console.log('SportGyms were created');
+      console.log('Sport Gyms were generated');
     });
   }
 
@@ -58,7 +61,7 @@ export class CliService {
         await this.authService.register(createCustomer());
       })
     ).then(() => {
-      console.log('Customers were created');
+      console.log('Customers were generated');
     });
 
     await Promise.all(
@@ -66,7 +69,7 @@ export class CliService {
         await this.authService.register(createTrainer());
       })
     ).then(() => {
-      console.log('Trainers were created');
+      console.log('Trainers were generated');
     });
   }
 
@@ -126,7 +129,18 @@ export class CliService {
         }
       })
     ).then(() => {
-      console.log('Orders were generated');
+      console.log('Workout orders were generated');
+    });
+  }
+
+  async generateSportGymOrders(sportGyms: SportGym[], customers: User[]) {
+    await Promise.all(
+      Array.from(sportGyms, async (gym) => {
+        const user = faker.helpers.arrayElement(customers);
+        await this.orderService.create(createSportGymOrder(gym), user.id);
+      })
+    ).then(() => {
+      console.log('Sport Gym orders were generated');
     });
   }
 }

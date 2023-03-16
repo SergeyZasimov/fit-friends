@@ -2,7 +2,7 @@
 
 @protocol = HTTP/1.1
 
-### Create Order
+### Create Order Workout
 POST {{baseUrl}}/order {{protocol}}
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJMdW5hMjhAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4MDkzOTgwLCJleHAiOjE2NzgwOTQ4ODB9.FlHF6L8CEaKuk7JB-jW7dXyqMEsQaH8x7oU87kM7xrk
@@ -14,7 +14,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
   "purchaseId": 4
 }
 
+### Create Order Gym
+POST {{baseUrl}}/order {{protocol}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJBc2hsZWlnaDBAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4OTQ2ODA1LCJleHAiOjE2Nzg5NDc3MDV9.5-e8D_HN_YZh6NIW3-NFaWYLhGORZqEWrPbPIB1Qovs
+
+{
+  "orderType": "абонемент",
+  "amount": 1,
+  "paymentMethod": "visa",
+  "purchaseId": 4
+}
+
 ### Get Orders For Trainer
 # ?sortOption=price&sortType=asc
 GET {{baseUrl}}/order/trainer {{protocol}}
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw
+
+### Get Orders For Customer
+GET {{baseUrl}}/order/customer {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoiUmljaG1vbmRfV2Vpc3NuYXRAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc4OTUwMzc0LCJleHAiOjE2Nzg5NTEyNzR9.ewtgtDWJqVePYNIcxxgXYlnxztNAU9m_I0Tr8BlCUg8

@@ -69,6 +69,8 @@ export class ProfileController {
     await this.profileService.addFriend(userId, friendId);
   }
 
+  @UseGuards(RoleGuard)
+  @Role(UserRole.Customer)
   @Patch(`${UrlRoute.UpdateFavoriteGym}/:${UrlParams.Id}`)
   async updateFavoriteGym(
     @GetCurrentUser(CurrentUserField.Id) userId: number,
@@ -77,6 +79,8 @@ export class ProfileController {
     await this.profileService.updateFavoriteGym(userId, gymId);
   }
 
+  @UseGuards(RoleGuard)
+  @Role(UserRole.Customer)
   @Get(`${UrlRoute.UpdateFavoriteGym}`)
   async showFavoriteGyms(@GetCurrentUser(CurrentUserField.Id) userId: number) {
     return this.profileService.getFavoriteGyms(userId);
