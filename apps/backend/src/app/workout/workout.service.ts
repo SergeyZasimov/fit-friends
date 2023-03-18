@@ -35,6 +35,10 @@ export class WorkoutService extends ServiceWithFiles {
     return this.workoutRepository.findMany(query, userId);
   }
 
+  async getFotSubscriptionNotify(trainerId: number, lastNotify: Date): Promise<Workout[]> {
+    return this.workoutRepository.findManyForSubscription(trainerId, lastNotify)
+  }
+
   async create(
     dto: CreateWorkoutDto,
     userId: number,

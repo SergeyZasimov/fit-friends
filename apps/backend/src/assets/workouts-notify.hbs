@@ -1,0 +1,11 @@
+<table cellpadding='15'>
+  {{#each workouts}}
+
+    <tr>
+      <td>{{this.title}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.trainer.profile.name}}</td>
+    </tr>
+
+  {{/each}}
+</table>

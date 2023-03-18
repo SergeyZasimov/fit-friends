@@ -27,6 +27,7 @@ model User {
   foodDiary        FoodDiary[]
   workoutDiary     WorkoutDiary[]
   sportGyms        SportGym[]
+  subscriptions    Subscription[]
 
   @@map("users")
 }
@@ -145,6 +146,17 @@ model Notification {
   text     String
 
   @@map("notificatons")
+}
+
+model Subscription {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lastNotify DateTime?
+  trainerId  Int
+
+  @@unique([userId, trainerId])
+  @@map("subsriptions")
 }
 
 model FoodDiary {

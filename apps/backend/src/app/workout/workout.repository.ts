@@ -79,6 +79,27 @@ export class WorkoutRepository {
     });
   }
 
+  async findManyForSubscription(
+    trainerId: number,
+    lastNotify: Date
+  ): Promise<Workout[]> {
+    return this.prisma.workout.findMany({
+      where: {
+        trainerId,
+        createdAt: {
+          gt: lastNotify ?? undefined,
+        },
+      },
+      include: {
+        trainer: {
+          include: {
+            profile: true,
+          },
+        },
+      },
+    });
+  }
+
   async create(entity: WorkoutEntity): Promise<Workout> {
     return this.prisma.workout.create({
       data: {

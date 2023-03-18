@@ -1,23 +1,31 @@
 import { Module } from '@nestjs/common';
 
+import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import 'multer';
 import { AuthModule } from './auth/auth.module';
+import { ENV_FILE_PATH } from './config/config.constant';
 import { validateEnvironments } from './config/env.validator';
-import { appConfig, jwtConfig, staticConfig } from './config/namespaces';
+import {
+  appConfig,
+  jwtConfig,
+  smtpConfig,
+  staticConfig,
+} from './config/namespaces';
+import { getSmtpConfig } from './config/smtp.config';
 import { getStaticConfig } from './config/static.config';
+import { FoodDiaryModule } from './food-diary/food-diary.module';
 import { JwtGuard } from './guards/jwt.guard';
 import { OrderModule } from './order/order.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProfileModule } from './profile/profile.module';
-import { UserModule } from './user/user.module';
-import { WorkoutModule } from './workout/workout.module';
-import { ENV_FILE_PATH } from './config/config.constant';
-import { FoodDiaryModule } from './food-diary/food-diary.module';
-import { WorkoutDiaryModule } from './workout-diary/workout-diary.module';
 import { SportGymModule } from './sport-gym/sport-gym.module';
+import { UserModule } from './user/user.module';
+import { WorkoutDiaryModule } from './workout-diary/workout-diary.module';
+import { WorkoutModule } from './workout/workout.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
   imports: [
@@ -25,7 +33,7 @@ import { SportGymModule } from './sport-gym/sport-gym.module';
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [appConfig, jwtConfig, staticConfig],
+      load: [appConfig, jwtConfig, staticConfig, smtpConfig],
       validate: validateEnvironments,
     }),
     UserModule,
@@ -38,6 +46,8 @@ import { SportGymModule } from './sport-gym/sport-gym.module';
     FoodDiaryModule,
     WorkoutDiaryModule,
     SportGymModule,
+    MailerModule.forRootAsync(getSmtpConfig()),
+    SubscriptionModule,
   ],
   controllers: [],
   providers: [

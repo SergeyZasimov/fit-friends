@@ -4,7 +4,7 @@
 
 ### Create Workout
 POST {{baseUrl}}/workout {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiR2xvcmlhNDRAaG90bWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4MDkzNzgwLCJleHAiOjE2NzgwOTQ2ODB9.cnG3JYeYRuP_ul97VRSqDpKU8aInb3Xroi4sUPgBVCw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJSaXRhNTFAZ21haWwuY29tIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImlhdCI6MTY3OTExNTU5MCwiZXhwIjoxNjc5MTE2NDkwfQ.ASN2Vbj52wxRadYrJ3GlTWmyuutmJXzuzFNpbOr3hUA
 Content-Type: multipart/form-data; boundary=CreateWorkout
 
 --CreateWorkout
