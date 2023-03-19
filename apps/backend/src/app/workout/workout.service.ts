@@ -1,4 +1,4 @@
-import { Workout } from '@fit-friends/shared';
+import { UserRole, Workout } from '@fit-friends/shared';
 import {
   ForbiddenException,
   Injectable,
@@ -31,12 +31,25 @@ export class WorkoutService extends ServiceWithFiles {
     return this.workoutRepository.findOne(id);
   }
 
-  async getMany(query: QueryWorkoutDto, userId: number): Promise<Workout[]> {
+  async getMany(
+    query: QueryWorkoutDto,
+    userId: number,
+    userRole: string
+  ): Promise<Workout[]> {
+    if (userRole === UserRole.Customer) {
+      userId = undefined;
+    }
     return this.workoutRepository.findMany(query, userId);
   }
 
-  async getFotSubscriptionNotify(trainerId: number, lastNotify: Date): Promise<Workout[]> {
-    return this.workoutRepository.findManyForSubscription(trainerId, lastNotify)
+  async getFotSubscriptionNotify(
+    trainerId: number,
+    lastNotify: Date
+  ): Promise<Workout[]> {
+    return this.workoutRepository.findManyForSubscription(
+      trainerId,
+      lastNotify
+    );
   }
 
   async create(

@@ -34,6 +34,7 @@ export class WorkoutRepository {
       page,
       sortOption,
       sortType,
+      trainingType,
     } = query;
 
     return this.prisma.workout.findMany({
@@ -41,6 +42,7 @@ export class WorkoutRepository {
         trainerId: userId,
         rating,
         trainingTime: { in: trainingTime },
+        trainingType: { in: trainingType },
         AND: [
           {
             price: {

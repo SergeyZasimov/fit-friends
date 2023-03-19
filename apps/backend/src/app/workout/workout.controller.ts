@@ -49,14 +49,13 @@ export class WorkoutController {
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
 
-  @UseGuards(RoleGuard)
-  @Role(UserRole.Trainer)
   @Get('')
   async showMany(
     @Query() query: QueryWorkoutDto,
-    @GetCurrentUser(CurrentUserField.Id) userId: number
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @GetCurrentUser(CurrentUserField.Role) userRole: string
   ) {
-    const workouts = await this.workoutService.getMany(query, userId);
+    const workouts = await this.workoutService.getMany(query, userId, userRole);
     return workouts.map((item: Workout) =>
       fillObject(WorkoutRdo, item, (item.trainer as User).role)
     );

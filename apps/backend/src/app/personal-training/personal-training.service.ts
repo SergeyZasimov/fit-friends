@@ -17,7 +17,7 @@ export class PersonalTrainingService {
   constructor(
     private readonly personalTrainingRepository: PersonalTrainingRepository
   ) {}
-
+  // TODO: добавить notification
   async create(
     data: CreatePersonalTrainingDto,
     userId: number

@@ -1,4 +1,8 @@
-import { TrainingTimes, WorkoutQuery } from '@fit-friends/shared';
+import {
+  TrainingTimes,
+  TrainingTypes,
+  WorkoutQuery,
+} from '@fit-friends/shared';
 import { Transform } from 'class-transformer';
 import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
 import { BasicQueryDto } from '../../query/basic-query.dto';
@@ -12,6 +16,7 @@ const {
   CaloriesAmountNotValid,
   RatingNotValid,
   TrainingTimeNotValid,
+  TrainingTypeNotValid,
 } = WorkoutValidationMessage;
 
 export class QueryWorkoutDto extends BasicQueryDto implements WorkoutQuery {
@@ -36,6 +41,12 @@ export class QueryWorkoutDto extends BasicQueryDto implements WorkoutQuery {
   rating?: number;
 
   @IsEnum(TrainingTimes, { each: true, message: TrainingTimeNotValid })
+  @Transform(({ value }) => value.split(','))
   @IsOptional()
   trainingTime?: string[];
+
+  @IsEnum(TrainingTypes, { each: true, message: TrainingTypeNotValid })
+  @Transform(({ value }) => value.split(','))
+  @IsOptional()
+  trainingType?: string[];
 }
