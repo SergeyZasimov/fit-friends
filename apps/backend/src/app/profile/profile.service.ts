@@ -10,10 +10,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { NotificationService } from '../notification/notification.service';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { createFriendNotification } from './profile.constant';
 import { ProfileEntity } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
 
@@ -22,7 +24,8 @@ export class ProfileService extends ServiceWithFiles {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly profileRepository: ProfileRepository,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly notificationService: NotificationService
   ) {
     super(configService);
   }
@@ -133,6 +136,11 @@ export class ProfileService extends ServiceWithFiles {
   }
 
   async addFriend(userId: number, friendId: number): Promise<User> {
+    const user = await this.getOne(userId);
+    await this.notificationService.create({
+      userId: friendId,
+      text: createFriendNotification(user.profile.name),
+    });
     return this.userRepository.addFriend(userId, friendId);
   }
 

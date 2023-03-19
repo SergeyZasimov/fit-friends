@@ -6,6 +6,7 @@ import { validateEnvironments } from '../config/env.validator';
 import { appConfig, jwtConfig, staticConfig } from '../config/namespaces';
 import { OrderModule } from '../order/order.module';
 import { PrismaModule } from '../prisma/prisma.module';
+import { ProfileModule } from '../profile/profile.module';
 import { SportGymModule } from '../sport-gym/sport-gym.module';
 import { WorkoutModule } from '../workout/workout.module';
 import { CliService } from './cli.service';
@@ -24,6 +25,7 @@ import { CliService } from './cli.service';
     WorkoutModule,
     OrderModule,
     SportGymModule,
+    ProfileModule,
   ],
   providers: [CliService],
 })

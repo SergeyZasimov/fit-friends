@@ -26,6 +26,7 @@ import { UserModule } from './user/user.module';
 import { WorkoutDiaryModule } from './workout-diary/workout-diary.module';
 import { WorkoutModule } from './workout/workout.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     SportGymModule,
     MailerModule.forRootAsync(getSmtpConfig()),
     SubscriptionModule,
+    NotificationModule,
   ],
   controllers: [],
   providers: [

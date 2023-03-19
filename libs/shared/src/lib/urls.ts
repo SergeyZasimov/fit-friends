@@ -6,6 +6,7 @@ export const UrlDomain = {
   FoodDiary: 'food-diary',
   WorkoutDiary: 'workout-diary',
   Subscription: 'subscription',
+  Notification: 'notification',
 } as const;
 
 export const UrlRoute = {

@@ -22,6 +22,7 @@ services:
 
   fakesmtp:
     image: gessnerfl/fake-smtp-server
+    restart: always
     container_name: fit-friends-fake-smtp
     ports:
       - 5025:5025

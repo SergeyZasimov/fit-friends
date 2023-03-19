@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth/auth.service';
 import { OrderService } from '../order/order.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { ProfileService } from '../profile/profile.service';
 import { SportGymService } from '../sport-gym/sport-gym.service';
 import { WorkoutService } from '../workout/workout.service';
 import { MOCKS_DEFAULT } from './cli.constant';
@@ -22,7 +23,8 @@ export class CliService {
     private readonly workoutService: WorkoutService,
     private readonly orderService: OrderService,
     private readonly config: ConfigService,
-    private readonly sportGymService: SportGymService
+    private readonly sportGymService: SportGymService,
+    private readonly profileService: ProfileService
   ) {}
 
   async execution() {
@@ -83,16 +85,9 @@ export class CliService {
             rest,
             MOCKS_DEFAULT.GENERATE.FRIENDS_COUNT
           );
-          await this.prisma.user.update({
-            where: {
-              id: user.id,
-            },
-            data: {
-              friends: {
-                connect: friends.map((friend) => ({ id: friend.id })),
-              },
-            },
-          });
+          for (const friend of friends) {
+            await this.profileService.addFriend(user.id, friend.id);
+          }
         }
       )
     ).then(() => {

@@ -18,3 +18,6 @@ export const ProfileQueryValidationMessage = {
     SortOption
   )}`,
 };
+
+export const createFriendNotification = (name: string) =>
+  `Пользователь ${name} добавил вас в друзья`;

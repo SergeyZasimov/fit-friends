@@ -16,13 +16,6 @@ export type PersonalTrainingRequest = {
   updatedAt?: Date;
 };
 
-export type Notification = {
-  id?: number;
-  userId: number;
-  notifyAt?: Date;
-  text: string;
-};
-
 export type BasicQuery = {
   limit?: number;
   page?: number;

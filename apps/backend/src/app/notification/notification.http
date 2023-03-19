@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:3333/api
+
+### Get Notifications
+GET {{baseUrl}}/notification
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJNaXNhZWxfQWJib3R0QHlhaG9vLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzkxOTk4NjUsImV4cCI6MTY3OTIwMDc2NX0.bRIFj2Yc0xfy-XwqWL-wtwTyZJ_2FCaoSXIedxLOMR8
+
+
+### Delete notification
+DELETE {{baseUrl}}/notification/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJNaXNhZWxfQWJib3R0QHlhaG9vLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2NzkxOTk4NjUsImV4cCI6MTY3OTIwMDc2NX0.bRIFj2Yc0xfy-XwqWL-wtwTyZJ_2FCaoSXIedxLOMR8
