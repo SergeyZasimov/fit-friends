@@ -1,3 +1,4 @@
+import { BasicQuery } from './common-types';
 import { User } from './user.types';
 
 export type SportGym = {
@@ -14,3 +15,11 @@ export type SportGym = {
 };
 
 export type CreateSportGym = Omit<SportGym, 'id' | 'createdAt' | 'users'>;
+
+export type QuerySportGym = BasicQuery &
+  Partial<{
+    priceRange: number[];
+    location: string[];
+    status: boolean;
+    parameters: string[];
+  }>;

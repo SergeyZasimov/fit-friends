@@ -4,8 +4,10 @@ import { PrismaService } from '../prisma/prisma.service';
 import { QueryWorkoutDto } from './dto/query-workout.dto';
 import { WorkoutEntity } from './workout.entity';
 
-const LOWER_LIMIT_INDEX = 0;
-const UPPER_LIMIT_INDEX = 1;
+const LIMIT_INDEX = {
+  LOWER: 0,
+  UPPER: 1,
+};
 
 @Injectable()
 export class WorkoutRepository {
@@ -46,22 +48,22 @@ export class WorkoutRepository {
         AND: [
           {
             price: {
-              lte: priceRange ? priceRange[UPPER_LIMIT_INDEX] : undefined,
+              lte: priceRange ? priceRange[LIMIT_INDEX.UPPER] : undefined,
             },
           },
           {
             price: {
-              gte: priceRange ? priceRange[LOWER_LIMIT_INDEX] : undefined,
+              gte: priceRange ? priceRange[LIMIT_INDEX.LOWER] : undefined,
             },
           },
           {
             caloriesAmountToLose: {
-              lte: caloriesRange ? caloriesRange[UPPER_LIMIT_INDEX] : undefined,
+              lte: caloriesRange ? caloriesRange[LIMIT_INDEX.UPPER] : undefined,
             },
           },
           {
             caloriesAmountToLose: {
-              gte: caloriesRange ? caloriesRange[LOWER_LIMIT_INDEX] : undefined,
+              gte: caloriesRange ? caloriesRange[LIMIT_INDEX.LOWER] : undefined,
             },
           },
         ],

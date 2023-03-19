@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
+import { QuerySportGymDto } from './dto/query-sport-gym.dto';
 import { SPORT_GYM_PHOTOS_FOLDER } from './sport-gym.constant';
 import { SportGymEntity } from './sport-gym.entity';
 import { SportGymRepository } from './sport-gym.repository';
@@ -32,6 +33,10 @@ export class SportGymService {
 
   async getOne(id: number): Promise<SportGym> {
     return this.sportGymRepository.findOne(id);
+  }
+
+  async getMany(query: QuerySportGymDto): Promise<SportGym[]> {
+    return this.sportGymRepository.findMany(query);
   }
 
   private async setPhotos(): Promise<string[]> {

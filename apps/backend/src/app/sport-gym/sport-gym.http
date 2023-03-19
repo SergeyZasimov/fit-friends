@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3333/api
+
+### Get Sport Gyms
+GET {{baseUrl}}/sport-gym?location=Звёздная,Спортивная
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjMwMzYxLCJleHAiOjE2NzkyMzEyNjF9.-yXYayrJ6-sNmE4lAmW2lQtzKjhhD4pqVE_OxAjfKt8
