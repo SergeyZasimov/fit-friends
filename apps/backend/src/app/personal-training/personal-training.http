@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:3333/api
+
+### Personal Training Request
+POST {{baseUrl}}/personal-training
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjA4NjM0LCJleHAiOjE2NzkyMDk1MzR9.XOEVCGT3KfIhTZxMS-cj68kDWTivdZ-lLyjCZiUyCrM
+
+{
+  "conductorId": 6
+}
+
+### Update Status
+PATCH {{baseUrl}}/personal-training
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJBcm1hbmlfRHVCdXF1ZUBnbWFpbC5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc5MjA5MTMxLCJleHAiOjE2NzkyMTAwMzF9.ceU8XJ0AgICWWJicmHvH1eNemthP8nkn7Nvu3XpI7nc
+
+{
+  "id": 1,
+  "status": "принят"
+}

@@ -9,21 +9,21 @@ datasource db {
 }
 
 model User {
-  id               Int                       @id @default(autoincrement())
-  email            String                    @unique
+  id               Int                @id @default(autoincrement())
+  email            String             @unique
   passwordHash     String
   role             String
   refreshToken     String?
-  createdAt        DateTime                  @default(now())
+  createdAt        DateTime           @default(now())
   profile          Profile?
   reviews          Review[]
-  requestTrainings PersonalTrainingRequest[] @relation("Requester")
-  conductTrainings PersonalTrainingRequest[] @relation("Conductor")
+  requestTrainings PersonalTraining[] @relation("Requester")
+  conductTrainings PersonalTraining[] @relation("Conductor")
   notifications    Notification[]
   workouts         Workout[]
   orders           Order[]
-  friendBy         User[]                    @relation("UserFriends")
-  friends          User[]                    @relation("UserFriends")
+  friendBy         User[]             @relation("UserFriends")
+  friends          User[]             @relation("UserFriends")
   foodDiary        FoodDiary[]
   workoutDiary     WorkoutDiary[]
   sportGyms        SportGym[]
@@ -125,7 +125,7 @@ model Order {
   @@map("orders")
 }
 
-model PersonalTrainingRequest {
+model PersonalTraining {
   id          Int      @id @default(autoincrement())
   requesterId Int
   requester   User     @relation("Requester", fields: [requesterId], references: [id])
@@ -135,7 +135,7 @@ model PersonalTrainingRequest {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@map("personal_training_requests")
+  @@map("personal_trainings")
 }
 
 model Notification {
