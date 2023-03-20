@@ -8,5 +8,6 @@ import { ReviewService } from './review.service';
   imports: [WorkoutModule],
   providers: [ReviewService, ReviewRepository],
   controllers: [ReviewController],
+  exports: [ReviewService],
 })
 export class ReviewModule {}

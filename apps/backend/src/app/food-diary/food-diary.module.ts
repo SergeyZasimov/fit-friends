@@ -6,5 +6,6 @@ import { FoodDiaryService } from './food-diary.service';
 @Module({
   providers: [FoodDiaryService, FoodDiaryRepository],
   controllers: [FoodDiaryController],
+  exports: [FoodDiaryService],
 })
 export class FoodDiaryModule {}

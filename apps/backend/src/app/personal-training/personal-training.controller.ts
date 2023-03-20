@@ -4,9 +4,11 @@ import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
 import { CurrentUserField } from '../user/user.constant';
+import { fillObject } from '../utils/helpers';
 import { CreatePersonalTrainingDto } from './dto/create-personal-training.dto';
 import { UpdatePersonalTrainingDto } from './dto/update-personal-training.dto';
 import { PersonalTrainingService } from './personal-training.service';
+import { PersonalTrainingRdo } from './rdo/personal-training.rdo';
 
 @Controller(UrlDomain.PersonalTraining)
 export class PersonalTrainingController {
@@ -21,7 +23,8 @@ export class PersonalTrainingController {
     @Body() dto: CreatePersonalTrainingDto,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    return this.personalTrainingService.create(dto, userId);
+    const result = await this.personalTrainingService.create(dto, userId);
+    return fillObject(PersonalTrainingRdo, result);
   }
 
   @Patch()
@@ -29,6 +32,7 @@ export class PersonalTrainingController {
     @Body() dto: UpdatePersonalTrainingDto,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    return this.personalTrainingService.update(dto, userId);
+    const result = await this.personalTrainingService.update(dto, userId);
+    return fillObject(PersonalTrainingRdo, result);
   }
 }

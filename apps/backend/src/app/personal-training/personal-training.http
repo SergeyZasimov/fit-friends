@@ -3,7 +3,7 @@
 ### Personal Training Request
 POST {{baseUrl}}/personal-training
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjA4NjM0LCJleHAiOjE2NzkyMDk1MzR9.XOEVCGT3KfIhTZxMS-cj68kDWTivdZ-lLyjCZiUyCrM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MzEwNzY4LCJleHAiOjE2NzkzMTE2Njh9.e4w67CRHbqbhNUnond7USV57jOJTOBlS6dxbeJFaOps
 
 {
   "conductorId": 6

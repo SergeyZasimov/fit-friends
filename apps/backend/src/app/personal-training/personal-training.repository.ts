@@ -23,6 +23,13 @@ export class PersonalTrainingRepository {
           },
         },
       },
+      include: {
+        requester: {
+          include: {
+            profile: true,
+          },
+        },
+      },
     });
   }
 

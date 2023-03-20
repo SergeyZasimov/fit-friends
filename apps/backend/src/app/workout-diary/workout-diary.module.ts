@@ -8,5 +8,6 @@ import { WorkoutDiaryService } from './workout-diary.service';
   imports: [WorkoutModule],
   providers: [WorkoutDiaryService, WorkoutDiaryRepository],
   controllers: [WorkoutDiaryController],
+  exports: [WorkoutDiaryService],
 })
 export class WorkoutDiaryModule {}
