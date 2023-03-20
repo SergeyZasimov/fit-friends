@@ -9,6 +9,7 @@ export const UrlDomain = {
   Notification: 'notification',
   PersonalTraining: 'personal-training',
   SportGym: 'sport-gym',
+  Review: 'review',
 } as const;
 
 export const UrlRoute = {

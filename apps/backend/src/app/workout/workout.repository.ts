@@ -144,4 +144,15 @@ export class WorkoutRepository {
       },
     });
   }
+
+  async updateRating(workoutId: number, rating: number): Promise<Workout> {
+    return this.prisma.workout.update({
+      where: {
+        id: workoutId,
+      },
+      data: {
+        rating,
+      },
+    });
+  }
 }

@@ -108,6 +108,10 @@ export class WorkoutService extends ServiceWithFiles {
     return updatedWorkout;
   }
 
+  async updateRating(workoutId: number, rating: number): Promise<Workout> {
+    return this.workoutRepository.updateRating(workoutId, rating);
+  }
+
   async checkWorkoutExist(id: number): Promise<Workout> {
     const existWorkout = await this.workoutRepository.findOne(id);
     if (!existWorkout) {

@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:3333/api
+
+### Create Review
+POST {{baseUrl}}/review
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjkxNjMwLCJleHAiOjE2NzkyOTI1MzB9.quE65-AN9zfA0sO-cYIuG4Z3KIa3sqiVUEdT3ef92GA
+
+{
+  "workoutId": 1,
+  "rating": 5,
+  "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+}
+
+### Get Reviews
+GET {{baseUrl}}/review/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjkxNjMwLCJleHAiOjE2NzkyOTI1MzB9.quE65-AN9zfA0sO-cYIuG4Z3KIa3sqiVUEdT3ef92GA

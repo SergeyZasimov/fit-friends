@@ -3,4 +3,4 @@ export const PipeErrorMessage = {
   DbIdNorValid: 'Неверное ID. Должно быть целое число',
 };
 
-export const DEFAULT_FILE_PARSE_REQUIRED_MESSAGE = 'File is required'
+export const DEFAULT_FILE_PARSE_REQUIRED_MESSAGE = 'File is required';

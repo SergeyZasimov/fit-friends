@@ -1,4 +1,4 @@
-import { BasicQuery } from './common-types';
+import { BasicQuery } from './basic-query.type';
 import { User } from './user.types';
 
 export type SportGym = {

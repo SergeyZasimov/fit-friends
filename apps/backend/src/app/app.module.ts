@@ -28,6 +28,7 @@ import { WorkoutModule } from './workout/workout.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { NotificationModule } from './notification/notification.module';
 import { PersonalTrainingModule } from './personal-training/personal-training.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { PersonalTrainingModule } from './personal-training/personal-training.mo
     SubscriptionModule,
     NotificationModule,
     PersonalTrainingModule,
+    ReviewModule,
   ],
   controllers: [],
   providers: [
