@@ -7,7 +7,8 @@
     "backend-db:init": "nx run backend:db-migrate && nx run backend:db-generate-client",
     "backend-db:generate-mocks": "nx run backend:cli-build && node dist/apps/backend/cli/main.js",
     "backend-db:studio": "nx run backend:db-studio",
-    "backend:start": "nx run backend:serve"
+    "backend:start": "nx run backend:serve",
+    "test": "nx run backend:test"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +42,7 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "@nestjs/schematics": "^9.0.0",
-    "@nestjs/testing": "^9.0.0",
+    "@nestjs/testing": "^9.3.10",
     "@nrwl/eslint-plugin-nx": "15.7.1",
     "@nrwl/jest": "15.7.1",
     "@nrwl/linter": "15.7.1",
@@ -61,6 +62,7 @@
     "eslint-config-prettier": "8.1.0",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
+    "jest-mock-extended": "^3.0.3",
     "nx": "15.7.1",
     "prettier": "^2.6.2",
     "prisma": "^4.10.1",

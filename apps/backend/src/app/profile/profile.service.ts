@@ -135,13 +135,13 @@ export class ProfileService extends ServiceWithFiles {
     return this.getOne(userId);
   }
 
-  async addFriend(userId: number, friendId: number): Promise<User> {
+  async addFriend(userId: number, friendId: number): Promise<void> {
     const user = await this.getOne(userId);
     await this.notificationService.create({
       userId: friendId,
       text: createFriendNotification(user.profile.name),
     });
-    return this.userRepository.addFriend(userId, friendId);
+    await this.userRepository.addFriend(userId, friendId);
   }
 
   async getFriends(userId: number, query: ProfileQueryDto) {
@@ -149,7 +149,7 @@ export class ProfileService extends ServiceWithFiles {
   }
 
   async updateFavoriteGym(userId: number, sportGymId: number) {
-    const { sportGyms } = await this.userRepository.findFavoriteGyms(userId);
+    const sportGyms = await this.userRepository.findFavoriteGyms(userId);
 
     const action = sportGyms.find((sportGym) => sportGym.id === sportGymId)
       ? FavoriteAction.Remove
@@ -163,7 +163,6 @@ export class ProfileService extends ServiceWithFiles {
   }
 
   async getFavoriteGyms(userId: number) {
-    const { sportGyms } = await this.userRepository.findFavoriteGyms(userId);
-    return sportGyms;
+    return this.userRepository.findFavoriteGyms(userId);
   }
 }

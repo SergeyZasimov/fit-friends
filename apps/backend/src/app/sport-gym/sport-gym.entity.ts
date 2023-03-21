@@ -14,7 +14,7 @@ export class SportGymEntity implements SportGym {
     this.location = entity.location;
     this.isVerified = entity.isVerified;
     this.parameters = entity.parameters;
-    this.photos = entity.photos;
+    this.photos = entity.photos ?? [];
     this.description = entity.description;
     this.oneWorkoutPrice = entity.oneWorkoutPrice;
   }

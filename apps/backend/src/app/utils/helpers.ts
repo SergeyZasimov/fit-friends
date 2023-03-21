@@ -8,9 +8,15 @@ export const fillObject = <T, V>(
   dto: ClassConstructor<T>,
   plainObject: V,
   group?: string
-): T => {
-  return plainToInstance(dto, plainObject, {
-    excludeExtraneousValues: true,
-    groups: [group],
-  });
+): T | T[] => {
+  const options = group
+    ? {
+        excludeExtraneousValues: true,
+        groups: [group],
+      }
+    : {
+        excludeExtraneousValues: true,
+      };
+
+  return plainToInstance(dto, plainObject, options);
 };

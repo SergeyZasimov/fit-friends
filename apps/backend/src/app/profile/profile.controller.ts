@@ -40,8 +40,8 @@ export class ProfileController {
     @GetCurrentUser(CurrentUserField.Id) userId: number,
     @Query() query: ProfileQueryDto
   ) {
-    const { friends } = await this.profileService.getFriends(userId, query);
-    return friends.map((user) => fillObject(UserRdo, user, user.role));
+    const result = await this.profileService.getFriends(userId, query);
+    return result.map((user) => fillObject(UserRdo, user, user.role));
   }
 
   @UseInterceptors(

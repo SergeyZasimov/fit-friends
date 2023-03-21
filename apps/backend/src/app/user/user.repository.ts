@@ -1,18 +1,19 @@
-import { FavoriteAction, User } from '@fit-friends/shared';
+import { FavoriteAction } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { ProfileQueryDto } from '../profile/dto/profile-query.dto';
 import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(protected readonly prisma: PrismaService) {}
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
         id,
@@ -67,7 +68,7 @@ export class UserRepository {
 
   async findFriends(id: number, query: ProfileQueryDto) {
     const { limit, page, sortType, sortOption } = query;
-    return this.prisma.user.findFirst({
+    const result = await this.prisma.user.findUnique({
       where: {
         id,
       },
@@ -84,15 +85,17 @@ export class UserRepository {
         },
       },
     });
+    return result ? result.friends : [];
   }
 
   async findFavoriteGyms(userId: number) {
-    return this.prisma.user.findFirst({
+    const result = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
         sportGyms: true,
       },
     });
+    return result ? result.sportGyms : [];
   }
 
   async updateSportGymToFavorite(
