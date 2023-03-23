@@ -95,6 +95,6 @@ export const CurrentUserField = {
 } as const;
 
 export type UserFiles = {
-  avatar: Express.Multer.File[];
-  certificate: Express.Multer.File[];
+  avatar?: Express.Multer.File[];
+  certificate?: Express.Multer.File[];
 };

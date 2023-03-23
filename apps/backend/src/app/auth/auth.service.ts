@@ -10,6 +10,7 @@ import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConfig } from '../config/namespaces';
 import { ProfileService } from '../profile/profile.service';
+import { UserFiles } from '../user/user.constant';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
 import { AuthExceptionMessage } from './auth.constant';
@@ -25,13 +26,7 @@ export class AuthService {
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
-  async register(
-    dto: CreateUserDto,
-    files?: {
-      avatar: Express.Multer.File[];
-      certificate: Express.Multer.File[];
-    }
-  ): Promise<User> {
+  async register(dto: CreateUserDto, files?: UserFiles): Promise<User> {
     const avatar = files && files.avatar && files.avatar[0];
     const certificate = files && files.certificate && files.certificate[0];
 
