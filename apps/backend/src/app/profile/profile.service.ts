@@ -10,12 +10,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { createFriendNotification } from '../notification/notification.constant';
 import { NotificationService } from '../notification/notification.service';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { createFriendNotification } from './profile.constant';
 import { ProfileEntity } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
 

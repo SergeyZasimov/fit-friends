@@ -6,10 +6,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { createPersonalTrainingNotification } from '../notification/notification.constant';
 import { NotificationService } from '../notification/notification.service';
 import { CreatePersonalTrainingDto } from './dto/create-personal-training.dto';
 import { UpdatePersonalTrainingDto } from './dto/update-personal-training.dto';
-import { PersonalTrainingExceptionMessage, createPersonalTrainingNotification } from './personal-training.constant';
+import { PersonalTrainingExceptionMessage } from './personal-training.constant';
 import { PersonalTrainingEntity } from './personal-training.entity';
 import { PersonalTrainingRepository } from './personal-training.repository';
 
