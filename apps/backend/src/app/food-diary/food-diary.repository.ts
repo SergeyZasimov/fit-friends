@@ -30,7 +30,7 @@ export class FoodDiaryRepository {
   }
 
   async findOne(id: number): Promise<FoodDiary> {
-    return this.prisma.foodDiary.findFirst({
+    return this.prisma.foodDiary.findUnique({
       where: { id },
       include: {
         user: {
