@@ -20,7 +20,7 @@ export class PersonalTrainingService {
     private readonly personalTrainingRepository: PersonalTrainingRepository,
     private readonly notificationService: NotificationService
   ) {}
-  // TODO: добавить notification
+  
   async create(
     data: CreatePersonalTrainingDto,
     userId: number
