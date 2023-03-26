@@ -41,9 +41,10 @@ export class WorkoutController {
   @Post('')
   async create(
     @Body() dto: CreateWorkoutDto,
+    @GetCurrentUser(CurrentUserField.Id)
+    userId: number,
     @UploadedFile(new ParseVideoFilePipe({ fileIsRequired: true }))
-    file: Express.Multer.File,
-    @GetCurrentUser(CurrentUserField.Id) userId: number
+    file?: Express.Multer.File
   ) {
     const workout = await this.workoutService.create(dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
@@ -74,9 +75,10 @@ export class WorkoutController {
   async update(
     @Param(UrlParams.Id, DbIdValidationPipe) id: number,
     @Body() dto: UpdateWorkoutDto,
+    @GetCurrentUser(CurrentUserField.Id)
+    userId: number,
     @UploadedFile(new ParseVideoFilePipe({ fileIsRequired: false }))
-    file: Express.Multer.File,
-    @GetCurrentUser(CurrentUserField.Id) userId: number
+    file?: Express.Multer.File
   ) {
     const workout = await this.workoutService.update(id, dto, userId, file);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);

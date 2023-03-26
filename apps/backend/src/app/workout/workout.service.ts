@@ -28,7 +28,7 @@ export class WorkoutService extends ServiceWithFiles {
   }
 
   async getOne(id: number): Promise<Workout> {
-    return this.workoutRepository.findOne(id);
+    return this.checkWorkoutExist(id);
   }
 
   async getMany(
