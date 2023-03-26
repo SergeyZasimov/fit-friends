@@ -18,7 +18,7 @@ export class SportGymRepository {
   }
 
   async findOne(id: number): Promise<SportGym> {
-    return this.prisma.sportGym.findFirst({ where: { id } });
+    return this.prisma.sportGym.findUnique({ where: { id } });
   }
 
   async findMany(query: QuerySportGymDto): Promise<SportGym[]> {
