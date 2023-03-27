@@ -30,7 +30,7 @@ export class ProfileController {
   @UseGuards(RoleGuard)
   @Role(UserRole.Customer)
   @Get('')
-  async show(@Query() query: ProfileQueryDto) {
+  async showMany(@Query() query: ProfileQueryDto) {
     const users = await this.profileService.getMany(query);
     return users.map((user) => fillObject(UserRdo, user, user.role));
   }
@@ -87,7 +87,7 @@ export class ProfileController {
   }
 
   @Get(`:${UrlParams.Id}`)
-  async showMany(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
+  async showOne(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
     const user = await this.profileService.getOne(id);
     return fillObject(UserRdo, user, user.role);
   }

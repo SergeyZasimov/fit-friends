@@ -97,19 +97,19 @@ export class ProfileService extends ServiceWithFiles {
   async update(
     userId: number,
     dto: UpdateProfileDto,
-    files: UserFiles
+    files?: UserFiles
   ): Promise<User> {
     const user = await this.getOne(userId);
 
-    if (user.role === UserRole.Customer && files.certificate) {
+    if (user.role === UserRole.Customer && files && files.certificate) {
       throw new BadRequestException(
         UserValidationMessage.CustomerNotUploadCertificate
       );
     }
 
-    const avatar = files.avatar && this.setFilename(files.avatar[0]);
+    const avatar = files && files.avatar && this.setFilename(files.avatar[0]);
     const certificate =
-      files.certificate && this.setFilename(files.certificate[0]);
+      files && files.certificate && this.setFilename(files.certificate[0]);
 
     const currentAvatar = user.profile.avatar;
     const currentCertificate = user.profile.certificate;
