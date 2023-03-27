@@ -11,6 +11,8 @@ tags:
     description: Тренировка
   - name: order
     description: Заказ
+  - name: food-diary
+    description: Дневник питания
 
 servers:
   - url: http://localhost:3333/api
@@ -426,6 +428,159 @@ paths:
 
         403:
           $ref: '#/components/responses/role_forbidden_error'
+
+  /food-diary:
+    post:
+      description: Создание записи в дневнике тренировок
+      tags:
+        - food-diary
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Данные для создания записи в дневнике тренировок
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_food_diary'
+
+      responses:
+        201:
+          description: Возвращает данные о новой записи в дневнике питания
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/food_diary'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    get:
+      description: Список записей из дневника питания пользователя
+      tags:
+        - food-diary
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Список записей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/food_diary'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+  /food-diary/{entityId}:
+    get:
+      description: Получение данных об одной записи из дневника питания
+      tags:
+        - food-diary
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Возвращает данные об одной записи
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/food_diary'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    patch:
+      description: Изменить запись в дневнике питания
+      tags:
+        - food-diary
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      requestBody:
+        description: Данные для изменения записи в дневике тренировок
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_food_diary'
+
+      responses:
+        200:
+          description: Возвращает данные об изменённой записи
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/food_diary'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    delete:
+      description: Удаление записи из дневника тренировок
+      tags:
+        - food-diary
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Возвращает информацию об удалённой записи
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/food_diary'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
 
 components:
   securitySchemes:
@@ -1155,6 +1310,73 @@ components:
           totalPrice:
             type: number
             example: 1200
+
+    create_food_diary:
+      type: object
+      properties:
+        caloriesAmount:
+          type: number
+          example: 200
+
+        dateOfMeal:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
+        typeOfMeal:
+          type: string
+          enum:
+            - завтрак
+            - обед
+            - ужин
+            - перекус
+          example: обед
+
+      required:
+        - caloriesAmount
+        - dateOfMeal
+        - typeOfMeal
+
+    food_diary:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        user:
+          $ref: '#/components/schemas/user_customer'
+
+        caloriesAmount:
+          type: number
+          example: 200
+
+        dateOfMeal:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
+        typeOfMeal:
+          type: string
+          example: обед
+
+    update_food_diary:
+      type: object
+      properties:
+        caloriesAmount:
+          type: number
+          example: 200
+
+        dateOfMeal:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
+        typeOfMeal:
+          type: string
+          enum:
+            - завтрак
+            - обед
+            - ужин
+            - перекус
+          example: обед
 
     error_bad_request_single:
       type: object
