@@ -38,9 +38,9 @@ export class SubscriptionService {
         SubscriptionExceptionMessage.SubscriptionConflict
       );
     }
-    
-    const announcementEntity = new SubscriptionEntity({ userId, trainerId });
-    return this.subscriptionRepository.create(announcementEntity);
+
+    const subscriptionEntity = new SubscriptionEntity({ userId, trainerId });
+    return this.subscriptionRepository.create(subscriptionEntity);
   }
 
   async getNotify(
