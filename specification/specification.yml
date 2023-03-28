@@ -19,6 +19,8 @@ tags:
     description: Заявка на персональные тренировки
   - name: review
     description: Отзыв
+  - name: sport-gym
+    description: Спортивный зал
 
 servers:
   - url: http://localhost:3333/api
@@ -859,6 +861,39 @@ paths:
         401:
           $ref: '#/components/responses/unauthorized_error'
 
+  /sport-gym:
+    get:
+      description: Список спортивных залов
+      tags:
+        - sport-gym
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/limit_query'
+        - $ref: '#/components/parameters/page_query'
+        - $ref: '#/components/parameters/sort_type_query'
+        - $ref: '#/components/parameters/basic_sort_option_query'
+        - $ref: '#/components/parameters/price_range_query'
+        - $ref: '#/components/parameters/location_query'
+        - $ref: '#/components/parameters/status_query'
+        - $ref: '#/components/parameters/parameters_query'
+
+      responses:
+        200:
+          description: Возвращает список залов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/sport_gym'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
 components:
   securitySchemes:
     BearerAuth:
@@ -919,6 +954,7 @@ components:
             - Удельная
             - Звёздная
             - Спортивная
+          example: Пионерская
 
         trainingLevel:
           description: Уровень подготовки
@@ -2053,3 +2089,48 @@ components:
           - 50-80 мин
           - больше 80 мин
         example: 30-50 мин
+
+    location_query:
+      in: query
+      name: location
+      description: Локация
+      allowEmptyValue: true
+      schema:
+        type: string
+        enum:
+          - Пионерская
+          - Петроградская
+          - Удельная
+          - Звёздная
+          - Спортивная
+        example: Звёздная
+
+    status_query:
+      in: query
+      name: status
+      description: Статус спортивного зала
+      allowEmptyValue: true
+      schema:
+        type: number
+        enum:
+          - 0
+          - 1
+        example: 1
+
+    parameters_query:
+      in: query
+      name: parameters
+      description: Дополнительные услуги
+      allowEmptyValue: true
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - бассейн
+            - бесплатная парковка
+            - детская комната
+            - массаж
+          example:
+            - бассейн
+            - массаж
