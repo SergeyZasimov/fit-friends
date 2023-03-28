@@ -3,7 +3,7 @@
 ### Create Review
 POST {{baseUrl}}/review
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjkxNjMwLCJleHAiOjE2NzkyOTI1MzB9.quE65-AN9zfA0sO-cYIuG4Z3KIa3sqiVUEdT3ef92GA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJBdWRyYS5LdW56ZTQ2QGdtYWlsLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzk5ODA1MjksImV4cCI6MTY3OTk4MTQyOX0.YneMgUWfnHOCYW72LKPOBgADfs8OkpAt812VVNNF30I
 
 {
   "workoutId": 1,

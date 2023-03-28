@@ -23,6 +23,8 @@ tags:
     description: Спортивный зал
   - name: subscription
     description: Подписка
+  - name: workout-diary
+    description: Дневник тренировок
 
 servers:
   - url: http://localhost:3333/api
@@ -729,6 +731,8 @@ paths:
               properties:
                 conductorId:
                   description: ID исполнителя тренировки
+                  type: number
+                  example: 1
               required:
                 - conductorId
 
@@ -846,6 +850,8 @@ paths:
         - review
       security:
         - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
 
       responses:
         200:
@@ -975,6 +981,64 @@ paths:
 
         404:
           $ref: '#/components/responses/not_found_error'
+
+  /workout-diary:
+    post:
+      description: Создание записи в дневнике тренировок
+      tags:
+        - workout-diary
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Данные для создания новой записи в дневнике тренировок
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_workout_diary'
+
+      responses:
+        201:
+          description: Возвращает данные о новой записи в дневнике тренировок
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workout_diary'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    get:
+      description: Получить список записей из дневника тренировок
+      tags:
+        - workout-diary
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает список записей из дневника тренировок пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/workout_diary'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
 
 components:
   securitySchemes:
@@ -1940,6 +2004,53 @@ components:
         trainerId:
           type: number
           example: 3
+
+    create_workout_diary:
+      type: object
+      properties:
+        workoutId:
+          type: number
+          example: 1
+
+        lostCaloriesAmount:
+          type: number
+          example: 500
+
+        lostTrainingTime:
+          type: string
+          enum:
+            - 10-30 мин
+            - 30-50 мин
+            - 50-80 мин
+            - больше 80 мин
+          example: 30-50 мин
+
+    workout_diary:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 12
+
+        userId:
+          type: number
+          example: 1
+
+        workoutId:
+          type: number
+          example: 1
+
+        lostCaloriesAmount:
+          type: number
+          example: 500
+
+        lostTrainingTime:
+          type: string
+          example: 30-50 мин
+
+        workoutDate:
+          type: string
+          example: '2023-03-28T06:35:26.175Z'
 
     error_bad_request_single:
       type: object

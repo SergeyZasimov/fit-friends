@@ -8,7 +8,7 @@ export type WorkoutDiary = {
   workoutId?: number;
   workout?: Workout;
   lostCaloriesAmount: number;
-  lostTrainingTime: number;
+  lostTrainingTime: string;
   workoutDate?: Date;
 };
 

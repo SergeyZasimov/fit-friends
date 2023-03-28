@@ -5,15 +5,15 @@
 ### Create Workout Diary Record
 POST {{baseUrl}}/workout-diary {{protocol}}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0MUB1c2VyLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzg3OTk5OTMsImV4cCI6MTY3ODgwMDg5M30.V_TFZnxHySP25K-PEuxVfFq3mb_eb28F6jU3T00QpQ0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJBdWRyYS5LdW56ZTQ2QGdtYWlsLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzk5ODUwNjQsImV4cCI6MTY3OTk4NTk2NH0.X6uGJTFAgqWZGXTPkbaDIzaqHTIRI4rTLF4FcnAYzuw
 
 {
   "workoutId": 1,
   "lostCaloriesAmount": 500,
-  "lostTrainingTime": 30
+  "lostTrainingTime": "30-50 мин"
 }
 
 
 ### Get Workout Diary Records
 GET {{baseUrl}}/workout-diary {{protocol}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0MTlAdXNlci5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjc4ODAwMTQ1LCJleHAiOjE2Nzg4MDEwNDV9.qd2RdFjtYsuFYhJusb_Heu9zJOJjpLt50HBw3TiUcPU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJBdWRyYS5LdW56ZTQ2QGdtYWlsLmNvbSIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJpYXQiOjE2Nzk5ODU5NzgsImV4cCI6MTY3OTk4Njg3OH0.RRb8FJacAn40RepDCnMh-1Dv06ynrsyTunwD_2lApHQ

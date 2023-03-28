@@ -177,7 +177,7 @@ model WorkoutDiary {
   workoutId          Int
   workout            Workout  @relation(fields: [workoutId], references: [id])
   lostCaloriesAmount Int
-  lostTrainingTime   Int
+  lostTrainingTime   String
   workoutDate        DateTime @default(now())
 
   @@map("workout_diares")

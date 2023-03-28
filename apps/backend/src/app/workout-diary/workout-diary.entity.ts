@@ -4,7 +4,7 @@ export class WorkoutDiaryEntity implements WorkoutDiary {
   userId: number;
   workoutId: number;
   lostCaloriesAmount: number;
-  lostTrainingTime: number;
+  lostTrainingTime: string;
 
   constructor(entity: WorkoutDiary) {
     this.userId = entity.userId;
