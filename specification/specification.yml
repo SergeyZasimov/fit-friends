@@ -21,6 +21,8 @@ tags:
     description: Отзыв
   - name: sport-gym
     description: Спортивный зал
+  - name: subscription
+    description: Подписка
 
 servers:
   - url: http://localhost:3333/api
@@ -893,6 +895,86 @@ paths:
 
         401:
           $ref: '#/components/responses/unauthorized_error'
+
+  /subscription/{entityId}:
+    post:
+      description: Создать подписку на тренировки тренера
+      tags:
+        - subscription
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        201:
+          description: Данные о новой подписке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscription'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        409:
+          $ref: '#/components/responses/conflict_error'
+
+    get:
+      description: Получить на почту рассылку о новых тренировках
+      tags:
+        - subscription
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Удачная отправка рассылки
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+    delete:
+      description: Удалить подписку
+      tags:
+        - subscription
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Успешное удаление подписки
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
 
 components:
   securitySchemes:
@@ -1839,6 +1921,25 @@ components:
         createdAt:
           type: string
           example: '2023-03-28T05:15:54.473Z'
+
+    subscription:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        usetId:
+          type: number
+          example: 1
+
+        lastNotify:
+          type: number
+          example: '2023-03-28T06:04:13.060Z'
+
+        trainerId:
+          type: number
+          example: 3
 
     error_bad_request_single:
       type: object
