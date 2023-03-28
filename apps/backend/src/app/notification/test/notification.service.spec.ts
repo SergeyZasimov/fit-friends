@@ -1,6 +1,5 @@
 import { TestBed } from '@automock/jest';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
-import { BasicQueryDto } from '../../query/basic-query.dto';
 import { NotificationRepository } from '../notification.repository';
 import { NotificationService } from '../notification.service';
 import { notificationStubs } from './notification.stubs';
@@ -43,10 +42,9 @@ describe('Notification Service', () => {
   });
 
   test('getMany should return an array of notifications', async () => {
-    const query = new BasicQueryDto();
-    const result = await notificationService.getMany(userId, query);
+    const result = await notificationService.getMany(userId);
 
-    expect(notificationRepository.findMany).toBeCalledWith(userId, query);
+    expect(notificationRepository.findMany).toBeCalledWith(userId);
     expect(result).toEqual([notification]);
   });
 

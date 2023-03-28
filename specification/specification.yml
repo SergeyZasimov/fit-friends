@@ -13,6 +13,8 @@ tags:
     description: Заказ
   - name: food-diary
     description: Дневник питания
+  - name: notification
+    description: Оповещение
 
 servers:
   - url: http://localhost:3333/api
@@ -578,6 +580,57 @@ paths:
 
         403:
           $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /notification:
+    get:
+      description: Список оповещений для пользователя
+      tags:
+        - notification
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает список оповещений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/notification'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+  /notification/{entityId}:
+    delete:
+      description: Удаление оповещения
+      tags:
+        - notification
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Возвращает информацию об удалённом оповещении
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notification'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/foreign_entity_forbidden_error'
 
         404:
           $ref: '#/components/responses/not_found_error'
@@ -1378,6 +1431,25 @@ components:
             - перекус
           example: обед
 
+    notification:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        userId:
+          type: number
+          example: 1
+
+        text:
+          type: string
+          example: Пользователь добавил вас в друзья
+
+        createdAt:
+          type: string
+          example: '2000-01-01T00:00:00.000Z'
+
     error_bad_request_single:
       type: object
       properties:
@@ -1482,6 +1554,25 @@ components:
               message:
                 type: string
                 example: Unauthorized
+
+    foreign_entity_forbidden_error:
+      description: Запрещены действия с чужими записями
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 403
+
+              message:
+                type: string
+                example: Запрещены действия с чужими записями
+
+              error:
+                type: string
+                example: Forbidden
 
     role_forbidden_error:
       description: Ресурс не доступен пользователю с данной ролью

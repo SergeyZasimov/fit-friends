@@ -1,5 +1,4 @@
 import { TestBed } from '@automock/jest';
-import { BasicQueryDto } from '../../query/basic-query.dto';
 import { fillObject } from '../../utils/helpers';
 import { NotificationController } from '../notification.controller';
 import { NotificationService } from '../notification.service';
@@ -31,10 +30,9 @@ describe('Notification Controller', () => {
   });
 
   test('showMany should return an array of notifications', async () => {
-    const query = new BasicQueryDto();
-    const result = await notificationController.showMany(userId, query);
+    const result = await notificationController.showMany(userId);
 
-    expect(notificationService.getMany).toBeCalledWith(userId, query);
+    expect(notificationService.getMany).toBeCalledWith(userId);
     expect(result).toEqual([fillObject(NotificationRdo, notification)]);
   });
 

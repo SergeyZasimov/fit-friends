@@ -4,7 +4,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { BasicQueryDto } from '../query/basic-query.dto';
 import { NotificationExceptionMessage } from './notification.constant';
 import { NotificationEntity } from './notification.entity';
 import { NotificationRepository } from './notification.repository';
@@ -20,8 +19,8 @@ export class NotificationService {
     return this.notificationRepository.create(notificationEntity);
   }
 
-  async getMany(userId: number, query: BasicQueryDto): Promise<Notification[]> {
-    return this.notificationRepository.findMany(userId, query);
+  async getMany(userId: number): Promise<Notification[]> {
+    return this.notificationRepository.findMany(userId);
   }
 
   async delete(id: number, userId: number): Promise<Notification> {

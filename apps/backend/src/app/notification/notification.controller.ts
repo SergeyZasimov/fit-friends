@@ -1,8 +1,7 @@
 import { UrlDomain, UrlParams } from '@fit-friends/shared';
-import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
-import { BasicQueryDto } from '../query/basic-query.dto';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { NotificationService } from './notification.service';
@@ -13,11 +12,8 @@ export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
   @Get()
-  async showMany(
-    @GetCurrentUser(CurrentUserField.Id) userId: number,
-    @Query() query: BasicQueryDto
-  ) {
-    const result = await this.notificationService.getMany(userId, query);
+  async showMany(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    const result = await this.notificationService.getMany(userId);
     return fillObject(NotificationRdo, result);
   }
 

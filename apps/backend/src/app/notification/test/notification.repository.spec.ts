@@ -1,6 +1,5 @@
 import { TestBed } from '@automock/jest';
 import { PrismaService } from '../../prisma/prisma.service';
-import { BasicQueryDto } from '../../query/basic-query.dto';
 import { NotificationEntity } from '../notification.entity';
 import { NotificationRepository } from '../notification.repository';
 import { notificationStubs } from './notification.stubs';
@@ -53,8 +52,7 @@ describe('Notification Repository', () => {
   });
 
   test('findMany should return an array of notifications', async () => {
-    const query = new BasicQueryDto();
-    const result = await notificationRepository.findMany(userId, query);
+    const result = await notificationRepository.findMany(userId);
 
     expect(prisma.notification.findMany).toBeCalled();
     expect(result).toEqual([notification]);

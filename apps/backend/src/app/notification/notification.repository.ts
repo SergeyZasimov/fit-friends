@@ -1,7 +1,6 @@
 import { Notification } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BasicQueryDto } from '../query/basic-query.dto';
 import { NotificationEntity } from './notification.entity';
 
 @Injectable()
@@ -22,18 +21,9 @@ export class NotificationRepository {
     });
   }
 
-  async findMany(
-    userId: number,
-    query: BasicQueryDto
-  ): Promise<Notification[]> {
-    const { sortOption, sortType, limit, page } = query;
+  async findMany(userId: number): Promise<Notification[]> {
     return this.prisma.notification.findMany({
       where: { userId },
-      orderBy: {
-        [sortOption]: sortType,
-      },
-      skip: limit * (page - 1) || undefined,
-      take: limit,
     });
   }
 
