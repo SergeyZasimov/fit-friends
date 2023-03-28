@@ -12,6 +12,7 @@ import { ServiceWithFiles } from '../abstract/service-with-files';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { createFriendNotification } from '../notification/notification.constant';
 import { NotificationService } from '../notification/notification.service';
+import { SportGymService } from '../sport-gym/sport-gym.service';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
 import { ProfileQueryDto } from './dto/profile-query.dto';
@@ -25,7 +26,8 @@ export class ProfileService extends ServiceWithFiles {
     private readonly userRepository: UserRepository,
     private readonly profileRepository: ProfileRepository,
     private readonly configService: ConfigService,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly sportGymService: SportGymService
   ) {
     super(configService);
   }
@@ -149,6 +151,7 @@ export class ProfileService extends ServiceWithFiles {
   }
 
   async updateFavoriteGym(userId: number, sportGymId: number) {
+    await this.sportGymService.checkExist(sportGymId);
     const sportGyms = await this.userRepository.findFavoriteGyms(userId);
 
     const action = sportGyms.find((sportGym) => sportGym.id === sportGymId)

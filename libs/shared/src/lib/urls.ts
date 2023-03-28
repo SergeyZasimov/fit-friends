@@ -22,7 +22,7 @@ export const UrlRoute = {
   AddFriend: 'add-friend',
   Trainer: 'trainer',
   Customer: 'customer',
-  UpdateFavoriteGym: 'update-favorite-gym',
+  UpdateFavoriteGym: 'favorite-gym',
 } as const;
 
 export const UrlParams = {

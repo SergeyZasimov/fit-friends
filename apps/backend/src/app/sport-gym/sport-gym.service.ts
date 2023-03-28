@@ -1,10 +1,13 @@
 import { CreateSportGym, SportGym } from '@fit-friends/shared';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { QuerySportGymDto } from './dto/query-sport-gym.dto';
-import { SPORT_GYM_PHOTOS_FOLDER } from './sport-gym.constant';
+import {
+  NOT_FOUND_EXCEPTION_MESSAGE,
+  SPORT_GYM_PHOTOS_FOLDER,
+} from './sport-gym.constant';
 import { SportGymEntity } from './sport-gym.entity';
 import { SportGymRepository } from './sport-gym.repository';
 
@@ -32,11 +35,21 @@ export class SportGymService {
   }
 
   async getOne(id: number): Promise<SportGym> {
-    return this.sportGymRepository.findOne(id);
+    return this.checkExist(id);
   }
 
   async getMany(query: QuerySportGymDto): Promise<SportGym[]> {
     return this.sportGymRepository.findMany(query);
+  }
+
+  async checkExist(id: number): Promise<SportGym> {
+    const existGym = await this.sportGymRepository.findOne(id);
+
+    if (!existGym) {
+      throw new NotFoundException(NOT_FOUND_EXCEPTION_MESSAGE);
+    }
+
+    return existGym;
   }
 
   private async setPhotos(): Promise<string[]> {

@@ -246,6 +246,53 @@ paths:
         404:
           $ref: '#/components/responses/not_found_error'
 
+  /profile/favorite-gym/{entityId}:
+    patch:
+      description: Добавление/удаление спортивного зала в избранные
+      tags:
+        - profile
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+
+      responses:
+        200:
+          description: Успешное добавление/удаление спортивного зала в избранное
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /profile/favorite-gym:
+    get:
+      description: Получить список избранных спортивных залов
+      tags:
+        - profile
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает список избранных залов пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/sport_gym'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
   /workout:
     post:
       description: Создание тренировки
@@ -1606,6 +1653,53 @@ components:
         updatedAt:
           type: string
           example: '2023-03-27T10:08:41.948Z'
+
+    sport_gym:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        title:
+          type: string
+          example: Tasty Metal Soap
+
+        location:
+          type: string
+          example: Петроградская
+
+        isVerify:
+          type: boolean
+          example: true
+
+        parameters:
+          type: array
+          items:
+            type: string
+          example:
+            - бесплатная парковка
+            - бассейн
+            - массаж
+
+        photos:
+          type: array
+          items:
+            type: string
+          example:
+            - http://localhost:3333/sport-gym-photos/gym-01.jpg
+
+        description:
+          type: string
+          example: Similique veniam iste. Dolores odio voluptate quae blanditiis natus animi hic.
+
+        oneWorkoutPrice:
+          type: number
+          example: 3675
+
+        createdAt:
+          type: string
+          example: '2023-03-27T10:08:40.166Z'
 
     error_bad_request_single:
       type: object
