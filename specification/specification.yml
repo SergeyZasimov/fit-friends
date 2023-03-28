@@ -15,6 +15,8 @@ tags:
     description: Дневник питания
   - name: notification
     description: Оповещение
+  - name: personal-training
+    description: Заявка на персональные тренировки
 
 servers:
   - url: http://localhost:3333/api
@@ -656,6 +658,98 @@ paths:
 
         404:
           $ref: '#/components/responses/not_found_error'
+
+  /personal-training:
+    post:
+      description: Создать заявку на персональную тренировку
+      tags:
+        - personal-training
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Данные для создании заявки на персональную тренировку
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conductorId:
+                  description: ID исполнителя тренировки
+              required:
+                - conductorId
+
+      responses:
+        201:
+          description: Информация о новой заявке на персональную тренировку
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/personal_training'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+    patch:
+      description: Изменить статус заявки
+      tags:
+        - personal-training
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Данные для изменения статуса заявки
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  description: ID заявки
+                  type: number
+                  example: 1
+
+                status:
+                  description: Новый статус заявки
+                  type: string
+                  enum:
+                    - на рассмотрении
+                    - отклонён
+                    - принят
+                  example: принят
+
+              required:
+                - id
+                - status
+
+      responses:
+        200:
+          description: Успешное изменение статуса заявки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/personal_training'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+        409:
+          $ref: '#/components/responses/conflict_error'
 
 components:
   securitySchemes:
@@ -1482,6 +1576,36 @@ components:
         createdAt:
           type: string
           example: '2000-01-01T00:00:00.000Z'
+
+    personal_training:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        requesterId:
+          type: number
+          example: 1
+
+        conductorId:
+          type: number
+          example: 2
+
+        status:
+          type: string
+          enum:
+            - на рассмотрении
+            - отклонён
+            - принят
+
+        createdAt:
+          type: string
+          example: '2023-03-27T10:08:41.948Z'
+
+        updatedAt:
+          type: string
+          example: '2023-03-27T10:08:41.948Z'
 
     error_bad_request_single:
       type: object
