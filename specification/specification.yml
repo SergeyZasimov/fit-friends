@@ -17,6 +17,8 @@ tags:
     description: Оповещение
   - name: personal-training
     description: Заявка на персональные тренировки
+  - name: review
+    description: Отзыв
 
 servers:
   - url: http://localhost:3333/api
@@ -250,7 +252,7 @@ paths:
     patch:
       description: Добавление/удаление спортивного зала в избранные
       tags:
-        - profile
+        - user
       security:
         - BearerAuth: []
       parameters:
@@ -276,7 +278,7 @@ paths:
     get:
       description: Получить список избранных спортивных залов
       tags:
-        - profile
+        - user
       security:
         - BearerAuth: []
 
@@ -797,6 +799,65 @@ paths:
 
         409:
           $ref: '#/components/responses/conflict_error'
+
+  /review:
+    post:
+      description: Создание нового отзыва
+      tags:
+        - review
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        description: Данные для создания отзыва
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_review'
+
+      responses:
+        201:
+          description: Возвращает данные о новом отзыве
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/review'
+
+        400:
+          $ref: '#/components/responses/bad_request_error_variable'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
+        404:
+          $ref: '#/components/responses/not_found_error'
+
+  /review/{entityId}:
+    get:
+      description: Список отзывов для тренировки
+      tags:
+        - review
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает список отзывов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/review'
+
+        400:
+          $ref: '#/components/responses/bad_request_error'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
 
 components:
   securitySchemes:
@@ -1700,6 +1761,48 @@ components:
         createdAt:
           type: string
           example: '2023-03-27T10:08:40.166Z'
+
+    create_review:
+      type: object
+      properties:
+        workoutId:
+          type: number
+          example: 1
+
+        rating:
+          type: number
+          example: 5
+
+        text:
+          type: string
+          example: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+      required:
+        - workoutId
+        - rating
+        - text
+
+    review:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+
+        workout:
+          $ref: '#/components/schemas/workout'
+
+        rating:
+          type: number
+          example: 5
+
+        text:
+          type: string
+          example: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+        createdAt:
+          type: string
+          example: '2023-03-28T05:15:54.473Z'
 
     error_bad_request_single:
       type: object
