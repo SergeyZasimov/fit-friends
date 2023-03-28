@@ -402,6 +402,28 @@ paths:
         403:
           $ref: '#/components/responses/role_forbidden_error'
 
+  /order/customer:
+    get:
+      description: Баланс пользователя
+      tags:
+        - order
+      security:
+        - BearerAuth: []
+
+      responses:
+        200:
+          description: Возвращает количество купленных тренировок и абонементов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer_balance'
+
+        401:
+          $ref: '#/components/responses/unauthorized_error'
+
+        403:
+          $ref: '#/components/responses/role_forbidden_error'
+
   /order/trainer:
     get:
       description: Список заказов на тренировки тренера
@@ -1363,6 +1385,17 @@ components:
           totalPrice:
             type: number
             example: 1200
+
+    customer_balance:
+      type: object
+      properties:
+        sportGym:
+          type: number
+          example: 1
+
+        workout:
+          type: number
+          example: 7
 
     create_food_diary:
       type: object
