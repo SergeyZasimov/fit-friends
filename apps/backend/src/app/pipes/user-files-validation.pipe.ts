@@ -13,7 +13,7 @@ import {
 @Injectable()
 export class UserFilesValidationPipe implements PipeTransform {
   transform(files: UserFiles) {
-    if (files.avatar) {
+    if (files && files.avatar) {
       const [avatar] = files.avatar;
 
       if (avatar.size > USER_CONSTRAINT.FILE_SIZE) {
@@ -28,7 +28,7 @@ export class UserFilesValidationPipe implements PipeTransform {
       }
     }
 
-    if (files.certificate) {
+    if (files && files.certificate) {
       const [certificate] = files.certificate;
 
       if (

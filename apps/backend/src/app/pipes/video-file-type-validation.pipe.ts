@@ -7,7 +7,7 @@ import {
 @Injectable()
 export class VideoFileTypeValidationPipe extends FileValidator {
   isValid(file: Express.Multer.File): boolean | Promise<boolean> {
-    if (
+    if (file &&
       !file.mimetype.match(WORKOUT_CONSTRAINT.VIDEO_TYPE) ||
       !file.originalname.match(WORKOUT_CONSTRAINT.VIDEO_TYPE)
     ) {
