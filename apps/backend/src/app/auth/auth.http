@@ -131,7 +131,7 @@ POST {{baseUrl}}/auth/login {{protocol}}
 Content-Type: {{contentType}}
 
 {
-  "email": "Audra.Kunze46@gmail.com",
+  "email": "Audra.Kunze46gmail.com",
   "password": "secret"
 }
 

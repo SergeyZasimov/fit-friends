@@ -36,8 +36,8 @@ export const USER_CONSTRAINT = {
 } as const;
 
 export const UserValidationMessage = {
-  EmailRequired: 'Почта - обязательно для заполнения',
-  EmailNotValid: 'Неверный формат почты',
+  EmailRequired: '$property: Почта - обязательно для заполнения',
+  EmailNotValid: '$property: Неверный формат почты',
   PasswordRequired: 'Пароль - обязательно для заполнения',
   PasswordLengthNotValid: `Пароль должен быть строкой длиной от ${USER_CONSTRAINT.PASSWORD.MIN} до ${USER_CONSTRAINT.PASSWORD.MAX} символов`,
   RoleRequired: 'Роль - обязательно для заполнения',
