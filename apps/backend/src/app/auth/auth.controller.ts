@@ -20,7 +20,11 @@ import { UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
 import { ProfileService } from '../profile/profile.service';
 import { RegisteredUserRdo } from '../user/rdo/registered-user.rdo';
 import { UserRdo } from '../user/rdo/user.rdo';
-import { UserFiles, UserValidationMessage } from '../user/user.constant';
+import {
+  CurrentUserField,
+  UserFiles,
+  UserValidationMessage,
+} from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { AuthService } from './auth.service';
 import { QuestionnaireCustomerDto } from './dto/questionnaire-customer.dto';
@@ -90,5 +94,12 @@ export class AuthController {
   @Get(UrlRoute.Logout)
   async logout(@GetCurrentUser() user: User) {
     await this.authService.logout(user);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Get()
+  async checkUserStatus(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    const user = await this.profileService.getOne(userId);
+    return fillObject(UserRdo, user, user.role);
   }
 }

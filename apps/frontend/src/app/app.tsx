@@ -7,19 +7,21 @@ import Register from './pages/register/register';
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
 import TrainerAccount from './pages/trainer-account/trainer-account';
+import { AppRoute } from './utils/constants';
+
 
 export function App() {
   return (
     <Routes>
-      <Route path='/' element={ <Intro /> } />
-      <Route path='sign-up' element={ <SignUp /> }>
+      <Route path={ AppRoute.Root } element={ <Intro /> } />
+      <Route path={ AppRoute.SignUp } element={ <SignUp /> }>
         <Route index element={ <Register /> } />
-        <Route path='questionnaire-coach' element={ <QuestionnaireCoach /> } />
-        <Route path='questionnaire-user' element={ <QuestionnaireUser /> } />
+        <Route path={ AppRoute.QuestionnaireTrainer } element={ <QuestionnaireCoach /> } />
+        <Route path={ AppRoute.QuestionnaireCustomer } element={ <QuestionnaireUser /> } />
       </Route>
-      <Route path='sign-in' element={ <SignIn /> } />
-      <Route path='trainer-account' element={ <TrainerAccount /> } />
-      <Route path='customer-main' element={ <CustomerMain /> } />
+      <Route path={ AppRoute.SignIn } element={ <SignIn /> } />
+      <Route path={ AppRoute.TrainerAccount } element={ <TrainerAccount /> } />
+      <Route path={ AppRoute.CustomerMain } element={ <CustomerMain /> } />
     </Routes>
 
   );

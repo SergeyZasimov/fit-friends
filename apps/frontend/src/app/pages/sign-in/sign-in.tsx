@@ -1,8 +1,46 @@
+import { UserRole } from '@fit-friends/shared';
+import { FormEvent, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import { fetchUser, login } from '../../store/features/user/api-actions';
+import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
+import { AppRoute, RequestStatus } from '../../utils/constants';
 
-/* eslint-disable-next-line */
-export interface SignInProps { }
+export function SignIn() {
 
-export function SignIn(props: SignInProps) {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const user = useAppSelector(getUser);
+  const status = useAppSelector(getUserRequestStatus);
+  const errors = useAppSelector(getErrors);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const data = {
+      email: (emailRef.current as unknown as HTMLInputElement).value,
+      password: (passwordRef.current as unknown as HTMLInputElement).value
+    };
+    dispatch(login(data)).then(() => {
+      dispatch(fetchUser());
+    });
+  };
+
+  useEffect(() => {
+    if (status === RequestStatus.Success) {
+      dispatch(resetStatus());
+
+      if (user && user.role === UserRole.Customer) {
+        navigate(`/${AppRoute.CustomerMain}`);
+      }
+
+      if (user && user.role === UserRole.Trainer) {
+        navigate(`/${AppRoute.TrainerAccount}`);
+      }
+    }
+  }, [ status, dispatch, user, navigate ]);
+
   return (
     <main>
       <div className="background-logo">
@@ -20,22 +58,30 @@ export function SignIn(props: SignInProps) {
               <h1 className="popup-form__title">Вход</h1>
             </div>
             <div className="popup-form__form">
-              <form method="get">
+              <form onSubmit={ handleSubmit }>
                 <div className="sign-in">
-                  <div className="custom-input sign-in__input">
+                  <div className={ `custom-input sign-in__input ${errors.email ? 'custom-input--error' : ''}` }>
                     <label>
                       <span className="custom-input__label">E-mail</span>
                       <span className="custom-input__wrapper">
-                        <input type="email" name="email" />
+                        <input type="email" name="email" ref={ emailRef } />
                       </span>
+                      { errors.email &&
+                        errors.email.map((item) => (
+                          <span key={ item } className="custom-input__error">{ item }</span>
+                        )) }
                     </label>
                   </div>
-                  <div className="custom-input sign-in__input">
+                  <div className={ `custom-input sign-in__input ${errors.password ? 'custom-input--error' : ''}` }>
                     <label>
                       <span className="custom-input__label">Пароль</span>
                       <span className="custom-input__wrapper">
-                        <input type="password" name="password" />
+                        <input type="password" name="password" ref={ passwordRef } />
                       </span>
+                      { errors.password &&
+                        errors.password.map((item) => (
+                          <span key={ item } className="custom-input__error">{ item }</span>
+                        )) }
                     </label>
                   </div>
                   <button className="btn sign-in__button" type="submit">Продолжить</button>

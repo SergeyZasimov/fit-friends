@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../utils/constants';
 
 export function Intro() {
   return (
@@ -35,8 +36,8 @@ export function Intro() {
             </picture>
           </div>
           <div className="intro__buttons">
-            <Link to="sign-up" className="btn intro__button" type="button">Регистрация</Link>
-            <p className="intro__text">Есть аккаунт? <Link className="intro__link" to="sign-in">Вход</Link>
+            <Link to={ AppRoute.SignUp } className="btn intro__button" type="button">Регистрация</Link>
+            <p className="intro__text">Есть аккаунт? <Link className="intro__link" to={ AppRoute.SignIn }>Вход</Link>
             </p>
           </div>
         </div>

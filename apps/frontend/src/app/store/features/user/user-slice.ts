@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State, UserState } from '../../../types/store.types';
 import { RequestStatus, StoreNamespace } from '../../../utils/constants';
 import {
+  fetchUser,
+  login,
   questionnaireCustomer,
   questionnaireTrainer,
   registerUser,
@@ -52,6 +54,26 @@ export const userSlice = createSlice({
       })
       .addCase(questionnaireTrainer.rejected, (state, { payload }) => {
         state.errors = payload as Record<string, string[]>;
+        state.status = RequestStatus.Fail;
+      })
+      .addCase(login.pending, (state) => {
+        state.status = RequestStatus.Process;
+      })
+      .addCase(login.fulfilled, (state) => {
+        state.status = RequestStatus.Success;
+      })
+      .addCase(login.rejected, (state, { payload }) => {
+        state.errors = payload as Record<string, string[]>;
+        state.status = RequestStatus.Fail;
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.status = RequestStatus.Process;
+      })
+      .addCase(fetchUser.fulfilled, (state, { payload }) => {
+        state.status = RequestStatus.Success;
+        state.user = payload;
+      })
+      .addCase(fetchUser.rejected, (state, { payload }) => {
         state.status = RequestStatus.Fail;
       });
   },

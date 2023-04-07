@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { questionnaireCustomer } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
 import { RequestStatus } from '../../utils/constants';
+import CustomerMain from '../customer-main/customer-main';
 
 export function QuestionnaireUser() {
 
@@ -50,7 +51,7 @@ export function QuestionnaireUser() {
   useEffect(() => {
     if (status === RequestStatus.Success) {
       dispatch(resetStatus());
-      navigate('/customer-main');
+      navigate(`/${CustomerMain}`);
     }
   }, [ status, dispatch, navigate ]);
 

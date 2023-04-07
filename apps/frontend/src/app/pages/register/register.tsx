@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { registerUser } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
-import { RequestStatus } from '../../utils/constants';
+import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function Register() {
 
@@ -78,9 +78,9 @@ export function Register() {
     if (status === RequestStatus.Success) {
       dispatch(resetStatus());
       if (user && user.role === UserRole.Customer) {
-        navigate('questionnaire-user');
+        navigate(AppRoute.QuestionnaireCustomer);
       } else {
-        navigate('questionnaire-coach');
+        navigate(AppRoute.QuestionnaireTrainer);
       }
     }
   }, [ status, navigate, user, dispatch ]);

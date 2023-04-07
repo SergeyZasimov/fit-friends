@@ -1,14 +1,21 @@
 import {
   CreateUser,
   CustomerAdditionalInfo,
+  LoginUser,
   TrainerAdditionalInfo,
   UrlDomain,
   UrlRoute,
   User,
+  UserTokens,
 } from '@fit-friends/shared';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {
+  getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from '../../../services/token.service';
 import { AsyncThunkOptionField } from '../../../types/store.types';
 import { ActionName } from '../../../utils/constants';
 
@@ -131,6 +138,59 @@ export const questionnaireTrainer = createAsyncThunk<
         return rejectWithValue(errors);
       }
       return rejectWithValue(err);
+    }
+  }
+);
+
+export const login = createAsyncThunk<
+  UserTokens,
+  LoginUser,
+  AsyncThunkOptionField
+>(ActionName.User.Login, async (dto, { extra: api, rejectWithValue }) => {
+  try {
+    const { data } = await api.post<UserTokens>(
+      `/${UrlDomain.Auth}/${UrlRoute.Login}`,
+      dto
+    );
+    setAccessToken(data.access_token);
+    setRefreshToken(data.refresh_token);
+    return data;
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response) {
+      const { message } = err.response.data;
+      const errors: Record<string, string[]> = {};
+      if (message instanceof Array) {
+        (message as string[]).forEach((item) => {
+          const [field, text] = item.split(':');
+          errors[field] = errors[field] ? [...errors[field], text] : [text];
+        });
+      } else {
+        toast.error(message);
+      }
+      return rejectWithValue(errors);
+    }
+    return rejectWithValue(err);
+  }
+});
+
+export const fetchUser = createAsyncThunk<User, void, AsyncThunkOptionField>(
+  ActionName.User.FetchUser,
+  async (_, { extra: api }) => {
+    try {
+      const refreshToken = getRefreshToken();
+      const { data } = await api.get(`/${UrlDomain.Auth}`, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+      return data;
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        const { message } = err.response.data;
+        toast.error(message);
+      } else {
+        toast.error((err as Error).message);
+      }
     }
   }
 );

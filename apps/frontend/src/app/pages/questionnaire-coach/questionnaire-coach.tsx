@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { questionnaireTrainer } from '../../store/features/user/api-actions';
 import { getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
-import { RequestStatus } from '../../utils/constants';
+import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function QuestionnaireCoach() {
 
@@ -59,7 +59,7 @@ export function QuestionnaireCoach() {
   useEffect(() => {
     if (status === RequestStatus.Success) {
       dispatch(resetStatus());
-      navigate('/trainer-account');
+      navigate(`/${AppRoute.TrainerAccount}`);
     }
   }, [ status, dispatch, navigate ]);
 
