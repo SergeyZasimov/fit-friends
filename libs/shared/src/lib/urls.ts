@@ -14,6 +14,8 @@ export const UrlDomain = {
 
 export const UrlRoute = {
   Register: 'register',
+  QuestionnaireCustomer: 'questionnaire-customer',
+  QuestionnaireTrainer: 'questionnaire-trainer',
   Login: 'login',
   Logout: 'logout',
   Refresh: 'refresh',

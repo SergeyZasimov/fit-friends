@@ -14,7 +14,7 @@ import { UserFiles } from '../user/user.constant';
 import { UserEntity } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
 import { AuthExceptionMessage } from './auth.constant';
-import { CreateUserDto } from './dto/create-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,9 +26,8 @@ export class AuthService {
     private readonly jwtOptions: ConfigType<typeof jwtConfig>
   ) {}
 
-  async register(dto: CreateUserDto, files?: UserFiles): Promise<User> {
+  async register(dto: RegisterUserDto, files?: UserFiles): Promise<User> {
     const avatar = files && files.avatar && files.avatar[0];
-    const certificate = files && files.certificate && files.certificate[0];
 
     const existUser = await this.userRepository.findByEmail(dto.email);
 
@@ -44,12 +43,7 @@ export class AuthService {
 
     const newUser = await this.userRepository.create(userEntity);
 
-    const newProfile = await this.profileService.create(
-      newUser,
-      dto,
-      avatar,
-      certificate
-    );
+    const newProfile = await this.profileService.create(newUser, dto, avatar);
     return { ...newUser, profile: newProfile };
   }
 

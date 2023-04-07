@@ -4,7 +4,7 @@ export class ProfileEntity implements Profile {
   user?: number;
   name: string;
   gender: string;
-  avatar: string;
+  avatar: File | string;
   birthDay: Date;
   location: string;
   trainingLevel: string;
@@ -13,7 +13,7 @@ export class ProfileEntity implements Profile {
   caloriesAmountToLose?: number;
   caloriesAmountToLosePerDay?: number;
   isReadyToTraining?: boolean;
-  certificate?: string;
+  certificate?: File | string;
   resume?: string;
   isReadyToPersonalTraining?: boolean;
 

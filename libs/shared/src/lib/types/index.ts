@@ -1,3 +1,4 @@
+export * from './app-error.type';
 export * from './basic-query.type';
 export * from './food-diary.type';
 export * from './notification.type';

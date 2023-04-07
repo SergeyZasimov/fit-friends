@@ -1,6 +1,5 @@
 import {
   Gender,
-  Locations,
   TrainingLevels,
   TrainingTimes,
   TrainingTypes,
@@ -36,50 +35,53 @@ export const USER_CONSTRAINT = {
 } as const;
 
 export const UserValidationMessage = {
+  UserIdRequired: '$property: Необходим ID пользователя',
   EmailRequired: '$property: Почта - обязательно для заполнения',
   EmailNotValid: '$property: Неверный формат почты',
-  PasswordRequired: 'Пароль - обязательно для заполнения',
-  PasswordLengthNotValid: `Пароль должен быть строкой длиной от ${USER_CONSTRAINT.PASSWORD.MIN} до ${USER_CONSTRAINT.PASSWORD.MAX} символов`,
-  RoleRequired: 'Роль - обязательно для заполнения',
-  RoleNotValid: `Роль должна быть одним из значений: ${formatEnumToValidationMessage(
+  PasswordRequired: '$property:Пароль - обязательно для заполнения',
+  PasswordLengthNotValid: `$property:Пароль должен быть строкой длиной от ${USER_CONSTRAINT.PASSWORD.MIN} до ${USER_CONSTRAINT.PASSWORD.MAX} символов`,
+  RoleRequired: '$property:Роль - обязательно для заполнения',
+  RoleNotValid: `$property:Роль должна быть одним из значений - ${formatEnumToValidationMessage(
     UserRole
   )}`,
-  NameRequired: 'Имя - обязательно для заполнения',
-  NameLengthNotValid: `Имя должно быть строкой длиной от ${USER_CONSTRAINT.NAME.MIN} до ${USER_CONSTRAINT.NAME.MAX} символов`,
+  NameRequired: '$property:Имя - обязательно для заполнения',
+  NameLengthNotValid: `$property:Имя должно быть строкой длиной от ${USER_CONSTRAINT.NAME.MIN} до ${USER_CONSTRAINT.NAME.MAX} символов`,
   NameNotValid:
-    'Имя должно состоять только из букв русского или английского алфавита',
-  GenderRequired: 'Пол - обязательно для заполнения',
-  GenderNotValid: `Пол должен быть одним из значений: ${formatEnumToValidationMessage(
+    '$property:Имя должно состоять только из букв русского или английского алфавита',
+  GenderRequired: '$property:Пол - обязательно для заполнения',
+  GenderNotValid: `$property:Пол должен быть одним из значений - ${formatEnumToValidationMessage(
     Gender
   )}`,
-  LocationRequired: 'Локация - обязательно для заполнения',
-  LocationNotValid: `Локация должна быть одним из значений: ${formatEnumToValidationMessage(
-    Locations
-  )}`,
-  TrainingLevelRequired: 'Уровень подготовки - обязательно для заполнения',
-  TrainingLevelNotValid: `Уровень подготовки должен быть один из значений: ${formatEnumToValidationMessage(
+  LocationRequired: '$property:Локация - обязательно для заполнения',
+  LocationNotValid:
+    '$property:Локация должна быть одним из предложенных значений',
+  TrainingLevelRequired:
+    '$property:Уровень подготовки - обязательно для заполнения',
+  TrainingLevelNotValid: `$property:Уровень подготовки должен быть один из значений - ${formatEnumToValidationMessage(
     TrainingLevels
   )}`,
-  TrainingTypeRequired: 'Тип тренировки - обязательно для заполнения',
-  TrainingTypeArrayNotValid: `Тип тренировки  - возможно выбрать на более ${USER_CONSTRAINT.TRAINING_TYPE.MAX} значений`,
-  TrainingTypeNotValid: `Допустимые значения типов тренировок: ${formatEnumToValidationMessage(
+  TrainingTypeRequired: '$property:Тип тренировки - обязательно для заполнения',
+  TrainingTypeArrayNotValid: `$property:Тип тренировки  - возможно выбрать на более ${USER_CONSTRAINT.TRAINING_TYPE.MAX} значений`,
+  TrainingTypeNotValid: `$property:Допустимые значения типов тренировок - ${formatEnumToValidationMessage(
     TrainingTypes
   )}`,
-  TrainingTimeRequired: 'Время на тренировку - обязательно для заполнения',
-  TrainingTimeNotValid: `Допустимые значения времени на тренировку: ${formatEnumToValidationMessage(
+  TrainingTimeRequired:
+    '$property:Время на тренировку - обязательно для заполнения',
+  TrainingTimeNotValid: `$property: Допустимые значения времени на тренировку - ${formatEnumToValidationMessage(
     TrainingTimes
   )}`,
   CaloriesAmountToLoseRequired:
-    'Количество калорий для сброса - обязательно для заполнения',
-  CaloriesAmountToLoseNotValid: `Количество калорий для сброса должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
+    '$property: Количество калорий для сброса - обязательно для заполнения',
+  CaloriesAmountToLoseNotValid: `$property:Количество калорий для сброса должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
   CaloriesAmountToLosePerDayRequired:
-    'Количество калорий для траты в день - обязательно для заполнения',
-  CaloriesAmountToLosePerDayNotValid: `Количество калорий для траты в день должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
-  ResumeNotValid: `Заслуги тренера должны быть текстом с количеством символов от ${USER_CONSTRAINT.RESUME.MIN} до ${USER_CONSTRAINT.RESUME.MAX}`,
-  IsReadyToTraining: 'Готовность к тренировке - обязательно для заполнения',
+    '$property:Количество калорий для траты в день - обязательно для заполнения',
+  CaloriesAmountToLosePerDayNotValid: `$property:Количество калорий для траты в день должно быть числом от ${USER_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${USER_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
+  ResumeNotValid: `$property:Заслуги тренера должны быть текстом с количеством символов от ${USER_CONSTRAINT.RESUME.MIN} до ${USER_CONSTRAINT.RESUME.MAX}`,
+  IsReadyToTraining:
+    '$property:Готовность к тренировке - обязательно для заполнения',
   IsReadyToPersonalTraining:
-    'Готовность проводить персональные тренировки - обязательно для заполнения',
-  BirthdayNotValid: 'Неверная дата рождения',
+    '$property:Готовность проводить персональные тренировки - обязательно для заполнения',
+  BirthdayNotValid: '$property:Неверная дата рождения',
   AvatarNotValid: 'Аватар должен быть в формате jpg или png',
   CertificateNotValid: 'Сертификат должен быть в формате pdf',
   AvatarRequired: 'Добавьте аватар',

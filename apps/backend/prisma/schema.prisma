@@ -41,7 +41,7 @@ model Profile {
   gender                     String
   birthDay                   DateTime?
   location                   String
-  trainingLevel              String
+  trainingLevel              String?
   trainingType               String[]
   trainingTime               String?
   caloriesAmountToLose       Int?

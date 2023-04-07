@@ -1,15 +1,8 @@
-import {
-  CustomerProfile,
-  FavoriteAction,
-  Profile,
-  TrainerProfile,
-  User,
-  UserRole,
-} from '@fit-friends/shared';
+import { FavoriteAction, Profile, User, UserRole } from '@fit-friends/shared';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ServiceWithFiles } from '../abstract/service-with-files';
-import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { RegisterUserDto } from '../auth/dto/register-user.dto';
 import { createFriendNotification } from '../notification/notification.constant';
 import { NotificationService } from '../notification/notification.service';
 import { SportGymService } from '../sport-gym/sport-gym.service';
@@ -42,55 +35,25 @@ export class ProfileService extends ServiceWithFiles {
 
   async create(
     newUser: User,
-    dto: CreateUserDto,
-    avatarFile?: Express.Multer.File,
-    certificateFile?: Express.Multer.File
+    dto: RegisterUserDto,
+    avatarFile?: Express.Multer.File
   ): Promise<Profile> {
-    let profile: CustomerProfile | TrainerProfile;
-
     const avatar = avatarFile && this.setFilename(avatarFile);
-    const certificate = certificateFile && this.setFilename(certificateFile);
 
-    if (newUser.role === UserRole.Customer) {
-      profile = {
-        name: dto.name,
-        gender: dto.gender,
-        location: dto.location,
-        birthDay: dto.birthDay,
-        caloriesAmountToLose: dto.caloriesAmountToLose,
-        caloriesAmountToLosePerDay: dto.caloriesAmountToLosePerDay,
-        isReadyToTraining: dto.isReadyToTraining,
-        trainingLevel: dto.trainingLevel,
-        trainingTime: dto.trainingTime,
-        trainingType: dto.trainingType,
-        user: newUser.id,
-        avatar: avatar && this.setFileUrl(avatar),
-      };
-    } else {
-      profile = {
-        name: dto.name,
-        gender: dto.gender,
-        location: dto.location,
-        birthDay: dto.birthDay,
-        trainingLevel: dto.trainingLevel,
-        trainingType: dto.trainingType,
-        resume: dto.resume ?? '',
-        isReadyToPersonalTraining: dto.isReadyToPersonalTraining ?? false,
-        user: newUser.id,
-        certificate: certificate && this.setFileUrl(certificate),
-        avatar: avatar && this.setFileUrl(avatar),
-      };
-    }
+    const profile = {
+      name: dto.name,
+      gender: dto.gender,
+      location: dto.location,
+      birthDay: dto.birthDay,
+      user: newUser.id,
+      avatar: avatar && this.setFileUrl(avatar),
+    };
 
     const profileEntity = new ProfileEntity({ ...profile });
     const newProfile = await this.profileRepository.create(profileEntity);
 
     if (avatar) {
       await this.writeUserFile(avatar);
-    }
-
-    if (certificate) {
-      await this.writeUserFile(certificate);
     }
 
     return newProfile;
@@ -125,12 +88,13 @@ export class ProfileService extends ServiceWithFiles {
     await this.profileRepository.update(userId, profileEntity);
 
     if (avatar) {
-      currentAvatar && (await this.deleteUserFile(currentAvatar));
+      currentAvatar && (await this.deleteUserFile(currentAvatar as string));
       await this.writeUserFile(avatar);
     }
 
     if (certificate) {
-      currentCertificate && (await this.deleteUserFile(currentCertificate));
+      currentCertificate &&
+        (await this.deleteUserFile(currentCertificate as string));
       await this.writeUserFile(certificate);
     }
 

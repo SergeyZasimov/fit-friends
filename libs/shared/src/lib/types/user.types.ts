@@ -19,12 +19,13 @@ export type DefaultProfile = {
   user?: number;
   name: string;
   gender: string;
-  avatar?: string;
+  avatar?: File | string;
   birthDay?: Date | string;
   location: string;
 };
 
 export type CustomerAdditionalInfo = {
+  userId?: number;
   trainingLevel: string;
   trainingType: string[];
   trainingTime: string;
@@ -34,9 +35,10 @@ export type CustomerAdditionalInfo = {
 };
 
 export type TrainerAdditionalInfo = {
+  userId?: number;
   trainingLevel: string;
   trainingType: string[];
-  certificate: string;
+  certificate: File | string;
   resume: string;
   isReadyToPersonalTraining: boolean;
 };
@@ -62,3 +64,6 @@ export type UserTokens = {
   access_token: string;
   refresh_token: string;
 };
+
+export type RegisterUser = Pick<User, 'email' | 'password' | 'role'> &
+  Pick<Profile, 'avatar' | 'birthDay' | 'gender' | 'location' | 'name'>;
