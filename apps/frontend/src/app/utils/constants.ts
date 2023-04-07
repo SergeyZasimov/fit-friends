@@ -14,6 +14,7 @@ export const ActionName = {
     QuestionnaireTrainer: 'user/questionnaire/trainer',
     Login: 'user/login',
     FetchUser: 'user/fetchUser',
+    UpdateUser: 'user/updateUser',
   },
 } as const;
 
@@ -32,4 +33,10 @@ export const AppRoute = {
   QuestionnaireTrainer: 'questionnaire-trainer',
   CustomerMain: 'customer-main',
   TrainerAccount: 'trainer-account',
+} as const;
+
+export const CustomSelectField = {
+  LocationField: 'Локация',
+  GenderField: 'Пол',
+  LevelField: 'Уровень',
 } as const;

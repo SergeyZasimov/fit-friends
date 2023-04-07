@@ -82,8 +82,10 @@ export class ProfileService extends ServiceWithFiles {
     const profileEntity = new ProfileEntity({
       ...user.profile,
       ...dto,
-      avatar: avatar && this.setFileUrl(avatar),
-      certificate: certificate && this.setFileUrl(certificate),
+      avatar: avatar ? this.setFileUrl(avatar) : currentAvatar,
+      certificate: certificate
+        ? this.setFileUrl(certificate)
+        : currentCertificate,
     });
     await this.profileRepository.update(userId, profileEntity);
 

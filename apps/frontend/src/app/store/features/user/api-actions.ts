@@ -2,6 +2,7 @@ import {
   CreateUser,
   CustomerAdditionalInfo,
   LoginUser,
+  Profile,
   TrainerAdditionalInfo,
   UrlDomain,
   UrlRoute,
@@ -12,6 +13,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {
+  getAccessToken,
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
@@ -188,9 +190,40 @@ export const fetchUser = createAsyncThunk<User, void, AsyncThunkOptionField>(
       if (axios.isAxiosError(err) && err.response) {
         const { message } = err.response.data;
         toast.error(message);
-      } else {
-        toast.error((err as Error).message);
       }
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk<
+  User,
+  Profile,
+  AsyncThunkOptionField
+>(
+  ActionName.User.UpdateUser,
+  async (profile, { extra: api, rejectWithValue }) => {
+    const accessToken = getAccessToken();
+    try {
+      const { data } = await api.patch(`/${UrlDomain.Profile}`, profile, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(data);
+      return data;
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        const { message } = err.response.data;
+        if (message instanceof Array) {
+          (message as string[]).forEach((item) => {
+            const [, text] = item.split(':');
+            toast.error(text);
+          });
+        } else {
+          toast.error(message);
+        }
+      }
+      return rejectWithValue(err);
     }
   }
 );

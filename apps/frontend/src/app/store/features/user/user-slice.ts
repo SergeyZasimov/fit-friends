@@ -7,6 +7,7 @@ import {
   questionnaireCustomer,
   questionnaireTrainer,
   registerUser,
+  updateUser,
 } from './api-actions';
 
 const initialState: UserState = {
@@ -39,7 +40,8 @@ export const userSlice = createSlice({
       .addCase(questionnaireCustomer.pending, (state) => {
         state.status = RequestStatus.Process;
       })
-      .addCase(questionnaireCustomer.fulfilled, (state) => {
+      .addCase(questionnaireCustomer.fulfilled, (state, { payload }) => {
+        state.user = payload;
         state.status = RequestStatus.Success;
       })
       .addCase(questionnaireCustomer.rejected, (state, { payload }) => {
@@ -49,7 +51,8 @@ export const userSlice = createSlice({
       .addCase(questionnaireTrainer.pending, (state) => {
         state.status = RequestStatus.Process;
       })
-      .addCase(questionnaireTrainer.fulfilled, (state) => {
+      .addCase(questionnaireTrainer.fulfilled, (state, { payload }) => {
+        state.user = payload;
         state.status = RequestStatus.Success;
       })
       .addCase(questionnaireTrainer.rejected, (state, { payload }) => {
@@ -73,7 +76,17 @@ export const userSlice = createSlice({
         state.status = RequestStatus.Success;
         state.user = payload;
       })
-      .addCase(fetchUser.rejected, (state, { payload }) => {
+      .addCase(fetchUser.rejected, (state) => {
+        state.status = RequestStatus.Fail;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = RequestStatus.Process;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.status = RequestStatus.Success;
+        state.user = payload;
+      })
+      .addCase(updateUser.rejected, (state) => {
         state.status = RequestStatus.Fail;
       });
   },

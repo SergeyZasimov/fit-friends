@@ -73,7 +73,6 @@ export class UpdateProfileDto implements Partial<Profile> {
   @ArrayMaxSize(USER_CONSTRAINT.TRAINING_TYPE.MAX, {
     message: TrainingTypeArrayNotValid,
   })
-  @Transform(({ value }) => value.split(','))
   @IsOptional()
   trainingType?: string[];
 
