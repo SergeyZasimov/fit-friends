@@ -15,6 +15,8 @@ export const ActionName = {
     Login: 'user/login',
     FetchUser: 'user/fetchUser',
     UpdateUser: 'user/updateUser',
+    DeleteCertificate: 'user/deleteCertificate',
+    DeleteAvatar: 'user/deleteAvatar',
   },
 } as const;
 

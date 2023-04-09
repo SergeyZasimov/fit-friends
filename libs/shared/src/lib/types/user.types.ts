@@ -41,6 +41,7 @@ export type TrainerAdditionalInfo = {
   certificate: File | string;
   resume: string;
   isReadyToPersonalTraining: boolean;
+  certificates?: string[];
 };
 
 export type CustomerProfile = DefaultProfile & Partial<CustomerAdditionalInfo>;

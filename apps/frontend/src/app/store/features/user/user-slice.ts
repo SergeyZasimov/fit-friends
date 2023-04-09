@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State, UserState } from '../../../types/store.types';
 import { RequestStatus, StoreNamespace } from '../../../utils/constants';
 import {
+  deleteAvatar,
+  deleteCertificate,
   fetchUser,
   login,
   questionnaireCustomer,
@@ -87,6 +89,26 @@ export const userSlice = createSlice({
         state.user = payload;
       })
       .addCase(updateUser.rejected, (state) => {
+        state.status = RequestStatus.Fail;
+      })
+      .addCase(deleteCertificate.pending, (state) => {
+        state.status = RequestStatus.Process;
+      })
+      .addCase(deleteCertificate.fulfilled, (state, { payload }) => {
+        state.status = RequestStatus.Success;
+        state.user = payload;
+      })
+      .addCase(deleteCertificate.rejected, (state) => {
+        state.status = RequestStatus.Fail;
+      })
+      .addCase(deleteAvatar.pending, (state) => {
+        state.status = RequestStatus.Process;
+      })
+      .addCase(deleteAvatar.fulfilled, (state, { payload }) => {
+        state.status = RequestStatus.Success;
+        state.user = payload;
+      })
+      .addCase(deleteAvatar.rejected, (state) => {
         state.status = RequestStatus.Fail;
       });
   },

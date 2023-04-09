@@ -132,7 +132,7 @@ export function QuestionnaireCoach() {
                             {
                               questionnaire.certificate ?
                                 `${(questionnaire.certificate as File).name}` :
-                                'Загрузите сюда файлы формата PDF'
+                                'Загрузите сюда файлы формата JPG или PNG'
 
                             }
                             <svg width="20" height="20" aria-hidden="true">
@@ -143,7 +143,7 @@ export function QuestionnaireCoach() {
                             type="file"
                             name="import"
                             tabIndex={ -1 }
-                            accept=".pdf"
+                            accept=".jpg, .png"
                             onChange={ handleAddCertificate }
                           />
                         </label>

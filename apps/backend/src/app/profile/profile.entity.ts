@@ -14,6 +14,7 @@ export class ProfileEntity implements Profile {
   caloriesAmountToLosePerDay?: number;
   isReadyToTraining?: boolean;
   certificate?: File | string;
+  certificates?: string[];
   resume?: string;
   isReadyToPersonalTraining?: boolean;
 
@@ -30,7 +31,7 @@ export class ProfileEntity implements Profile {
     this.caloriesAmountToLose = profile.caloriesAmountToLose;
     this.caloriesAmountToLosePerDay = profile.caloriesAmountToLosePerDay;
     this.isReadyToTraining = profile.isReadyToTraining;
-    this.certificate = profile.certificate;
+    this.certificates = profile.certificates;
     this.resume = profile.resume;
     this.isReadyToPersonalTraining = profile.isReadyToPersonalTraining;
   }

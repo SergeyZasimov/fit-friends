@@ -47,7 +47,7 @@ model Profile {
   caloriesAmountToLose       Int?
   caloriesAmountToLosePerDay Int?
   isReadyToTraining          Boolean?
-  certificate                String?
+  certificates               String[]
   resume                     String?
   isReadyToPersonalTraining  Boolean?
 

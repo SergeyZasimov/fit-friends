@@ -2,6 +2,7 @@ import { UrlDomain, UrlParams, UrlRoute, UserRole } from '@fit-friends/shared';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -19,6 +20,7 @@ import { UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
 import { UserRdo } from '../user/rdo/user.rdo';
 import { CurrentUserField, UserFiles } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
+import { DeleteCertificateDto } from './dto/delete-certificate.rdo';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
@@ -89,6 +91,21 @@ export class ProfileController {
   @Get(`:${UrlParams.Id}`)
   async showOne(@Param(UrlParams.Id, DbIdValidationPipe) id: number) {
     const user = await this.profileService.getOne(id);
+    return fillObject(UserRdo, user, user.role);
+  }
+
+  @Patch(UrlRoute.DeleteCertificate)
+  async deleteCertificate(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @Body() dto: DeleteCertificateDto
+  ) {
+    const user = await this.profileService.deleteCertificate(userId, dto);
+    return fillObject(UserRdo, user, user.role);
+  }
+
+  @Delete(UrlRoute.DeleteAvatar)
+  async deleteAvatar(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    const user = await this.profileService.deleteAvatar(userId);
     return fillObject(UserRdo, user, user.role);
   }
 }

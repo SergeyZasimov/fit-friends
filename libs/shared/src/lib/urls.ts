@@ -20,6 +20,8 @@ export const UrlRoute = {
   Logout: 'logout',
   Refresh: 'refresh',
   UploadAvatar: 'upload-avatar',
+  DeleteCertificate: 'delete-certificate',
+  DeleteAvatar: 'delete-avatar',
   Friends: 'friends',
   AddFriend: 'add-friend',
   Trainer: 'trainer',

@@ -30,7 +30,7 @@ export const USER_CONSTRAINT = {
     MAX: 3,
   },
   AVATAR_TYPE: /(jpg|jpeg|png)$/,
-  CERTIFICATE_TYPE: /(pdf)$/,
+  CERTIFICATE_TYPE: /(jpg|jpeg|png)$/,
   FILE_SIZE: 1_000_000,
 } as const;
 

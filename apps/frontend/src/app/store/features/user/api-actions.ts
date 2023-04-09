@@ -197,7 +197,7 @@ export const fetchUser = createAsyncThunk<User, void, AsyncThunkOptionField>(
 
 export const updateUser = createAsyncThunk<
   User,
-  Profile,
+  Partial<Profile>,
   AsyncThunkOptionField
 >(
   ActionName.User.UpdateUser,
@@ -207,9 +207,9 @@ export const updateUser = createAsyncThunk<
       const { data } = await api.patch(`/${UrlDomain.Profile}`, profile, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(data);
       return data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -227,3 +227,37 @@ export const updateUser = createAsyncThunk<
     }
   }
 );
+
+export const deleteAvatar = createAsyncThunk<User, void, AsyncThunkOptionField>(
+  ActionName.User.DeleteAvatar,
+  async (_, { extra: api }) => {
+    const accessToken = getAccessToken();
+    const { data } = await api.delete(
+      `/${UrlDomain.Profile}/${UrlRoute.DeleteAvatar}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return data;
+  }
+);
+
+export const deleteCertificate = createAsyncThunk<
+  User,
+  { certificate: string },
+  AsyncThunkOptionField
+>(ActionName.User.DeleteCertificate, async (dto, { extra: api }) => {
+  const accessToken = getAccessToken();
+  const { data } = await api.patch(
+    `/${UrlDomain.Profile}/${UrlRoute.DeleteCertificate}`,
+    dto,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return data;
+});

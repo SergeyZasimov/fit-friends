@@ -12,7 +12,7 @@ export class ProfileRepository {
       data: {
         ...profile,
         avatar: profile.avatar as string,
-        certificate: profile.certificate as string,
+        certificates: profile.certificates,
         user: {
           connect: {
             id: profile.user,
@@ -30,7 +30,7 @@ export class ProfileRepository {
       data: {
         ...profile,
         avatar: profile.avatar as string,
-        certificate: profile.certificate as string,
+        certificates: profile.certificates,
         user: {
           connect: {
             id: userId,

@@ -81,7 +81,9 @@ export class CliService {
   async generateUsers() {
     await Promise.all(
       Array.from({ length: MOCKS_DEFAULT.GENERATE.USER_COUNT }, async () => {
-        await this.authService.register(createCustomer());
+        const customer = createCustomer();
+        const user = await this.authService.register(customer);
+        await this.profileService.update(user.id, customer);
       })
     ).then(() => {
       console.log('Customers were generated');
@@ -89,7 +91,9 @@ export class CliService {
 
     await Promise.all(
       Array.from({ length: MOCKS_DEFAULT.GENERATE.USER_COUNT }, async () => {
-        await this.authService.register(createTrainer());
+        const trainer = createTrainer();
+        const user = await this.authService.register(trainer);
+        await this.profileService.update(user.id, trainer);
       })
     ).then(() => {
       console.log('Trainers were generated');

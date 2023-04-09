@@ -36,7 +36,7 @@ export class ProfileRdo implements Profile {
   isReadyToTraining: boolean;
 
   @Expose({ groups: [UserRole.Trainer] })
-  certificate: string;
+  certificates: string[];
 
   @Expose({ groups: [UserRole.Trainer] })
   resume: string;

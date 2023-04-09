@@ -8,6 +8,7 @@ import { NotificationService } from '../notification/notification.service';
 import { SportGymService } from '../sport-gym/sport-gym.service';
 import { UserFiles, UserValidationMessage } from '../user/user.constant';
 import { UserRepository } from '../user/user.repository';
+import { DeleteCertificateDto } from './dto/delete-certificate.rdo';
 import { ProfileQueryDto } from './dto/profile-query.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileEntity } from './profile.entity';
@@ -77,16 +78,17 @@ export class ProfileService extends ServiceWithFiles {
       files && files.certificate && this.setFilename(files.certificate[0]);
 
     const currentAvatar = user.profile.avatar;
-    const currentCertificate = user.profile.certificate;
+    const currentCertificates = user.profile.certificates;
 
     const profileEntity = new ProfileEntity({
       ...user.profile,
       ...dto,
       avatar: avatar ? this.setFileUrl(avatar) : currentAvatar,
-      certificate: certificate
-        ? this.setFileUrl(certificate)
-        : currentCertificate,
+      certificates: certificate
+        ? [...currentCertificates, this.setFileUrl(certificate)]
+        : currentCertificates,
     });
+
     await this.profileRepository.update(userId, profileEntity);
 
     if (avatar) {
@@ -95,8 +97,6 @@ export class ProfileService extends ServiceWithFiles {
     }
 
     if (certificate) {
-      currentCertificate &&
-        (await this.deleteUserFile(currentCertificate as string));
       await this.writeUserFile(certificate);
     }
 
@@ -133,5 +133,44 @@ export class ProfileService extends ServiceWithFiles {
 
   async getFavoriteGyms(userId: number) {
     return this.userRepository.findFavoriteGyms(userId);
+  }
+
+  async deleteCertificate(userId: number, dto: DeleteCertificateDto) {
+    const { certificate } = dto;
+    const user = await this.getOne(userId);
+
+    const currentCertificates = user.profile.certificates;
+
+    const updatedCertificates = currentCertificates.filter(
+      (item) => item !== certificate
+    );
+
+    const profileEntity = new ProfileEntity({
+      ...user.profile,
+      certificates: updatedCertificates,
+    });
+
+    await this.profileRepository.update(userId, profileEntity);
+
+    await this.deleteUserFile(certificate);
+
+    return this.getOne(userId);
+  }
+
+  async deleteAvatar(userId: number) {
+    const user = await this.getOne(userId);
+
+    const currentAvatar = user.profile.avatar;
+
+    const profileEntity = new ProfileEntity({
+      ...user.profile,
+      avatar: null,
+    });
+
+    await this.profileRepository.update(userId, profileEntity);
+
+    currentAvatar && (await this.deleteUserFile(currentAvatar as string));
+
+    return this.getOne(userId);
   }
 }
