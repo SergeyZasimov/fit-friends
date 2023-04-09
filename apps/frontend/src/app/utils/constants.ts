@@ -5,6 +5,7 @@ export const REFRESH_TOKEN_KEY_NAME = 'fit-fiends-refresh-token';
 
 export const StoreNamespace = {
   UserStore: 'user',
+  NotificationStore: 'notification',
 } as const;
 
 export const ActionName = {
@@ -17,6 +18,10 @@ export const ActionName = {
     UpdateUser: 'user/updateUser',
     DeleteCertificate: 'user/deleteCertificate',
     DeleteAvatar: 'user/deleteAvatar',
+  },
+  Notification: {
+    Fetch: 'notification/fetch',
+    Delete: 'notification/delete',
   },
 } as const;
 

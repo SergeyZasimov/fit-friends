@@ -37,8 +37,6 @@ export function CertificateSlider({ certificates }: CertificateSliderProps) {
     }
   };
 
-
-
   return (
     <div className="personal-account-coach__additional-info">
       <div className="personal-account-coach__label-wrapper">
@@ -79,7 +77,8 @@ export function CertificateSlider({ certificates }: CertificateSliderProps) {
         {
           certificates.map((item) => (
             <CertificateSlide certificate={ item } count={ count } key={ item } />
-          ))
+          )
+          )
         }
       </ul>
     </div >

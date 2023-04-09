@@ -6,9 +6,6 @@ export class NotificationRdo implements Notification {
   id: number;
 
   @Expose()
-  userId: number;
-
-  @Expose()
   text: string;
 
   @Expose()

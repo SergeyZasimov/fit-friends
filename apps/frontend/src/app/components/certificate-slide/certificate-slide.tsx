@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/store.hooks';
 import { deleteCertificate } from '../../store/features/user/api-actions';
 
+
 export interface CertificateSlideProps {
   certificate: string;
   count: number;

@@ -1,4 +1,4 @@
-import { User } from '@fit-friends/shared';
+import { Notification, User } from '@fit-friends/shared';
 import { AxiosInstance } from 'axios';
 import { store } from '../store';
 import { rootReducer } from '../store/root-reducer';
@@ -17,5 +17,10 @@ export type AsyncThunkOptionField = {
 export type UserState = {
   user: User | null;
   errors: Record<string, string[]>;
+  status: keyof typeof RequestStatus;
+};
+
+export type NotificationState = {
+  notifications: Notification[];
   status: keyof typeof RequestStatus;
 };

@@ -23,7 +23,7 @@ export class NotificationService {
     return this.notificationRepository.findMany(userId);
   }
 
-  async delete(id: number, userId: number): Promise<Notification> {
+  async delete(id: number, userId: number): Promise<Notification[]> {
     const existNotification = await this.notificationRepository.findOne(id);
 
     if (!existNotification) {
@@ -36,6 +36,7 @@ export class NotificationService {
       );
     }
 
-    return this.notificationRepository.delete(id);
+    await this.notificationRepository.delete(id);
+    return this.getMany(userId);
   }
 }
