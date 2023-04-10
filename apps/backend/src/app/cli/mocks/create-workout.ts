@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker';
 import {
   CreateWorkout,
   FavorGenders,
-  TrainingLevels,
   TrainingTimes,
   TrainingTypes,
 } from '@fit-friends/shared';
@@ -16,7 +15,6 @@ export const createWorkout = (): CreateWorkout => ({
     min: USER_CONSTRAINT.CALORIES_AMOUNT.MIN,
     max: USER_CONSTRAINT.CALORIES_AMOUNT.MAX,
   }),
-  customerLevel: faker.helpers.arrayElement(TrainingLevels),
   favorGender: faker.helpers.arrayElement(FavorGenders),
   price: faker.datatype.number({ max: MOCKS_DEFAULT.WORKOUT.PRICE.MAX }),
   isSpecial: faker.datatype.boolean(),

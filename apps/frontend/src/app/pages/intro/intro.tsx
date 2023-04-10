@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../utils/constants';
 
 export function Intro() {
+
+  
+
   return (
     <main>
       <div className="intro">

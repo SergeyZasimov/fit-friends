@@ -36,7 +36,7 @@ export const TrainingTimes = [
   'больше 80 мин',
 ] as const;
 
-export const FavorGenders = ['для женщин', 'для мужчин', 'для всех'] as const;
+export const FavorGenders = ['для мужчин', 'для женщин', 'для всех'] as const;
 
 export const GymParameters = [
   'бассейн',

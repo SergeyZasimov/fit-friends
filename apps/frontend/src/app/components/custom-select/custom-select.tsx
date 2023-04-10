@@ -1,4 +1,4 @@
-import { Gender, Locations, TrainingLevels } from '@fit-friends/shared';
+import { Gender, Locations, TrainingLevels, TrainingTimes, TrainingTypes } from '@fit-friends/shared';
 import classnames from 'classnames';
 import { SyntheticEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { AppRoute, CustomSelectField } from '../../utils/constants';
 import { capitalizeWord } from '../../utils/helpers';
 
 export interface CustomSelectProps {
-  isDisabled: boolean;
+  isDisabled?: boolean;
   fieldName: string;
   value: string;
   propertyName: string;
@@ -27,6 +27,10 @@ export function CustomSelect({ value, fieldName, onSelect, isDisabled, propertyN
         return Object.values(Gender);
       case CustomSelectField.LevelField:
         return TrainingLevels;
+      case CustomSelectField.TrainingTime:
+        return TrainingTimes;
+      case CustomSelectField.TrainingType:
+        return TrainingTypes;
     }
   };
 
@@ -35,16 +39,17 @@ export function CustomSelect({ value, fieldName, onSelect, isDisabled, propertyN
     setIsOpen(false);
   };
 
-  const locationClass = classnames({
+  const selectClass = classnames({
     'custom-select': true,
     'user-info-edit__select': pathname.includes(AppRoute.TrainerAccount),
     'custom-select--not-selected': !value,
     'is-open': isOpen,
-    'is-invalid': errors?.location
+    'not-empty': value,
+    'is-invalid': errors && errors[ propertyName ]
   });
 
   return (
-    <div className={ locationClass }>
+    <div className={ selectClass }>
       <span className="custom-select__label">{ fieldName }</span>
       <div className="custom-select__placeholder">
         { fieldName === CustomSelectField.LocationField ?
@@ -80,6 +85,10 @@ export function CustomSelect({ value, fieldName, onSelect, isDisabled, propertyN
           ))
         }
       </ul>
+      { errors && errors[ propertyName ] &&
+        errors[ propertyName ].map((item) => (
+          <span key={ item } className="custom-select__error" style={ { position: 'initial' } }>{ item }</span>
+        )) }
     </div>
   );
 }

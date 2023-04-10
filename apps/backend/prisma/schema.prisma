@@ -58,7 +58,7 @@ model Workout {
   id                   Int            @id @default(autoincrement())
   title                String
   backgroundImage      String
-  customerLevel        String
+  customerLevel        String?
   trainingType         String
   trainingTime         String
   price                Int

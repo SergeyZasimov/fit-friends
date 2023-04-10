@@ -12,9 +12,8 @@ import {
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { shouldDisplayError } from '../../../services/api.service';
 import {
-  getAccessToken,
-  getRefreshToken,
   setAccessToken,
   setRefreshToken,
 } from '../../../services/token.service';
@@ -179,15 +178,14 @@ export const fetchUser = createAsyncThunk<User, void, AsyncThunkOptionField>(
   ActionName.User.FetchUser,
   async (_, { extra: api }) => {
     try {
-      const refreshToken = getRefreshToken();
-      const { data } = await api.get(`/${UrlDomain.Auth}`, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
+      const { data } = await api.get(`/${UrlDomain.Auth}`);
       return data;
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
+      if (
+        axios.isAxiosError(err) &&
+        err.response &&
+        shouldDisplayError(err.response)
+      ) {
         const { message } = err.response.data;
         toast.error(message);
       }
@@ -202,11 +200,9 @@ export const updateUser = createAsyncThunk<
 >(
   ActionName.User.UpdateUser,
   async (profile, { extra: api, rejectWithValue }) => {
-    const accessToken = getAccessToken();
     try {
       const { data } = await api.patch(`/${UrlDomain.Profile}`, profile, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -231,14 +227,8 @@ export const updateUser = createAsyncThunk<
 export const deleteAvatar = createAsyncThunk<User, void, AsyncThunkOptionField>(
   ActionName.User.DeleteAvatar,
   async (_, { extra: api }) => {
-    const accessToken = getAccessToken();
     const { data } = await api.delete(
-      `/${UrlDomain.Profile}/${UrlRoute.DeleteAvatar}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      `/${UrlDomain.Profile}/${UrlRoute.DeleteAvatar}`
     );
     return data;
   }
@@ -249,15 +239,9 @@ export const deleteCertificate = createAsyncThunk<
   { certificate: string },
   AsyncThunkOptionField
 >(ActionName.User.DeleteCertificate, async (dto, { extra: api }) => {
-  const accessToken = getAccessToken();
   const { data } = await api.patch(
     `/${UrlDomain.Profile}/${UrlRoute.DeleteCertificate}`,
-    dto,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    dto
   );
   return data;
 });

@@ -32,28 +32,29 @@ export const WORKOUT_CONSTRAINT = {
 } as const;
 
 export const WorkoutValidationMessage = {
-  TitleNotValid: `Название тренировки должно быть строкой длиной от ${WORKOUT_CONSTRAINT.TITLE.MIN} до ${WORKOUT_CONSTRAINT.TITLE.MAX} символов`,
-  CustomerLevelNotValid: `Уровень клиента должен быть одним из значений: ${formatEnumToValidationMessage(
+  TitleNotValid: `$property: Название тренировки должно быть строкой длиной от ${WORKOUT_CONSTRAINT.TITLE.MIN} до ${WORKOUT_CONSTRAINT.TITLE.MAX} символов`,
+  CustomerLevelNotValid: `$property: Уровень клиента должен быть одним из значений - ${formatEnumToValidationMessage(
     TrainingLevels
   )}`,
-  TrainingTypeNotValid: `Тип тренировки должен быть одним из значений: ${formatEnumToValidationMessage(
+  TrainingTypeNotValid: `$property: Тип тренировки должен быть одним из значений - ${formatEnumToValidationMessage(
     TrainingTypes
   )}`,
-  TrainingTimeNotValid: `Длительность тренировки должна быть из предопределённых диапазонов: ${formatEnumToValidationMessage(
+  TrainingTimeNotValid: `$property: Длительность тренировки должна быть из предопределённых диапазонов - ${formatEnumToValidationMessage(
     TrainingTimes
   )}`,
-  PriceNotValid: 'Цена должна быть целым числом',
-  MinPriceNotValid: `Минимальная цена должна быть ${WORKOUT_CONSTRAINT.PRICE.MIN}`,
-  CaloriesAmountNotValid: 'Количество калорий должно целым числом',
-  CaloriesAmountRangeNotValid: `Количество калорий должно быть в диапазоне от ${WORKOUT_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${WORKOUT_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
-  FavorGenderNotValid: `Предпочтительный пол клиента должен быть одним из значений: ${formatEnumToValidationMessage(
+  PriceNotValid: '$property: Цена должна быть целым числом',
+  MinPriceNotValid: `$property: Минимальная цена должна быть ${WORKOUT_CONSTRAINT.PRICE.MIN}`,
+  CaloriesAmountNotValid: '$property: Количество калорий должно целым числом',
+  CaloriesAmountRangeNotValid: `$property: Количество калорий должно быть в диапазоне от ${WORKOUT_CONSTRAINT.CALORIES_AMOUNT.MIN} до ${WORKOUT_CONSTRAINT.CALORIES_AMOUNT.MAX}`,
+  FavorGenderNotValid: `$property: Предпочтительный пол клиента должен быть одним из значений - ${formatEnumToValidationMessage(
     FavorGenders
   )}`,
   VideoRequired: 'Видео обязательно для заполнения',
   VideoNotValid: 'Видео должно быть в формате mov, avi, mp4',
-  IsSpecialNovValid: 'Неверный формат флага специального предложения',
-  DescriptionNotValid: `Описание должно быть строкой длиной от ${WORKOUT_CONSTRAINT.DESCRIPTION.MIN} до ${WORKOUT_CONSTRAINT.DESCRIPTION.MAX} символов`,
-  RatingNotValid: `Рейтинг должен быть целым числом между ${WORKOUT_CONSTRAINT.RATING.MIN} и ${WORKOUT_CONSTRAINT.RATING.MAX}`,
+  IsSpecialNovValid:
+    '$property: Неверный формат флага специального предложения',
+  DescriptionNotValid: `$property: Описание должно быть строкой длиной от ${WORKOUT_CONSTRAINT.DESCRIPTION.MIN} до ${WORKOUT_CONSTRAINT.DESCRIPTION.MAX} символов`,
+  RatingNotValid: `$property: Рейтинг должен быть целым числом между ${WORKOUT_CONSTRAINT.RATING.MIN} и ${WORKOUT_CONSTRAINT.RATING.MAX}`,
 } as const;
 
 export const WorkoutExceptionMessage = {

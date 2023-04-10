@@ -31,7 +31,6 @@ import { QuestionnaireCustomerDto } from './dto/questionnaire-customer.dto';
 import { QuestionnaireTrainerDto } from './dto/questionnaire-trainer.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 
-@SkipAccessJwt()
 @Controller(UrlDomain.Auth)
 export class AuthController {
   constructor(
@@ -39,6 +38,7 @@ export class AuthController {
     private readonly profileService: ProfileService
   ) {}
 
+  @SkipAccessJwt()
   @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }]))
   @Post(UrlRoute.Register)
   async register(
@@ -54,12 +54,14 @@ export class AuthController {
     return fillObject(RegisteredUserRdo, newUser);
   }
 
+  @SkipAccessJwt()
   @Post(UrlRoute.QuestionnaireCustomer)
   async registerQuestionnaireCustomer(@Body() dto: QuestionnaireCustomerDto) {
     const user = await this.profileService.update(dto.userId, dto);
     return fillObject(UserRdo, user, user.role);
   }
 
+  @SkipAccessJwt()
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'certificate', maxCount: 1 }])
   )
@@ -77,6 +79,7 @@ export class AuthController {
     return fillObject(UserRdo, user, user.role);
   }
 
+  @SkipAccessJwt()
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post(UrlRoute.Login)
@@ -84,19 +87,18 @@ export class AuthController {
     return this.authService.login(user);
   }
 
+  @SkipAccessJwt()
   @UseGuards(JwtRefreshGuard)
   @Get(UrlRoute.Refresh)
   async refreshTokens(@GetCurrentUser() user: User) {
     return this.authService.login(user);
   }
 
-  @UseGuards(JwtRefreshGuard)
   @Get(UrlRoute.Logout)
   async logout(@GetCurrentUser() user: User) {
     await this.authService.logout(user);
   }
 
-  @UseGuards(JwtRefreshGuard)
   @Get()
   async checkUserStatus(@GetCurrentUser(CurrentUserField.Id) userId: number) {
     const user = await this.profileService.getOne(userId);

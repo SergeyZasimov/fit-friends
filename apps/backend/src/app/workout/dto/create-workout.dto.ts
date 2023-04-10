@@ -6,7 +6,15 @@ import {
   TrainingTypes,
 } from '@fit-friends/shared';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsEnum, IsInt, Length, Max, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  Length,
+  Max,
+  Min,
+} from 'class-validator';
 import {
   WORKOUT_CONSTRAINT,
   WorkoutValidationMessage,
@@ -33,7 +41,8 @@ export class CreateWorkoutDto implements CreateWorkout {
   title: string;
 
   @IsEnum(TrainingLevels, { message: CustomerLevelNotValid })
-  customerLevel: string;
+  @IsOptional()
+  customerLevel?: string;
 
   @IsEnum(TrainingTypes, { message: TrainingTypeNotValid })
   trainingType: string;
@@ -43,7 +52,7 @@ export class CreateWorkoutDto implements CreateWorkout {
 
   @Min(PRICE.MIN, { message: MinPriceNotValid })
   @IsInt({ message: PriceNotValid })
-  @Transform(({ value }) => +value)
+  @Transform(({ value }) => parseInt(value))
   price: number;
 
   @Max(CALORIES_AMOUNT.MAX, { message: CaloriesAmountRangeNotValid })
@@ -60,5 +69,6 @@ export class CreateWorkoutDto implements CreateWorkout {
 
   @IsBoolean({ message: IsSpecialNovValid })
   @Transform(({ value }) => !!value)
+  @IsOptional()
   isSpecial: boolean;
 }

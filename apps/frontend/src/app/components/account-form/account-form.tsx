@@ -1,7 +1,7 @@
 import { Profile, User } from '@fit-friends/shared';
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks/store.hooks';
-import { useEditAccount } from '../../hooks/user-edit-account';
+import { useEditAccount } from '../../hooks/use-edit-account';
 import { updateUser } from '../../store/features/user/api-actions';
 import { CustomSelectField } from '../../utils/constants';
 import CustomSelect from '../custom-select/custom-select';

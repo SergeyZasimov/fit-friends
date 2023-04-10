@@ -6,6 +6,7 @@ export const REFRESH_TOKEN_KEY_NAME = 'fit-fiends-refresh-token';
 export const StoreNamespace = {
   UserStore: 'user',
   NotificationStore: 'notification',
+  WorkoutStore: 'workout',
 } as const;
 
 export const ActionName = {
@@ -22,6 +23,9 @@ export const ActionName = {
   Notification: {
     Fetch: 'notification/fetch',
     Delete: 'notification/delete',
+  },
+  Workout: {
+    Create: 'workout/create',
   },
 } as const;
 
@@ -40,10 +44,14 @@ export const AppRoute = {
   QuestionnaireTrainer: 'questionnaire-trainer',
   CustomerMain: 'customer-main',
   TrainerAccount: 'trainer-account',
+  CreateWorkout: 'create-workout',
+  MyWorkouts: 'my-workouts',
 } as const;
 
 export const CustomSelectField = {
   LocationField: 'Локация',
   GenderField: 'Пол',
   LevelField: 'Уровень',
+  TrainingTime: 'Сколько времени потратим',
+  TrainingType: 'Выберите тип тренировки',
 } as const;

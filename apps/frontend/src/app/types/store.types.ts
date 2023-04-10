@@ -1,4 +1,4 @@
-import { Notification, User } from '@fit-friends/shared';
+import { Notification, User, Workout } from '@fit-friends/shared';
 import { AxiosInstance } from 'axios';
 import { store } from '../store';
 import { rootReducer } from '../store/root-reducer';
@@ -23,4 +23,9 @@ export type UserState = {
 export type NotificationState = {
   notifications: Notification[];
   status: keyof typeof RequestStatus;
+};
+
+export type WorkoutState = {
+  workouts: Workout[];
+  errors: Record<string, string[]>;
 };
