@@ -84,6 +84,12 @@ export class CliService {
         const customer = createCustomer();
         const user = await this.authService.register(customer);
         await this.profileService.update(user.id, customer);
+        await this.prisma.profile.update({
+          where: { userId: user.id },
+          data: {
+            avatar: 'http://localhost:3333/test-content/test-img/photo-1.png',
+          },
+        });
       })
     ).then(() => {
       console.log('Customers were generated');
@@ -94,6 +100,13 @@ export class CliService {
         const trainer = createTrainer();
         const user = await this.authService.register(trainer);
         await this.profileService.update(user.id, trainer);
+        await this.prisma.profile.update({
+          where: { userId: user.id },
+          data: {
+            avatar: 'http://localhost:3333/test-content/test-img/photo-1-coach.png',
+          },
+        });
+
       })
     ).then(() => {
       console.log('Trainers were generated');

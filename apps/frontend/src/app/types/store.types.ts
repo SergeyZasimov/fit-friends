@@ -1,4 +1,4 @@
-import { Notification, User, Workout } from '@fit-friends/shared';
+import { Notification, Review, User, Workout } from '@fit-friends/shared';
 import { AxiosInstance } from 'axios';
 import { store } from '../store';
 import { rootReducer } from '../store/root-reducer';
@@ -32,3 +32,7 @@ export type WorkoutState = {
   caloriesInfo: { min: number; max: number } | null;
   status: keyof typeof RequestStatus;
 };
+
+export type ReviewState = {
+  reviews: Review[];
+}

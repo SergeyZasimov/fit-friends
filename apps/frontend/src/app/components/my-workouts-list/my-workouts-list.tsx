@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store.hooks';
 import { getWorkouts } from '../../store/features/workout/workout-slice';
 
@@ -78,7 +79,7 @@ export function MyWorkoutsList() {
                     </p>
                   </div>
                   <div className="thumbnail-training__button-wrapper">
-                    <a className="btn btn--small thumbnail-training__button-catalog" href="#">Подробнее</a>
+                    <Link to={ `${workout?.id}` } className="btn btn--small thumbnail-training__button-catalog" >Подробнее</Link>
                     <a className="btn btn--small btn--outlined thumbnail-training__button-catalog" href="#">Отзывы</a>
                   </div>
                 </div>
@@ -86,7 +87,7 @@ export function MyWorkoutsList() {
             </li>
           ))
         }
-      </ul>
+      </ul >
       <div className="show-more my-trainings__show-more">
         {
           workouts.length !== workouts.slice(0, offset).length

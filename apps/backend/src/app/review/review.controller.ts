@@ -22,12 +22,15 @@ export class ReviewController {
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     const result = await this.reviewService.create(dto, userId);
-    return fillObject(ReviewRdo, result);
+    return fillObject(ReviewRdo, result, result.user.role);
   }
 
   @Get(`:${UrlParams.Id}`)
   async showMany(@Param(UrlParams.Id, DbIdValidationPipe) workoutId: number) {
     const result = await this.reviewService.getMany(workoutId);
-    return fillObject(ReviewRdo, result);
+    console.log(
+      result.map((item) => fillObject(ReviewRdo, item, item.user.role))
+    );
+    return result.map((item) => fillObject(ReviewRdo, item, item.user.role));
   }
 }

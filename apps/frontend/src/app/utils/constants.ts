@@ -16,6 +16,7 @@ export const StoreNamespace = {
   UserStore: 'user',
   NotificationStore: 'notification',
   WorkoutStore: 'workout',
+  ReviewStore: 'review',
 } as const;
 
 export const ActionName = {
@@ -37,6 +38,9 @@ export const ActionName = {
     Create: 'workout/create',
     FetchWorkouts: 'workout/fetchWorkout',
     FetchWorkoutsInfo: 'workout/fetchWorkoutsInfo',
+  },
+  Review: {
+    FetchReviews: 'review/fetchReviews',
   },
 } as const;
 
