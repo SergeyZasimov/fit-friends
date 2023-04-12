@@ -1,4 +1,9 @@
-import { UrlDomain, Workout } from '@fit-friends/shared';
+import {
+  UrlDomain,
+  UrlRoute,
+  Workout,
+  WorkoutsInfo,
+} from '@fit-friends/shared';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -35,4 +40,24 @@ export const createWorkout = createAsyncThunk<
       return rejectWithValue(errors);
     }
   }
+});
+
+export const fetchWorkouts = createAsyncThunk<
+  Workout[],
+  string,
+  AsyncThunkOptionField
+>(ActionName.Workout.FetchWorkouts, async (queryString, { extra: api }) => {
+  const { data } = await api.get(`${UrlDomain.Workout}?${queryString}`);
+  return data;
+});
+
+export const fetchWorkoutsInfo = createAsyncThunk<
+  WorkoutsInfo,
+  void,
+  AsyncThunkOptionField
+>(ActionName.Workout.FetchWorkoutsInfo, async (_, { extra: api }) => {
+  const { data } = await api.get<WorkoutsInfo>(
+    `${UrlDomain.Workout}/${UrlRoute.Info}`
+  );
+  return data;
 });

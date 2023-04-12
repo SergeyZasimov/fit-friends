@@ -1,25 +1,31 @@
 import { UserRole } from '@fit-friends/shared';
-import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store.hooks';
 import { getUser } from '../../store/features/user/user-slice';
 import { AppRoute } from '../../utils/constants';
 import NotificationList from '../notification-list/notification-list';
 
-/* eslint-disable-next-line */
-export interface HeaderProps { }
 
-export function Header(props: HeaderProps) {
+export function Header() {
 
   const user = useAppSelector(getUser);
+  const { pathname } = useLocation();
 
   const routes = {
-    root: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerMain
+    account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerMain
   };
+
+  const setNavLindActiveClass = (route: string) =>
+    classNames({
+      'main-nav__link': true,
+      'is-active': pathname.includes(route)
+    });
 
   return (
     <header className="header">
       <div className="container">
-        <NavLink className="header__logo" to={ `/${routes.root}` } aria-label="Переход на главную">
+        <NavLink className="header__logo" to={ `/` } aria-label="Переход на главную">
           <svg width="187" height="70" aria-hidden="true">
             <use xlinkHref="#logo"></use>
           </svg>
@@ -27,17 +33,20 @@ export function Header(props: HeaderProps) {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <NavLink className="main-nav__link is-active" to={ `/${routes.root}` } aria-label="На главную">
+              <NavLink className="main-nav__link" to={ `/` } aria-label="На главную">
                 <svg width="18" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-home"></use>
                 </svg>
               </NavLink>
             </li>
             <li className="main-nav__item">
-              <a className="main-nav__link" href="#" aria-label="Личный кабинет">
+              <NavLink
+                className={ () => setNavLindActiveClass(routes.account) }
+                to={ routes.account }
+                aria-label="Личный кабинет">
                 <svg width="16" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-user"></use>
-                </svg></a></li>
+                </svg></NavLink></li>
             <li className="main-nav__item">
               <a className="main-nav__link" href="#" aria-label="Друзья">
                 <svg width="22" height="16" aria-hidden="true">
@@ -72,7 +81,7 @@ export function Header(props: HeaderProps) {
           </form>
         </div>
       </div>
-    </header>);
+    </header >);
 }
 
 export default Header;

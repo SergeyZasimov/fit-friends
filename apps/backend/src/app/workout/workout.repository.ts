@@ -30,7 +30,7 @@ export class WorkoutRepository {
     const {
       caloriesRange,
       priceRange,
-      rating,
+      ratingRange,
       trainingTime,
       limit,
       page,
@@ -42,7 +42,6 @@ export class WorkoutRepository {
     return this.prisma.workout.findMany({
       where: {
         trainerId: userId,
-        rating,
         trainingTime: { in: trainingTime },
         trainingType: { in: trainingType },
         AND: [
@@ -64,6 +63,16 @@ export class WorkoutRepository {
           {
             caloriesAmountToLose: {
               gte: caloriesRange ? caloriesRange[LIMIT_INDEX.LOWER] : undefined,
+            },
+          },
+          {
+            rating: {
+              lte: ratingRange ? ratingRange[LIMIT_INDEX.UPPER] : undefined,
+            },
+          },
+          {
+            rating: {
+              gte: ratingRange ? ratingRange[LIMIT_INDEX.LOWER] : undefined,
             },
           },
         ],
@@ -152,6 +161,20 @@ export class WorkoutRepository {
       },
       data: {
         rating,
+      },
+    });
+  }
+
+  async findWorkoutsInfo(trainerId: number) {
+    return this.prisma.workout.aggregate({
+      where: { trainerId },
+      _min: {
+        price: true,
+        caloriesAmountToLose: true,
+      },
+      _max: {
+        price: true,
+        caloriesAmountToLose: true,
       },
     });
   }

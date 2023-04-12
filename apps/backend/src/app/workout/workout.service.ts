@@ -112,6 +112,10 @@ export class WorkoutService extends ServiceWithFiles {
     return this.workoutRepository.updateRating(workoutId, rating);
   }
 
+  async getWorkoutsInfo(trainerId: number) {
+    return this.workoutRepository.findWorkoutsInfo(trainerId)
+  }
+
   async checkWorkoutExist(id: number): Promise<Workout> {
     const existWorkout = await this.workoutRepository.findOne(id);
     if (!existWorkout) {

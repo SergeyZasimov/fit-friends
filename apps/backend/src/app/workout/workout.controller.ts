@@ -1,6 +1,7 @@
 import {
   UrlDomain,
   UrlParams,
+  UrlRoute,
   User,
   UserRole,
   Workout,
@@ -60,6 +61,14 @@ export class WorkoutController {
     return workouts.map((item: Workout) =>
       fillObject(WorkoutRdo, item, (item.trainer as User).role)
     );
+  }
+
+  @Get(UrlRoute.Info)
+  async showWorkoutsInfo(
+    @GetCurrentUser(CurrentUserField.Id)
+    trainerId: number
+  ) {
+    return this.workoutService.getWorkoutsInfo(trainerId);
   }
 
   @Get(`:${UrlParams.Id}`)

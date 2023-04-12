@@ -27,6 +27,7 @@ export const UrlRoute = {
   Trainer: 'trainer',
   Customer: 'customer',
   UpdateFavoriteGym: 'favorite-gym',
+  Info: 'info',
 } as const;
 
 export const UrlParams = {

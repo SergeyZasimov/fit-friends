@@ -2,6 +2,15 @@ export const BACKEND_URL = 'http://localhost:3333/api';
 export const REQUEST_TIMEOUT = 5000;
 export const ACCESS_TOKEN_KEY_NAME = 'fit-fiends-access-token';
 export const REFRESH_TOKEN_KEY_NAME = 'fit-fiends-refresh-token';
+export const DEFAULT_PRICE_CHANGE_TIMEOUT = 500;
+
+export const LOW_INDEX = 0;
+export const HIGH_INDEX = 1;
+
+export const DEFAULT_RATING = {
+  MIN: 0,
+  MAX: 5,
+};
 
 export const StoreNamespace = {
   UserStore: 'user',
@@ -26,6 +35,8 @@ export const ActionName = {
   },
   Workout: {
     Create: 'workout/create',
+    FetchWorkouts: 'workout/fetchWorkout',
+    FetchWorkoutsInfo: 'workout/fetchWorkoutsInfo',
   },
 } as const;
 

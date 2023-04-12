@@ -82,3 +82,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsI
 ### Get Workouts
 GET {{baseUrl}}/workout {{protocol}}
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHZXJhcmQuRGVuZXNpazZAaG90bWFpbC5jb20iLCJyb2xlIjoi0L_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiaWF0IjoxNjc5MjI3NzYyLCJleHAiOjE2NzkyMjg2NjJ9.18v9DYf4HX-O7-U1gUTPxgzWyr-Jl_0_21qWu3Duc5k
+
+### Get Info
+GET {{baseUrl}}/workout/info {{protocol}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJXYWxrZXI5N0B5YWhvby5jb20iLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiaWF0IjoxNjgxMjIxMDU4LCJleHAiOjE2ODEyMjE5NTh9.x-OMUUmey5pyDWTxodRpENb-AMomQ3bjlLNsPNrUvpM

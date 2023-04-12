@@ -27,6 +27,17 @@ export type CreateWorkout = Omit<
 export type WorkoutQuery = BasicQuery & {
   priceRange?: number[];
   caloriesRange?: number[];
-  rating?: number;
+  ratingRange?: number[];
   trainingTime?: string[];
+};
+
+export type WorkoutsInfo = {
+  _min: {
+    price: number;
+    caloriesAmountToLose: number;
+  };
+  _max: {
+    price: number;
+    caloriesAmountToLose: number;
+  };
 };

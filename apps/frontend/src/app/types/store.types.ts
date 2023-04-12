@@ -28,4 +28,7 @@ export type NotificationState = {
 export type WorkoutState = {
   workouts: Workout[];
   errors: Record<string, string[]>;
+  priceInfo: { min: number; max: number } | null;
+  caloriesInfo: { min: number; max: number } | null;
+  status: keyof typeof RequestStatus;
 };

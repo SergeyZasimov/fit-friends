@@ -34,11 +34,13 @@ export class QueryWorkoutDto extends BasicQueryDto implements WorkoutQuery {
   @IsOptional()
   caloriesRange?: number[];
 
-  @Max(WORKOUT_CONSTRAINT.RATING.MAX, { message: RatingNotValid })
-  @Min(WORKOUT_CONSTRAINT.RATING.MIN, { message: RatingNotValid })
-  @Transform(({ value }) => parseInt(value))
+  @Max(WORKOUT_CONSTRAINT.RATING.MAX, { message: RatingNotValid, each: true })
+  @Min(WORKOUT_CONSTRAINT.RATING.MIN, { message: RatingNotValid, each: true })
+  @Transform(({ value }) =>
+    value.split(',').map((item: string) => parseInt(item))
+  )
   @IsOptional()
-  rating?: number;
+  ratingRange?: number[];
 
   @IsEnum(TrainingTimes, { each: true, message: TrainingTimeNotValid })
   @Transform(({ value }) => value.split(','))
