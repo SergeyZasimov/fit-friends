@@ -9,6 +9,7 @@ import Register from './pages/register/register';
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
 import TrainerAccount from './pages/trainer-account/trainer-account';
+import TrainerMyOrders from './pages/trainer-my-orders/trainer-my-orders';
 import TrainerMyWorkouts from './pages/trainer-my-workouts/trainer-my-workouts';
 import WorkoutCard from './pages/workout-card/workout-card';
 import { AppRoute } from './utils/constants';
@@ -31,6 +32,7 @@ export function App() {
           <Route index element={ <TrainerRestrictPage><TrainerMyWorkouts /></TrainerRestrictPage> } />
           <Route path={ `:id` } element={ <TrainerRestrictPage><WorkoutCard /></TrainerRestrictPage> } />
         </Route>
+        <Route path={ AppRoute.MyOrders } element={ <TrainerRestrictPage><TrainerMyOrders /></TrainerRestrictPage> } />
       </Route>
       <Route path={ AppRoute.CustomerMain } element={ <CustomerMain /> } />
     </Routes>

@@ -8,6 +8,7 @@ import { fillObject } from '../utils/helpers';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
 import { OrderService } from './order.service';
+import { OrderForTrainerRdo } from './rdo/order-for-trainer.rdo';
 import { OrderRdo } from './rdo/order.rdo';
 
 @Controller(UrlDomain.Order)
@@ -32,7 +33,10 @@ export class OrderController {
     @Query() query: QueryTrainerOrders,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    return this.orderService.getOrdersForTrainer(query, userId);
+    const result = await this.orderService.getOrdersForTrainer(query, userId);
+    return result.map((item) =>
+      fillObject(OrderForTrainerRdo, item, item.workout.trainer.role)
+    );
   }
 
   @UseGuards(RoleGuard)

@@ -72,14 +72,14 @@ export function TrainerAccount() {
                       </div>
                       <span className="thumbnail-link__text">Мои друзья</span>
                     </a>
-                    <a className="thumbnail-link thumbnail-link--theme-light" href="#">
+                    <Link className="thumbnail-link thumbnail-link--theme-light" to={ AppRoute.MyOrders }>
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
                           <use xlinkHref="#icon-bag"></use>
                         </svg>
                       </div>
                       <span className="thumbnail-link__text">Мои заказы</span>
-                    </a>
+                    </Link>
                     <Calendar className="personal-account-coach__calendar"></Calendar>
                   </div>
                   <CertificateSlider certificates={ (user.profile as Profile).certificates as string[] } />

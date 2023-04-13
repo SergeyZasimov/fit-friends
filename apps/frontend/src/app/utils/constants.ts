@@ -17,6 +17,7 @@ export const StoreNamespace = {
   NotificationStore: 'notification',
   WorkoutStore: 'workout',
   ReviewStore: 'review',
+  OrderStore: 'order',
 } as const;
 
 export const ActionName = {
@@ -45,6 +46,9 @@ export const ActionName = {
   Review: {
     FetchReviews: 'review/fetchReviews',
   },
+  Order: {
+    FetchOrders: 'order/fetchOrders',
+  },
 } as const;
 
 export const RequestStatus = {
@@ -64,6 +68,7 @@ export const AppRoute = {
   TrainerAccount: 'trainer-account',
   CreateWorkout: 'create-workout',
   MyWorkouts: 'my-workouts',
+  MyOrders: 'my-orders',
 } as const;
 
 export const CustomSelectField = {

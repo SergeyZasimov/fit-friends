@@ -22,3 +22,9 @@ export type CreateOrder = Pick<
   Order,
   'orderType' | 'amount' | 'paymentMethod'
 > & { purchaseId: number };
+
+export type OrderForTrainer = {
+  workout: Workout;
+  count: number;
+  totalPrice: number;
+};

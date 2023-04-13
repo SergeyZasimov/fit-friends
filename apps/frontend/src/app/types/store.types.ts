@@ -1,4 +1,10 @@
-import { Notification, Review, User, Workout } from '@fit-friends/shared';
+import {
+  Notification,
+  OrderForTrainer,
+  Review,
+  User,
+  Workout,
+} from '@fit-friends/shared';
 import { AxiosInstance } from 'axios';
 import { store } from '../store';
 import { rootReducer } from '../store/root-reducer';
@@ -36,4 +42,8 @@ export type WorkoutState = {
 
 export type ReviewState = {
   reviews: Review[];
+};
+
+export type OrderState = {
+  ordersForTrainer: OrderForTrainer[];
 };
