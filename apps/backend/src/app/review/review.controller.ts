@@ -28,9 +28,6 @@ export class ReviewController {
   @Get(`:${UrlParams.Id}`)
   async showMany(@Param(UrlParams.Id, DbIdValidationPipe) workoutId: number) {
     const result = await this.reviewService.getMany(workoutId);
-    console.log(
-      result.map((item) => fillObject(ReviewRdo, item, item.user.role))
-    );
     return result.map((item) => fillObject(ReviewRdo, item, item.user.role));
   }
 }

@@ -1,6 +1,7 @@
 import { UserRole } from '@fit-friends/shared';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import { browserHistory } from '../../services/browser-history.service';
 import { fetchReviews } from '../../store/features/review/api-actions';
 import { getReviews } from '../../store/features/review/review-slice';
 import { getUser } from '../../store/features/user/user-slice';
@@ -28,7 +29,11 @@ export function ReviewList({ workoutId }: ReviewListProps) {
 
   return (
     <aside className="reviews-side-bar">
-      <button className="btn-flat btn-flat--underlined reviews-side-bar__back" type="button">
+      <button
+        className="btn-flat btn-flat--underlined reviews-side-bar__back"
+        type="button"
+        onClick={ () => browserHistory.back() }
+      >
         <svg width="14" height="10" aria-hidden="true">
           <use xlinkHref="#arrow-left"></use>
         </svg><span>Назад</span>
@@ -36,7 +41,7 @@ export function ReviewList({ workoutId }: ReviewListProps) {
       <h2 className="reviews-side-bar__title">Отзывы</h2>
       <ul className="reviews-side-bar__list">
         { reviews.map(item => (
-          <li className="reviews-side-bar__item">
+          <li className="reviews-side-bar__item" key={ item.id }>
             <div className="review">
               <div className="review__user-info">
                 <div className="review__user-photo">

@@ -1,16 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header/header';
 import MyWorkoutsFilter from '../../components/my-workouts-filter/my-workouts-filter';
 import MyWorkoutsList from '../../components/my-workouts-list/my-workouts-list';
-import { AppRoute } from '../../utils/constants';
+import { browserHistory } from '../../services/browser-history.service';
 
 export function TrainerMyWorkouts() {
 
-  const navigate = useNavigate();
-
-
   const handleBackClick = () => {
-    navigate(`/${AppRoute.TrainerAccount}`);
+    browserHistory.back();
   };
 
   return (

@@ -9,6 +9,7 @@ import {
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -90,6 +91,18 @@ export class WorkoutController {
     file?: Express.Multer.File
   ) {
     const workout = await this.workoutService.update(id, dto, userId, file);
+    return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
+  }
+
+  @UseGuards(RoleGuard)
+  @Role(UserRole.Trainer)
+  @Delete(`:${UrlParams.Id}`)
+  async deleteVideo(
+    @Param(UrlParams.Id, DbIdValidationPipe) id: number,
+    @GetCurrentUser(CurrentUserField.Id)
+    userId: number
+  ) {
+    const workout = await this.workoutService.deleteVideo(id, userId);
     return fillObject(WorkoutRdo, workout, (workout.trainer as User).role);
   }
 }

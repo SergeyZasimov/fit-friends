@@ -36,8 +36,11 @@ export const ActionName = {
   },
   Workout: {
     Create: 'workout/create',
-    FetchWorkouts: 'workout/fetchWorkout',
+    FetchWorkouts: 'workout/fetchWorkouts',
     FetchWorkoutsInfo: 'workout/fetchWorkoutsInfo',
+    FetchWorkout: 'workout/fetchWorkout',
+    UpdateWorkout: 'workout/updateWorkout',
+    DeleteVideo: 'workout/deleteVideo',
   },
   Review: {
     FetchReviews: 'review/fetchReviews',

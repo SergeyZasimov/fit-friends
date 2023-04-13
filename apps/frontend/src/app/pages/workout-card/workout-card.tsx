@@ -1,11 +1,63 @@
+import { CreateWorkout, User } from '@fit-friends/shared';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import ReviewList from '../../components/review-list/review-list';
+import Video from '../../components/video/video';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import { fetchWorkout, updateWorkout } from '../../store/features/workout/api-actions';
+import { getWorkout, getWorkoutErrors } from '../../store/features/workout/workout-slice';
 
 
 export function WorkoutCard() {
 
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const workout = useAppSelector(getWorkout);
+  const errors = useAppSelector(getWorkoutErrors);
+  const [ isFormDisabled, setIsFormDisabled ] = useState(true);
+
+  const [ workoutForm, setWorkoutForm ] = useState<Partial<CreateWorkout>>({});
+
+
+  useEffect(() => {
+    dispatch(fetchWorkout(id as string));
+  }, [ id ]);
+
+  useEffect(() => {
+    setWorkoutForm({
+      title: workout?.title,
+      description: workout?.description,
+      price: workout?.price
+    });
+  }, [ workout ]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+
+  const handleFormChange = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    const name = target.name;
+    const value = target.value;
+    setWorkoutForm({ ...workoutForm, [ name ]: value });
+  };
+
+  const handleSubmit = () => {
+    setIsFormDisabled(!isFormDisabled);
+    dispatch(updateWorkout({ workoutId: workout?.id as number, formData: workoutForm }));
+  };
+
+  const handleSetIsSpecial = () => {
+    dispatch(updateWorkout({ workoutId: workout?.id as number, formData: { isSpecial: true } }));
+  };
+
+  if (!workout) {
+    return (
+      <div>Loading...</div>
+    );
+  }
 
   return (
     <>
@@ -23,24 +75,40 @@ export function WorkoutCard() {
                     <div className="training-info__coach">
                       <div className="training-info__photo">
                         <picture>
-                          <source type="image/webp"
-                            srcSet="img/content/avatars/coaches//photo-1.webp, img/content/avatars/coaches//photo-1@2x.webp 2x" />
-                          <img src="img/content/avatars/coaches//photo-1.png"
-                            srcSet="img/content/avatars/coaches//photo-1@2x.png 2x" width="64" height="64" alt="Изображение тренера" />
+                          <img
+                            src={ (workout.trainer as User).profile?.avatar as string }
+                            width="64"
+                            height="64"
+                            alt={ (workout?.trainer as User).profile?.name }
+                          />
                         </picture>
                       </div>
-                      <div className="training-info__coach-info"><span className="training-info__label">Тренер</span><span className="training-info__name">Валерия</span></div>
+                      <div className="training-info__coach-info">
+                        <span className="training-info__label">Тренер</span>
+                        <span className="training-info__name">{ (workout?.trainer as User).profile?.name }</span></div>
                     </div>
-                    <button className="btn-flat btn-flat--light training-info__edit training-info__edit--edit" type="button">
-                      <svg width="12" height="12" aria-hidden="true">
-                        <use xlinkHref="#icon-edit"></use>
-                      </svg><span>Редактировать</span>
-                    </button>
-                    <button className="btn-flat btn-flat--light btn-flat--underlined training-info__edit training-info__edit--save" type="button">
-                      <svg width="12" height="12" aria-hidden="true">
-                        <use xlinkHref="#icon-edit"></use>
-                      </svg><span>Сохранить</span>
-                    </button>
+                    {
+                      isFormDisabled ?
+                        <button
+                          className="btn-flat btn-flat--light training-info__edit"
+                          type="button"
+                          onClick={ () => setIsFormDisabled(!isFormDisabled) }
+                        >
+                          <svg width="12" height="12" aria-hidden="true">
+                            <use xlinkHref="#icon-edit"></use>
+                          </svg><span>Редактировать</span>
+                        </button>
+                        :
+                        <button
+                          className="btn-flat btn-flat--light btn-flat--underlined"
+                          type="button"
+                          onClick={ handleSubmit }
+                        >
+                          <svg width="12" height="12" aria-hidden="true">
+                            <use xlinkHref="#icon-edit"></use>
+                          </svg><span>Сохранить</span>
+                        </button>
+                    }
                   </div>
                   <div className="training-info__main-content">
                     <form action="#" method="get">
@@ -48,48 +116,83 @@ export function WorkoutCard() {
                         <div className="training-info__info-wrapper">
                           <div className="training-info__input training-info__input--training">
                             <label><span className="training-info__label">Название тренировки</span>
-                              <input type="text" name="training" value="energy" />
+                              <input
+                                type="text"
+                                name="title"
+                                value={ workoutForm.title }
+                                disabled={ isFormDisabled }
+                                onChange={ handleFormChange }
+                              />
                             </label>
-                            <div className="training-info__error">Обязательное поле</div>
+                            { errors && errors.title &&
+                              <div className="training-info__error" style={ { opacity: '100%' } }>{ errors?.title }</div>
+                            }
                           </div>
                           <div className="training-info__textarea">
                             <label><span className="training-info__label">Описание тренировки</span>
-                              <textarea name="description">Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и&nbsp;координацию.</textarea>
+                              <textarea
+                                name="description"
+                                value={ workoutForm.description }
+                                disabled={ isFormDisabled }
+                                onChange={ handleFormChange }
+                              ></textarea>
                             </label>
                           </div>
                         </div>
                         <div className="training-info__rating-wrapper">
                           <div className="training-info__input training-info__input--rating">
-                            <label><span className="training-info__label">Рейтинг</span><span className="training-info__rating-icon">
-                              <svg width="18" height="18" aria-hidden="true">
-                                <use xlinkHref="#icon-star"></use>
-                              </svg></span>
-                              <input type="number" name="rating" value="4" />
+                            <label>
+                              <span className="training-info__label">Рейтинг</span>
+                              <span className="training-info__rating-icon">
+                                <svg width="18" height="18" aria-hidden="true">
+                                  <use xlinkHref="#icon-star"></use>
+                                </svg>
+                              </span>
+                              <input
+                                type="number"
+                                name="rating"
+                                value={ workout.rating }
+                                disabled
+                              />
                             </label>
                           </div>
                           <ul className="training-info__list">
                             <li className="training-info__item">
-                              <div className="hashtag hashtag--white"><span>#пилатес</span></div>
+                              <div className="hashtag hashtag--white"><span>#{ workout.trainingType }</span></div>
                             </li>
                             <li className="training-info__item">
-                              <div className="hashtag hashtag--white"><span>#для_всех</span></div>
+                              <div className="hashtag hashtag--white"><span>#{ workout.favorGender }</span></div>
                             </li>
                             <li className="training-info__item">
-                              <div className="hashtag hashtag--white"><span>#320ккал</span></div>
+                              <div className="hashtag hashtag--white"><span>#{ workout.caloriesAmountToLose }ккал</span></div>
                             </li>
                             <li className="training-info__item">
-                              <div className="hashtag hashtag--white"><span>#30_минут</span></div>
+                              <div className="hashtag hashtag--white"><span>#{ workout.trainingTime }</span></div>
                             </li>
                           </ul>
                         </div>
                         <div className="training-info__price-wrapper">
                           <div className="training-info__input training-info__input--price">
-                            <label><span className="training-info__label">Стоимость</span>
-                              <input type="text" name="price" value="800 ₽" />
+                            <label>
+                              <span className="training-info__label">Стоимость</span>
+                              <input
+                                type="text"
+                                name="price"
+                                value={ `${workoutForm.price}` }
+                                disabled={ isFormDisabled }
+                                onChange={ handleFormChange }
+                              />
                             </label>
-                            <div className="training-info__error">Введите число</div>
+                            { errors && errors.price &&
+                              <div className="training-info__error" style={ { opacity: '100%' } }>{ errors?.price }</div>
+                            }
                           </div>
-                          <button className="btn-flat btn-flat--light btn-flat--underlined training-info__discount" type="button">
+                          <button
+                            className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
+                            type="button"
+                            disabled={ workout.isSpecial }
+                            onClick={ handleSetIsSpecial }
+                          >
                             <svg width="14" height="14" aria-hidden="true">
                               <use xlinkHref="#icon-discount"></use>
                             </svg><span>Сделать скидку 10%</span>
@@ -99,45 +202,7 @@ export function WorkoutCard() {
                     </form>
                   </div>
                 </div>
-                <div className="training-video">
-                  <h2 className="training-video__title">Видео</h2>
-                  <div className="training-video__video">
-                    <div className="training-video__thumbnail">
-                      <picture>
-                        <source type="image/webp"
-                          srcSet="img/content/training-video/video-thumbnail.webp, img/content/training-video/video-thumbnail@2x.webp 2x" />
-                        <img src="img/content/training-video/video-thumbnail.png"
-                          srcSet="img/content/training-video/video-thumbnail@2x.png 2x" width="922" height="566" alt="Обложка видео" />
-                      </picture>
-                    </div>
-                    <button className="training-video__play-button btn-reset">
-                      <svg width="18" height="30" aria-hidden="true">
-                        <use xlinkHref="#icon-arrow"></use>
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="training-video__drop-files">
-                    <form action="#" method="post">
-                      <div className="training-video__form-wrapper">
-                        <div className="drag-and-drop">
-                          <label><span className="drag-and-drop__label" tabIndex={ 0 }>Загрузите сюда файлы формата MOV, AVI или MP4
-                            <svg width="20" height="20" aria-hidden="true">
-                              <use xlinkHref="#icon-import-video"></use>
-                            </svg></span>
-                            <input type="file" name="import" tabIndex={ -1 } accept=".mov, .avi, .mp4" />
-                          </label>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="training-video__buttons-wrapper">
-                    <button className="btn training-video__button training-video__button--start" type="button" disabled>Приступить</button>
-                    <div className="training-video__edit-buttons">
-                      <button className="btn" type="button">Сохранить</button>
-                      <button className="btn btn--outlined" type="button">Удалить</button>
-                    </div>
-                  </div>
-                </div>
+                <Video videoPath={ workout.video as string } workoutId={ workout.id as number } />
               </div>
             </div>
           </div>

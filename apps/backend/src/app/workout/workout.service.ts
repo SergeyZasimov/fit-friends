@@ -101,7 +101,7 @@ export class WorkoutService extends ServiceWithFiles {
     );
 
     if (video) {
-      existWorkout.video && (await this.deleteUserFile(currentVideo));
+      existWorkout.video && (await this.deleteUserFile(currentVideo as string));
       await this.writeUserFile(video);
     }
 
@@ -113,7 +113,29 @@ export class WorkoutService extends ServiceWithFiles {
   }
 
   async getWorkoutsInfo(trainerId: number) {
-    return this.workoutRepository.findWorkoutsInfo(trainerId)
+    return this.workoutRepository.findWorkoutsInfo(trainerId);
+  }
+
+  async deleteVideo(workoutId: number, userId: number) {
+    const workout = await this.getOne(workoutId);
+
+    if (workout.trainerId !== userId) {
+      throw new ForbiddenException(WorkoutExceptionMessage.ForeignWorkout);
+    }
+
+    const currentVideo = workout.video;
+
+    const workoutEntity = new WorkoutEntity({
+      ...workout,
+      video: null,
+      trainer: workout.trainerId,
+    });
+
+    await this.workoutRepository.update(workoutId, workoutEntity);
+
+    currentVideo && (await this.deleteUserFile(currentVideo as string));
+
+    return this.getOne(workoutId);
   }
 
   async checkWorkoutExist(id: number): Promise<Workout> {

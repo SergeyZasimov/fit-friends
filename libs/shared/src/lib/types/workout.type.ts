@@ -12,7 +12,7 @@ export type Workout = {
   caloriesAmountToLose: number;
   description: string;
   favorGender: string;
-  video?: string;
+  video?: File | string;
   rating?: number;
   trainer?: number | User;
   trainerId?: number;

@@ -117,6 +117,7 @@ export class WorkoutRepository {
     return this.prisma.workout.create({
       data: {
         ...entity,
+        video: entity.video as string,
         trainer: {
           connect: {
             id: entity.trainer,
@@ -138,6 +139,7 @@ export class WorkoutRepository {
       where: { id },
       data: {
         ...entity,
+        video: entity.video as string,
         trainer: {
           connect: {
             id: entity.trainer,

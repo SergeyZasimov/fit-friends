@@ -9,7 +9,7 @@ import { USER_CONSTRAINT } from '../../user/user.constant';
 import { MOCKS_DEFAULT } from '../cli.constant';
 
 export const createWorkout = (): CreateWorkout => ({
-  title: faker.commerce.productName(),
+  title: faker.commerce.productName().slice(0, MOCKS_DEFAULT.WORKOUT.TITLE.MAX),
   description: faker.commerce.productDescription(),
   caloriesAmountToLose: faker.datatype.number({
     min: USER_CONSTRAINT.CALORIES_AMOUNT.MIN,

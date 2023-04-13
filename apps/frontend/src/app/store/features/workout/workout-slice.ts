@@ -1,11 +1,19 @@
-import { WorkoutsInfo } from '@fit-friends/shared';
+import { Workout, WorkoutsInfo } from '@fit-friends/shared';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { State, WorkoutState } from '../../../types/store.types';
 import { RequestStatus, StoreNamespace } from '../../../utils/constants';
-import { createWorkout, fetchWorkouts, fetchWorkoutsInfo } from './api-actions';
+import {
+  createWorkout,
+  deleteVideo,
+  fetchWorkout,
+  fetchWorkouts,
+  fetchWorkoutsInfo,
+  updateWorkout,
+} from './api-actions';
 
 const initialState: WorkoutState = {
   workouts: [],
+  workout: null,
   errors: {},
   priceInfo: null,
   caloriesInfo: null,
@@ -43,7 +51,25 @@ export const workoutSlice = createSlice({
             max: payload._max.caloriesAmountToLose,
           };
         }
-      );
+      )
+      .addCase(
+        fetchWorkout.fulfilled,
+        (state, { payload }: PayloadAction<Workout>) => {
+          state.workout = payload;
+        }
+      )
+      .addCase(
+        updateWorkout.fulfilled,
+        (state, { payload }: PayloadAction<Workout>) => {
+          state.workout = payload;
+        }
+      )
+      .addCase(updateWorkout.rejected, (state, { payload }) => {
+        state.errors = payload as Record<string, string[]>;
+      })
+      .addCase(deleteVideo.fulfilled, (state, { payload }) => {
+        state.workout = payload;
+      });
   },
 });
 
@@ -63,3 +89,6 @@ export const getWorkoutsCaloriesInfo = (state: State) =>
 
 export const getWorkoutsRequestStatus = (state: State) =>
   state[StoreNamespace.WorkoutStore].status;
+
+export const getWorkout = (state: State) =>
+  state[StoreNamespace.WorkoutStore].workout;

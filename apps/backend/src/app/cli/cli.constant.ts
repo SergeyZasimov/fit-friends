@@ -12,6 +12,9 @@ export const MOCKS_DEFAULT = {
     },
   },
   WORKOUT: {
+    TITLE: {
+      MAX: 15,
+    },
     PRICE: {
       MAX: 1000,
     },
@@ -24,14 +27,14 @@ export const MOCKS_DEFAULT = {
     PERSONAL_TRAINING_COUNT: 5,
     WORKOUTS_COUNT: {
       MIN: 1,
-      MAX: 5,
+      MAX: 10,
     },
     SPORT_GYM_COUNT: 5,
     ORDERS_COUNT: {
       MIN: 1,
       MAX: 5,
     },
-    REVIEW_COUNT: 3,
+    REVIEW_COUNT: 5,
     FOOD_DIARY_COUNT: 7,
     WORKOUT_DIARY_COUNT: 2,
   },

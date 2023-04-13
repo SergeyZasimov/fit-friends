@@ -55,7 +55,7 @@ export class UpdateWorkoutDto implements Partial<CreateWorkout> {
 
   @Min(PRICE.MIN, { message: MinPriceNotValid })
   @IsInt({ message: PriceNotValid })
-  @Transform(({ value }) => +value)
+  @Transform(({ value }) => parseInt(value))
   @IsOptional()
   price?: number;
 
