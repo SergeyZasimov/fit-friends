@@ -200,6 +200,7 @@ export const updateUser = createAsyncThunk<
 >(
   ActionName.User.UpdateUser,
   async (profile, { extra: api, rejectWithValue }) => {
+    console.log(profile);
     try {
       const { data } = await api.patch(`/${UrlDomain.Profile}`, profile, {
         headers: {

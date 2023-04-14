@@ -15,8 +15,8 @@ export function TrainerMyOrders() {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getOrdersForTrainer);
   const [ offset, setOffset ] = useState(DEFAULT_ORDERS_OFFSET);
-  const [ totalPriceSortDirection, setTotalPriceSortDirection ] = useState<string>(SortType.Desc);
-  const [ countSortDirection, setCountSortDirection ] = useState<string>(SortType.Desc);
+  const [ totalPriceSortDirection, setTotalPriceSortDirection ] = useState<string>(SortType.Asc);
+  const [ countSortDirection, setCountSortDirection ] = useState<string>(SortType.Asc);
 
   const [ query, setQuery ] = useState<BasicQuery>({});
 

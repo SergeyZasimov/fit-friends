@@ -117,7 +117,7 @@ export class UpdateProfileDto implements Partial<Profile> {
   resume?: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
-  @Transform(({ value }) => !!value)
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @ValidateIf((obj) => obj.role === UserRole.Trainer)
   @IsOptional()
   isReadyToPersonalTraining?: boolean;

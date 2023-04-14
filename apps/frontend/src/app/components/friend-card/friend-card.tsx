@@ -1,6 +1,7 @@
 import { PersonalTraining, Profile, TrainingStatus } from '@fit-friends/shared';
-import { useAppDispatch } from '../../hooks/store.hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { updatePersonalTrainingStatus } from '../../store/features/personal-training/api-actions';
+import { getUser } from '../../store/features/user/user-slice';
 
 export interface FriendCardProps {
   id: number;
@@ -11,6 +12,7 @@ export interface FriendCardProps {
 export function FriendCard({ id, profile, trainingRequests }: FriendCardProps) {
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
 
   const request = trainingRequests.find(item => item.requesterId === id);
 
@@ -65,6 +67,7 @@ export function FriendCard({ id, profile, trainingRequests }: FriendCardProps) {
           </div>
         </div>
         {
+          user?.profile?.isReadyToPersonalTraining &&
           request?.status === TrainingStatus.UnderConsideration
           &&
           <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
