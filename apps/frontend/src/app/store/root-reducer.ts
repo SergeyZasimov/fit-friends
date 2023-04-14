@@ -1,7 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { StoreNamespace } from '../utils/constants';
+import FriendsReducer from './features/friends/friends-slice';
 import NotificationReducer from './features/notification/notification-slice';
 import OrderReducer from './features/order/order-slice';
+import PersonalTrainingsReducer from './features/personal-training/personal-training-slice';
 import ReviewReducer from './features/review/review-slice';
 import UserReducer from './features/user/user-slice';
 import WorkoutReducer from './features/workout/workout-slice';
@@ -12,4 +14,6 @@ export const rootReducer = combineReducers({
   [StoreNamespace.WorkoutStore]: WorkoutReducer,
   [StoreNamespace.ReviewStore]: ReviewReducer,
   [StoreNamespace.OrderStore]: OrderReducer,
+  [StoreNamespace.FriendsStore]: FriendsReducer,
+  [StoreNamespace.PersonalTrainingStore]: PersonalTrainingsReducer,
 });

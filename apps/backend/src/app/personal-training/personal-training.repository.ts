@@ -47,4 +47,10 @@ export class PersonalTrainingRepository {
       where: { id },
     });
   }
+
+  async findRequestsToConductor(userId: number): Promise<PersonalTraining[]> {
+    return this.prisma.personalTraining.findMany({
+      where: { conductorId: userId },
+    });
+  }
 }

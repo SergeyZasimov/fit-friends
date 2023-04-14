@@ -1,6 +1,7 @@
 import {
   Notification,
   OrderForTrainer,
+  PersonalTraining,
   Review,
   User,
   Workout,
@@ -46,4 +47,12 @@ export type ReviewState = {
 
 export type OrderState = {
   ordersForTrainer: OrderForTrainer[];
+};
+
+export type FriendsState = {
+  friends: User[];
+};
+
+export type PersonalTrainingStore = {
+  personalTrainings: PersonalTraining[];
 };

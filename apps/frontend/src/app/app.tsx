@@ -9,6 +9,7 @@ import Register from './pages/register/register';
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
 import TrainerAccount from './pages/trainer-account/trainer-account';
+import TrainerMyFriends from './pages/trainer-my-friends/trainer-my-friends';
 import TrainerMyOrders from './pages/trainer-my-orders/trainer-my-orders';
 import TrainerMyWorkouts from './pages/trainer-my-workouts/trainer-my-workouts';
 import WorkoutCard from './pages/workout-card/workout-card';
@@ -33,6 +34,7 @@ export function App() {
           <Route path={ `:id` } element={ <TrainerRestrictPage><WorkoutCard /></TrainerRestrictPage> } />
         </Route>
         <Route path={ AppRoute.MyOrders } element={ <TrainerRestrictPage><TrainerMyOrders /></TrainerRestrictPage> } />
+        <Route path={ AppRoute.MyFriends } element={ <TrainerRestrictPage><TrainerMyFriends /></TrainerRestrictPage> } />
       </Route>
       <Route path={ AppRoute.CustomerMain } element={ <CustomerMain /> } />
     </Routes>

@@ -20,7 +20,7 @@ export class PersonalTrainingService {
     private readonly personalTrainingRepository: PersonalTrainingRepository,
     private readonly notificationService: NotificationService
   ) {}
-  
+
   async create(
     data: CreatePersonalTrainingDto,
     userId: number
@@ -81,5 +81,9 @@ export class PersonalTrainingService {
     }
 
     return this.personalTrainingRepository.updateStatus(id, status);
+  }
+
+  async getRequestsToConductor(userId: number) {
+    return this.personalTrainingRepository.findRequestsToConductor(userId);
   }
 }

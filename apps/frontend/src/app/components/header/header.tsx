@@ -13,13 +13,14 @@ export function Header() {
   const { pathname } = useLocation();
 
   const routes = {
-    account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerMain
+    account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerMain,
+    friends: AppRoute.MyFriends
   };
 
   const setNavLindActiveClass = (route: string) =>
     classNames({
       'main-nav__link': true,
-      'is-active': pathname.includes(route)
+      'is-active': pathname.endsWith(route)
     });
 
   return (
@@ -42,16 +43,20 @@ export function Header() {
             <li className="main-nav__item">
               <NavLink
                 className={ () => setNavLindActiveClass(routes.account) }
-                to={ routes.account }
+                to={ `/${routes.account}` }
                 aria-label="Личный кабинет">
                 <svg width="16" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-user"></use>
                 </svg></NavLink></li>
             <li className="main-nav__item">
-              <a className="main-nav__link" href="#" aria-label="Друзья">
+              <NavLink
+                to={ routes.friends }
+                className={ () => setNavLindActiveClass(routes.friends) }
+                aria-label="Друзья"
+              >
                 <svg width="22" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-friends"></use>
-                </svg></a></li>
+                </svg></NavLink></li>
             <NotificationList />
           </ul>
         </nav>

@@ -1,5 +1,5 @@
 import { UrlDomain, UserRole } from '@fit-friends/shared';
-import { Body, Controller, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
 import { RoleGuard } from '../guards/role.guard';
@@ -33,6 +33,16 @@ export class PersonalTrainingController {
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     const result = await this.personalTrainingService.update(dto, userId);
+    return fillObject(PersonalTrainingRdo, result);
+  }
+
+  @Get()
+  async showRequestsToConductor(
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    const result = await this.personalTrainingService.getRequestsToConductor(
+      userId
+    );
     return fillObject(PersonalTrainingRdo, result);
   }
 }
