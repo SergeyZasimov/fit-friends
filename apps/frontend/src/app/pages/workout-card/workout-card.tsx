@@ -1,9 +1,10 @@
-import { CreateWorkout, User } from '@fit-friends/shared';
+import { CreateWorkout, User, UserRole } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import ReviewList from '../../components/review-list/review-list';
 import Video from '../../components/video/video';
+import { getUser } from '../../store/features/user/user-slice';
 import { fetchWorkout, updateWorkout } from '../../store/features/workout/api-actions';
 import { getWorkout, getWorkoutErrors } from '../../store/features/workout/workout-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
@@ -15,6 +16,7 @@ export function WorkoutCard() {
   const dispatch = useAppDispatch();
   const workout = useAppSelector(getWorkout);
   const errors = useAppSelector(getWorkoutErrors);
+  const user = useAppSelector(getUser);
   const [ isFormDisabled, setIsFormDisabled ] = useState(true);
 
   const [ workoutForm, setWorkoutForm ] = useState<Partial<CreateWorkout>>({});
@@ -88,7 +90,8 @@ export function WorkoutCard() {
                         <span className="training-info__name">{ (workout?.trainer as User).profile?.name }</span></div>
                     </div>
                     {
-                      isFormDisabled ?
+                      user?.role === UserRole.Trainer &&
+                      (isFormDisabled ?
                         <button
                           className="btn-flat btn-flat--light training-info__edit"
                           type="button"
@@ -107,7 +110,7 @@ export function WorkoutCard() {
                           <svg width="12" height="12" aria-hidden="true">
                             <use xlinkHref="#icon-edit"></use>
                           </svg><span>Сохранить</span>
-                        </button>
+                        </button>)
                     }
                   </div>
                   <div className="training-info__main-content">
@@ -187,16 +190,22 @@ export function WorkoutCard() {
                               <div className="training-info__error" style={ { opacity: '100%' } }>{ errors?.price }</div>
                             }
                           </div>
-                          <button
-                            className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
-                            type="button"
-                            disabled={ workout.isSpecial }
-                            onClick={ handleSetIsSpecial }
-                          >
-                            <svg width="14" height="14" aria-hidden="true">
-                              <use xlinkHref="#icon-discount"></use>
-                            </svg><span>Сделать скидку 10%</span>
-                          </button>
+                          {
+                            user?.role === UserRole.Trainer
+                              ?
+                              <button
+                                className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
+                                type="button"
+                                disabled={ workout.isSpecial }
+                                onClick={ handleSetIsSpecial }
+                              >
+                                <svg width="14" height="14" aria-hidden="true">
+                                  <use xlinkHref="#icon-discount"></use>
+                                </svg><span>Сделать скидку 10%</span>
+                              </button>
+                              :
+                              <button className="btn training-info__buy" type="button">Купить</button>
+                          }
                         </div>
                       </div>
                     </form>

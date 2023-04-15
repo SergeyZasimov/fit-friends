@@ -33,13 +33,13 @@ export function App() {
         <Route path={ AppRoute.CreateWorkout } element={ <TrainerRestrictPage><CreateTraining /></TrainerRestrictPage> } />
         <Route path={ AppRoute.MyWorkouts }  >
           <Route index element={ <TrainerRestrictPage><TrainerMyWorkouts /></TrainerRestrictPage> } />
-          <Route path={ `:id` } element={ <TrainerRestrictPage><WorkoutCard /></TrainerRestrictPage> } />
         </Route>
         <Route path={ AppRoute.MyOrders } element={ <TrainerRestrictPage><TrainerMyOrders /></TrainerRestrictPage> } />
         <Route path={ AppRoute.MyFriends } element={ <TrainerRestrictPage><TrainerMyFriends /></TrainerRestrictPage> } />
       </Route>
       <Route path={ AppRoute.CustomerMain } element={ <CustomerRestrictPage><CustomerMain /></CustomerRestrictPage> } />
       <Route path={ AppRoute.CustomerWorkoutCatalog } element={ <CustomerRestrictPage><CustomerTrainingCatalog /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.WorkoutCard}/:id` } element={ <WorkoutCard /> } />
     </Routes>
 
   );

@@ -10,7 +10,7 @@ export const REVIEW_CONSTRAINT = {
 };
 
 export const ReviewValidationMessage = {
-  WorkoutIdNotValid: 'Неверный ID тренировки',
-  RatingNotValid: `Рейтинг должен быть в диапазоне между ${REVIEW_CONSTRAINT.RATING.MIN} и ${REVIEW_CONSTRAINT.RATING.MAX}`,
-  TextLengthNotValid: `Текст отзыва должен быть строкой длиной от ${REVIEW_CONSTRAINT.TEXT.MIN} до ${REVIEW_CONSTRAINT.TEXT.MAX}`,
+  WorkoutIdNotValid: '$property: Неверный ID тренировки',
+  RatingNotValid: `$property: Рейтинг должен быть в диапазоне между ${REVIEW_CONSTRAINT.RATING.MIN} и ${REVIEW_CONSTRAINT.RATING.MAX}`,
+  TextLengthNotValid: `$property: Текст отзыва должен быть строкой длиной от ${REVIEW_CONSTRAINT.TEXT.MIN} до ${REVIEW_CONSTRAINT.TEXT.MAX}`,
 };

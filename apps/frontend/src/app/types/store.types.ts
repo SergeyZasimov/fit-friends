@@ -26,7 +26,7 @@ export type UserState = {
   user: User | null;
   errors: Record<string, string[]>;
   status: keyof typeof RequestStatus;
-  users: User[]
+  users: User[];
 };
 
 export type NotificationState = {
@@ -45,6 +45,7 @@ export type WorkoutState = {
 
 export type ReviewState = {
   reviews: Review[];
+  status: keyof typeof RequestStatus;
 };
 
 export type OrderState = {

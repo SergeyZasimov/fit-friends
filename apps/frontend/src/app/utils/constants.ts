@@ -49,6 +49,7 @@ export const ActionName = {
   },
   Review: {
     FetchReviews: 'review/fetchReviews',
+    CreateReview: 'review/createReview',
   },
   Order: {
     FetchOrders: 'order/fetchOrders',
@@ -85,7 +86,8 @@ export const AppRoute = {
   MyWorkouts: 'my-workouts',
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
-  CustomerWorkoutCatalog: 'workout-catalog'
+  CustomerWorkoutCatalog: 'workout-catalog',
+  WorkoutCard: 'workout-card',
 } as const;
 
 export const CustomSelectField = {

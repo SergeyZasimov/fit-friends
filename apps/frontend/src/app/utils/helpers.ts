@@ -1,5 +1,7 @@
+import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
+import { toast } from 'react-toastify';
 import { DEFAULT_PRICE_CHANGE_TIMEOUT } from './constants';
 
 export const capitalizeWord = (word: string): string => {
@@ -46,4 +48,18 @@ export const checkValueInCollection = <T>(collection: T[], value: T): T[] => {
   return collection.includes(value)
     ? collection.filter((item: T) => item !== value)
     : collection.concat(value);
+};
+
+export const toastError = (err: unknown) => {
+  if (axios.isAxiosError(err) && err.response) {
+    const { message } = err.response.data;
+    if (message instanceof Array) {
+      (message as string[]).forEach((item) => {
+        const [, text] = item.split(':');
+        toast.error(text);
+      });
+    } else {
+      toast.error(message);
+    }
+  }
 };
