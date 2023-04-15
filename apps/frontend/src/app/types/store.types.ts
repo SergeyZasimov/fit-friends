@@ -3,6 +3,7 @@ import {
   OrderForTrainer,
   PersonalTraining,
   Review,
+  SportGym,
   User,
   Workout,
 } from '@fit-friends/shared';
@@ -25,6 +26,7 @@ export type UserState = {
   user: User | null;
   errors: Record<string, string[]>;
   status: keyof typeof RequestStatus;
+  users: User[]
 };
 
 export type NotificationState = {
@@ -55,4 +57,8 @@ export type FriendsState = {
 
 export type PersonalTrainingStore = {
   personalTrainings: PersonalTraining[];
+};
+
+export type SportGymStore = {
+  sportGyms: SportGym[];
 };

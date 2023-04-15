@@ -2,9 +2,9 @@ import { Gender, Locations, RegisterUser, UserRole } from '@fit-friends/shared';
 import classnames from 'classnames';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { registerUser } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function Register() {

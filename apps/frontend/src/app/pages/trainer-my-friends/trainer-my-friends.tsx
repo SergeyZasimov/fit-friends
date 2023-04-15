@@ -2,12 +2,12 @@ import { Profile } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
 import FriendCard from '../../components/friend-card/friend-card';
 import Header from '../../components/header/header';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { browserHistory } from '../../services/browser-history.service';
 import { fetchFriends } from '../../store/features/friends/api-actions';
 import { getFriends } from '../../store/features/friends/friends-slice';
 import { fetchPersonalTrainings } from '../../store/features/personal-training/api-actions';
 import { getPersonalTrainings } from '../../store/features/personal-training/personal-training-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 export const DEFAULT_FRIENDS_OFFSET = 3;
 

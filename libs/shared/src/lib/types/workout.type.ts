@@ -29,6 +29,8 @@ export type WorkoutQuery = BasicQuery & {
   caloriesRange?: number[];
   ratingRange?: number[];
   trainingTime?: string[];
+  trainingType?: string[];
+  isSpecial?: boolean;
 };
 
 export type WorkoutsInfo = {

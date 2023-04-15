@@ -4,7 +4,14 @@ import {
   WorkoutQuery,
 } from '@fit-friends/shared';
 import { Transform } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  Max,
+  Min,
+} from 'class-validator';
 import { BasicQueryDto } from '../../query/basic-query.dto';
 import {
   WORKOUT_CONSTRAINT,
@@ -51,4 +58,9 @@ export class QueryWorkoutDto extends BasicQueryDto implements WorkoutQuery {
   @Transform(({ value }) => value.split(','))
   @IsOptional()
   trainingType?: string[];
+
+  @IsBoolean()
+  @Transform(({ value }) => (value === 'true' ? true : false))
+  @IsOptional()
+  isSpecial: boolean;
 }

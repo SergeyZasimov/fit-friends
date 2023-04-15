@@ -7,9 +7,9 @@ import AccountForm from '../../components/account-form/account-form';
 import CertificateSlider from '../../components/certificate-slider/certificate-slider';
 import Header from '../../components/header/header';
 import LoadAvatar from '../../components/load-avatar/load-avatar';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { fetchUser } from '../../store/features/user/api-actions';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { AppRoute } from '../../utils/constants';
 
 export function TrainerAccount() {

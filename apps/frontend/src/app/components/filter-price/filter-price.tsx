@@ -1,7 +1,7 @@
 import { WorkoutQuery } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks/store.hooks';
 import { getWorkoutsPriceInfo } from '../../store/features/workout/workout-slice';
+import { useAppSelector } from '../../store/store.hooks';
 import { HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
 import { debounce } from '../../utils/helpers';
 import RangeSlider from '../range-slider/range-slider';

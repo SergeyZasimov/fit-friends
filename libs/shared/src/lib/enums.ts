@@ -67,6 +67,7 @@ export const SortOption = {
   CreatedAt: 'createdAt',
   Price: 'price',
   Count: 'count',
+  Rating: 'rating',
 } as const;
 
 export const TypeOfMeal = ['завтрак', 'обед', 'ужин', 'перекус'] as const;

@@ -1,8 +1,8 @@
 import { FavorGenders } from '@fit-friends/shared';
 import { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { createWorkout } from '../../store/features/workout/api-actions';
 import { getWorkoutErrors } from '../../store/features/workout/workout-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { CustomSelectField } from '../../utils/constants';
 import CustomSelect from '../custom-select/custom-select';
 

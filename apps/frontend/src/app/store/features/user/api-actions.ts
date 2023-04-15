@@ -246,3 +246,12 @@ export const deleteCertificate = createAsyncThunk<
   );
   return data;
 });
+
+export const fetchUsers = createAsyncThunk<
+  User[],
+  string,
+  AsyncThunkOptionField
+>(ActionName.User.FetchUsers, async (query, { extra: api }) => {
+  const { data } = await api.get(`/${UrlDomain.Profile}?${query}`);
+  return data;
+});

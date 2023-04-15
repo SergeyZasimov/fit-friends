@@ -1,7 +1,7 @@
 import { PersonalTraining, Profile, TrainingStatus } from '@fit-friends/shared';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { updatePersonalTrainingStatus } from '../../store/features/personal-training/api-actions';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 export interface FriendCardProps {
   id: number;

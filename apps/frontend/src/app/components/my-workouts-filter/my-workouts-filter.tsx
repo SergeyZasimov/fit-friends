@@ -1,7 +1,7 @@
 import { TrainingTimes, WorkoutQuery } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../hooks/store.hooks';
 import { fetchWorkouts, fetchWorkoutsInfo } from '../../store/features/workout/api-actions';
+import { useAppDispatch } from '../../store/store.hooks';
 import { checkValueInCollection, createQueryString } from '../../utils/helpers';
 import FilterCalories from '../filter-calories/filter-calories';
 import FilterPrice from '../filter-price/filter-price';

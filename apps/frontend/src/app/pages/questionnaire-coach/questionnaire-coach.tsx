@@ -1,9 +1,9 @@
 import { TrainerAdditionalInfo, TrainingLevels, TrainingTypes } from '@fit-friends/shared';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { questionnaireTrainer } from '../../store/features/user/api-actions';
 import { getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function QuestionnaireCoach() {

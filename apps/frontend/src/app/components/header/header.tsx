@@ -1,8 +1,8 @@
 import { UserRole } from '@fit-friends/shared';
 import classNames from 'classnames';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/store.hooks';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppSelector } from '../../store/store.hooks';
 import { AppRoute } from '../../utils/constants';
 import NotificationList from '../notification-list/notification-list';
 
@@ -13,7 +13,8 @@ export function Header() {
   const { pathname } = useLocation();
 
   const routes = {
-    account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerMain,
+    main: AppRoute.CustomerMain,
+    account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerAccount,
     friends: AppRoute.MyFriends
   };
 
@@ -34,7 +35,11 @@ export function Header() {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <NavLink className="main-nav__link" to={ `/` } aria-label="На главную">
+              <NavLink
+                className={ () => setNavLindActiveClass(routes.main) }
+                to={ `/${routes.main}` }
+                aria-label="На главную"
+              >
                 <svg width="18" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-home"></use>
                 </svg>

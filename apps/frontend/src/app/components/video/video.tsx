@@ -1,8 +1,8 @@
 import { UserRole } from '@fit-friends/shared';
 import { ChangeEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { getUser } from '../../store/features/user/user-slice';
 import { deleteVideo, updateWorkout } from '../../store/features/workout/api-actions';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 export interface VideoProps {
   workoutId: number;

@@ -1,11 +1,10 @@
 import { CustomerAdditionalInfo, TrainingLevels, TrainingTimes, TrainingTypes } from '@fit-friends/shared';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { questionnaireCustomer } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
-import { RequestStatus } from '../../utils/constants';
-import CustomerMain from '../customer-main/customer-main';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
+import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function QuestionnaireUser() {
 
@@ -51,7 +50,7 @@ export function QuestionnaireUser() {
   useEffect(() => {
     if (status === RequestStatus.Success) {
       dispatch(resetStatus());
-      navigate(`/${CustomerMain}`);
+      navigate(`/${AppRoute.CustomerMain}`);
     }
   }, [ status, dispatch, navigate ]);
 

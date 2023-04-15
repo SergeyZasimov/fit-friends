@@ -1,15 +1,16 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import { useAppDispatch } from '../../hooks/store.hooks';
 import { deleteCertificate } from '../../store/features/user/api-actions';
+import { useAppDispatch } from '../../store/store.hooks';
 
 
 export interface CertificateSlideProps {
   certificate: string;
-  count: number;
+  style: Record<string, string>;
+  slideRef: React.RefObject<HTMLLIElement>
 }
 
-export function CertificateSlide({ certificate, count }: CertificateSlideProps) {
+export function CertificateSlide({ certificate, style, slideRef }: CertificateSlideProps) {
 
   const dispatch = useAppDispatch();
 
@@ -25,7 +26,7 @@ export function CertificateSlide({ certificate, count }: CertificateSlideProps) 
   };
 
   return (
-    <li className='personal-account-coach__item' style={ { transform: `translateX(${106 * count}%)` } }   >
+    <li className='personal-account-coach__item' style={ { ...style } } ref={slideRef}   >
       <div className={ certificateCardClass }>
         <div className="certificate-card__image">
           <picture>

@@ -1,3 +1,4 @@
+import { BasicQuery } from './basic-query.type';
 import { SportGym } from './sport-gym.type';
 
 export type User = {
@@ -68,3 +69,6 @@ export type UserTokens = {
 
 export type RegisterUser = Pick<User, 'email' | 'password' | 'role'> &
   Pick<Profile, 'avatar' | 'birthDay' | 'gender' | 'location' | 'name'>;
+
+export type ProfileQuery = BasicQuery & Pick<Profile, 'isReadyToTraining'>
+

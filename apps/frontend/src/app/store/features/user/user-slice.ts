@@ -1,10 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { User } from '@fit-friends/shared';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { State, UserState } from '../../../types/store.types';
 import { RequestStatus, StoreNamespace } from '../../../utils/constants';
 import {
   deleteAvatar,
   deleteCertificate,
   fetchUser,
+  fetchUsers,
   login,
   questionnaireCustomer,
   questionnaireTrainer,
@@ -16,6 +18,7 @@ const initialState: UserState = {
   user: null,
   errors: {},
   status: RequestStatus.Unknown,
+  users: [],
 };
 
 export const userSlice = createSlice({
@@ -110,7 +113,13 @@ export const userSlice = createSlice({
       })
       .addCase(deleteAvatar.rejected, (state) => {
         state.status = RequestStatus.Fail;
-      });
+      })
+      .addCase(
+        fetchUsers.fulfilled,
+        (state, { payload }: PayloadAction<User[]>) => {
+          state.users = payload;
+        }
+      );
   },
 });
 
@@ -125,3 +134,5 @@ export const getUserRequestStatus = (state: State) =>
   state[StoreNamespace.UserStore].status;
 
 export const getUser = (state: State) => state[StoreNamespace.UserStore].user;
+
+export const getUsers = (state: State) => state[StoreNamespace.UserStore].users;

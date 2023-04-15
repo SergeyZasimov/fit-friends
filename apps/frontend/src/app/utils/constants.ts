@@ -20,6 +20,7 @@ export const StoreNamespace = {
   OrderStore: 'order',
   FriendsStore: 'friends',
   PersonalTrainingStore: 'personal-training',
+  SportGymsStore: 'sport-gym',
 } as const;
 
 export const ActionName = {
@@ -32,6 +33,7 @@ export const ActionName = {
     UpdateUser: 'user/updateUser',
     DeleteCertificate: 'user/deleteCertificate',
     DeleteAvatar: 'user/deleteAvatar',
+    FetchUsers: 'user/fetchUsers',
   },
   Notification: {
     Fetch: 'notification/fetch',
@@ -58,6 +60,9 @@ export const ActionName = {
     Fetch: 'personal-trainings/fetch',
     UpdateStatus: 'personal-trainings/updateStatus',
   },
+  SportGyms: {
+    FetchGyms: 'sport-gyms/fetchGyms',
+  },
 } as const;
 
 export const RequestStatus = {
@@ -75,6 +80,7 @@ export const AppRoute = {
   QuestionnaireTrainer: 'questionnaire-trainer',
   CustomerMain: 'customer-main',
   TrainerAccount: 'trainer-account',
+  CustomerAccount: 'customer-account',
   CreateWorkout: 'create-workout',
   MyWorkouts: 'my-workouts',
   MyOrders: 'my-orders',

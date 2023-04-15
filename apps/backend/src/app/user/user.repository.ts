@@ -25,8 +25,13 @@ export class UserRepository {
   }
 
   async find(query: ProfileQueryDto): Promise<User[]> {
-    const { limit, page, sortType, sortOption } = query;
+    const { limit, page, sortType, sortOption, isReadyToTraining } = query;
     return this.prisma.user.findMany({
+      where: {
+        profile: {
+          isReadyToTraining,
+        },
+      },
       include: {
         profile: true,
       },

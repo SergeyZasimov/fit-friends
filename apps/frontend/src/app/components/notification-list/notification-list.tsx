@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { deleteNotification, fetchNotifications } from '../../store/features/notification/api-actions';
 import { getNotifications } from '../../store/features/notification/notification-slice';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import NotificationItem from '../notification-item/notification-item';
 
 

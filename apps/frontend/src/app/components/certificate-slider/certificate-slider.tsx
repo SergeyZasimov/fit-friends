@@ -1,16 +1,21 @@
-import { useState } from 'react';
-import { useAppDispatch } from '../../hooks/store.hooks';
+import { useRef } from 'react';
+import { useSlider } from '../../hooks/use-slider';
 import { updateUser } from '../../store/features/user/api-actions';
+import { useAppDispatch } from '../../store/store.hooks';
 import CertificateSlide from '../certificate-slide/certificate-slide';
+
+const CERTIFICATE_QUANTITY = 3;
 
 export interface CertificateSliderProps {
   certificates: string[];
 }
 
 export function CertificateSlider({ certificates }: CertificateSliderProps) {
-
   const dispatch = useAppDispatch();
-  const [ count, setCount ] = useState(0);
+  const slideRef = useRef<HTMLLIElement>(null);
+  const offset = (slideRef.current && (slideRef.current as HTMLLIElement).getBoundingClientRect().width);
+
+  const { handleNextClick, handlePrevClick, style } = useSlider(offset as number, CERTIFICATE_QUANTITY, certificates.length);
 
 
   const handleAddCertificate = () => {
@@ -23,18 +28,6 @@ export function CertificateSlider({ certificates }: CertificateSliderProps) {
         dispatch(updateUser({ certificate: input.files[ 0 ] }));
       }
     };
-  };
-
-  const handlePrevClick = () => {
-    if (count < 0) {
-      setCount(count + 1);
-    }
-  };
-
-  const handleNextClick = () => {
-    if (Math.abs(count - 3) < certificates.length) {
-      setCount(count - 1);
-    }
   };
 
   return (
@@ -76,7 +69,12 @@ export function CertificateSlider({ certificates }: CertificateSliderProps) {
       <ul className="personal-account-coach__list slider">
         {
           certificates.map((item) => (
-            <CertificateSlide certificate={ item } count={ count } key={ item } />
+            <CertificateSlide
+              certificate={ item }
+              key={ item }
+              slideRef={ slideRef }
+              style={ style }
+            />
           )
           )
         }

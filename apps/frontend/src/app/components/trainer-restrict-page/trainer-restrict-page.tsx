@@ -1,8 +1,8 @@
 import { UserRole } from '@fit-friends/shared';
 import { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/store.hooks';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppSelector } from '../../store/store.hooks';
 import { AppRoute } from '../../utils/constants';
 
 

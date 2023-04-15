@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import CustomerRestrictPage from './components/customer-restrict-page/customer-restrict-page';
 import TrainerRestrictPage from './components/trainer-restrict-page/trainer-restrict-page';
 import { CreateTraining } from './pages/create-training/create-training';
 import CustomerMain from './pages/customer-main/customer-main';
@@ -36,7 +37,7 @@ export function App() {
         <Route path={ AppRoute.MyOrders } element={ <TrainerRestrictPage><TrainerMyOrders /></TrainerRestrictPage> } />
         <Route path={ AppRoute.MyFriends } element={ <TrainerRestrictPage><TrainerMyFriends /></TrainerRestrictPage> } />
       </Route>
-      <Route path={ AppRoute.CustomerMain } element={ <CustomerMain /> } />
+      <Route path={ AppRoute.CustomerMain } element={ <CustomerRestrictPage><CustomerMain /></CustomerRestrictPage> } />
     </Routes>
 
   );

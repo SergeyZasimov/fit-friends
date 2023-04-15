@@ -1,9 +1,9 @@
 import { UserRole } from '@fit-friends/shared';
 import { FormEvent, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { fetchUser, login } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function SignIn() {

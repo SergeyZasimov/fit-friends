@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import ReviewList from '../../components/review-list/review-list';
 import Video from '../../components/video/video';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { fetchWorkout, updateWorkout } from '../../store/features/workout/api-actions';
 import { getWorkout, getWorkoutErrors } from '../../store/features/workout/workout-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 
 export function WorkoutCard() {

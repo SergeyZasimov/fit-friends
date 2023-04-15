@@ -5,6 +5,7 @@ import NotificationReducer from './features/notification/notification-slice';
 import OrderReducer from './features/order/order-slice';
 import PersonalTrainingsReducer from './features/personal-training/personal-training-slice';
 import ReviewReducer from './features/review/review-slice';
+import SportGymsReducer from './features/sport-gyms/sport-gyms-slice';
 import UserReducer from './features/user/user-slice';
 import WorkoutReducer from './features/workout/workout-slice';
 
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
   [StoreNamespace.OrderStore]: OrderReducer,
   [StoreNamespace.FriendsStore]: FriendsReducer,
   [StoreNamespace.PersonalTrainingStore]: PersonalTrainingsReducer,
+  [StoreNamespace.SportGymsStore]: SportGymsReducer,
 });

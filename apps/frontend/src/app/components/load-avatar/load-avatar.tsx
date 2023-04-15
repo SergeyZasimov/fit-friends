@@ -1,7 +1,7 @@
 import { Profile } from '@fit-friends/shared';
 import { ChangeEvent, useState } from 'react';
-import { useAppDispatch } from '../../hooks/store.hooks';
 import { deleteAvatar, updateUser } from '../../store/features/user/api-actions';
+import { useAppDispatch } from '../../store/store.hooks';
 
 export interface LoadAvatarProps {
   avatar: string;

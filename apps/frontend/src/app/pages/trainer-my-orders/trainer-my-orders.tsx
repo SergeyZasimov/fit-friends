@@ -2,10 +2,10 @@ import { BasicQuery, SortOption, SortType } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { browserHistory } from '../../services/browser-history.service';
 import { fetchOrders } from '../../store/features/order/api-actions';
 import { getOrdersForTrainer } from '../../store/features/order/order-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { AppRoute } from '../../utils/constants';
 import { createQueryString } from '../../utils/helpers';
 

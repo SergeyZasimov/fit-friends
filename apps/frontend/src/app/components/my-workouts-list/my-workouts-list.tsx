@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/store.hooks';
 import { getWorkouts } from '../../store/features/workout/workout-slice';
+import { useAppSelector } from '../../store/store.hooks';
 
 export const DEFAULT_OFFSET = 6;
 

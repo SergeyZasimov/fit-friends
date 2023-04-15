@@ -1,10 +1,10 @@
 import { UserRole } from '@fit-friends/shared';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { browserHistory } from '../../services/browser-history.service';
 import { fetchReviews } from '../../store/features/review/api-actions';
 import { getReviews } from '../../store/features/review/review-slice';
 import { getUser } from '../../store/features/user/user-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 export interface ReviewListProps {
   workoutId: string;
