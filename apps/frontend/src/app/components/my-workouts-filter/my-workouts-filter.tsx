@@ -20,7 +20,6 @@ export function MyWorkoutsFilter() {
 
   useEffect(() => {
     const queryString = createQueryString(query);
-    // console.log(queryString);
     dispatch(fetchWorkouts(queryString));
   }, [ query ]);
 

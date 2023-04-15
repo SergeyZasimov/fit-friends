@@ -1,13 +1,15 @@
 import { SortOption, Workout, WorkoutQuery } from '@fit-friends/shared';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSlider } from '../../../../hooks/use-slider';
+import { AppRoute } from '../../../../utils/constants';
 import { createQueryString } from '../../../../utils/helpers';
 import { useFetchWorkouts } from '../../hooks/use-fetch-workouts';
 
 const SLIDE_QUANTITY = 4;
 
 export function CustomerPopularWorkoutsList() {
-
+  const navigate = useNavigate();
   const slideRef = useRef<HTMLLIElement>(null);
   const offset = (slideRef.current && (slideRef.current as HTMLLIElement).getBoundingClientRect().width);
 
@@ -19,7 +21,9 @@ export function CustomerPopularWorkoutsList() {
 
   const { handleNextClick, handlePrevClick, style } = useSlider(offset as number, SLIDE_QUANTITY, popularWorkouts.length);
 
-
+  const handleWorkoutsButtonClick = () => {
+    navigate(`/${AppRoute.CustomerWorkoutCatalog}`);
+  };
 
   return (
     <section className="popular-trainings">
@@ -27,7 +31,12 @@ export function CustomerPopularWorkoutsList() {
         <div className="popular-trainings__wrapper slider-overflow-hidden">
           <div className="popular-trainings__title-wrapper">
             <h2 className="popular-trainings__title">Популярные тренировки</h2>
-            <button className="btn-flat popular-trainings__button" type="button"><span>Смотреть все</span>
+            <button
+              className="btn-flat popular-trainings__button"
+              type="button"
+              onClick={ handleWorkoutsButtonClick }
+            >
+              <span>Смотреть все</span>
               <svg width="14" height="10" aria-hidden="true">
                 <use xlinkHref="#arrow-right"></use>
               </svg>

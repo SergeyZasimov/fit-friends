@@ -112,8 +112,9 @@ export class WorkoutService extends ServiceWithFiles {
     return this.workoutRepository.updateRating(workoutId, rating);
   }
 
-  async getWorkoutsInfo(trainerId: number) {
-    return this.workoutRepository.findWorkoutsInfo(trainerId);
+  async getWorkoutsInfo(trainerId: number, role: string) {
+    const userId = role === UserRole.Trainer ? trainerId : undefined;
+    return this.workoutRepository.findWorkoutsInfo(userId);
   }
 
   async deleteVideo(workoutId: number, userId: number) {

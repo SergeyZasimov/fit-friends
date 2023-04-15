@@ -169,7 +169,7 @@ export class WorkoutRepository {
     });
   }
 
-  async findWorkoutsInfo(trainerId: number) {
+  async findWorkoutsInfo(trainerId: number | undefined) {
     return this.prisma.workout.aggregate({
       where: { trainerId },
       _min: {

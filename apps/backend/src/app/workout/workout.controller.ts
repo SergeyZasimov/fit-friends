@@ -67,9 +67,11 @@ export class WorkoutController {
   @Get(UrlRoute.Info)
   async showWorkoutsInfo(
     @GetCurrentUser(CurrentUserField.Id)
-    trainerId: number
+    trainerId: number,
+    @GetCurrentUser(CurrentUserField.Role)
+    role: string
   ) {
-    return this.workoutService.getWorkoutsInfo(trainerId);
+    return this.workoutService.getWorkoutsInfo(trainerId, role);
   }
 
   @Get(`:${UrlParams.Id}`)

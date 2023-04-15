@@ -85,6 +85,7 @@ export const AppRoute = {
   MyWorkouts: 'my-workouts',
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
+  CustomerWorkoutCatalog: 'workout-catalog'
 } as const;
 
 export const CustomSelectField = {

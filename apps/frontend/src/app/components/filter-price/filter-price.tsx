@@ -1,8 +1,9 @@
 import { WorkoutQuery } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getWorkoutsPriceInfo } from '../../store/features/workout/workout-slice';
 import { useAppSelector } from '../../store/store.hooks';
-import { HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
+import { AppRoute, HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
 import { debounce } from '../../utils/helpers';
 import RangeSlider from '../range-slider/range-slider';
 
@@ -12,6 +13,7 @@ export interface FilterPriceProps {
 
 export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
 
+  const { pathname } = useLocation();
   const priceInfo = useAppSelector(getWorkoutsPriceInfo);
 
   const [ priceRange, setPriceRange ] = useState([ priceInfo?.min, priceInfo?.max ]);
@@ -45,9 +47,11 @@ export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
     debounce(onChangeQuery)({ priceRange: priceRange as number[] });
   };
 
+  const classPrefix = pathname.includes(AppRoute.CustomerWorkoutCatalog) ? 'gym-catalog' : 'my-training';
+
   return (
-    <div className="my-training-form__block my-training-form__block--price">
-      <h4 className="my-training-form__block-title">Цена, ₽</h4>
+    <div className={ `${classPrefix}-form__block ${classPrefix}-form__block--price` }>
+      <h4 className={ `${classPrefix}-form__block-title` }>Цена, ₽</h4>
       <div className="filter-price">
         <div className="filter-price__input-text filter-price__input-text--min">
           <input
@@ -81,3 +85,5 @@ export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
 }
 
 export default FilterPrice;
+
+// gym-catalog

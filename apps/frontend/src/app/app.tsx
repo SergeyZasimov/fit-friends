@@ -3,6 +3,7 @@ import CustomerRestrictPage from './components/customer-restrict-page/customer-r
 import TrainerRestrictPage from './components/trainer-restrict-page/trainer-restrict-page';
 import { CreateTraining } from './pages/create-training/create-training';
 import CustomerMain from './pages/customer-main/customer-main';
+import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import Intro from './pages/intro/intro';
 import QuestionnaireCoach from './pages/questionnaire-coach/questionnaire-coach';
 import QuestionnaireUser from './pages/questionnaire-user/questionnaire-user';
@@ -38,6 +39,7 @@ export function App() {
         <Route path={ AppRoute.MyFriends } element={ <TrainerRestrictPage><TrainerMyFriends /></TrainerRestrictPage> } />
       </Route>
       <Route path={ AppRoute.CustomerMain } element={ <CustomerRestrictPage><CustomerMain /></CustomerRestrictPage> } />
+      <Route path={ AppRoute.CustomerWorkoutCatalog } element={ <CustomerRestrictPage><CustomerTrainingCatalog /></CustomerRestrictPage> } />
     </Routes>
 
   );

@@ -1,8 +1,9 @@
 import { WorkoutQuery } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getWorkoutsCaloriesInfo } from '../../store/features/workout/workout-slice';
 import { useAppSelector } from '../../store/store.hooks';
-import { HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
+import { AppRoute, HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
 import { debounce } from '../../utils/helpers';
 import RangeSlider from '../range-slider/range-slider';
 
@@ -11,7 +12,7 @@ export interface FilterCaloriesProps {
 }
 
 export function FilterCalories({ onChangeQuery }: FilterCaloriesProps) {
-
+  const { pathname } = useLocation();
   const caloriesInfo = useAppSelector(getWorkoutsCaloriesInfo);
 
   const [ caloriesRange, setCaloriesRange ] = useState([ caloriesInfo?.min, caloriesInfo?.max ]);
@@ -45,9 +46,11 @@ export function FilterCalories({ onChangeQuery }: FilterCaloriesProps) {
     debounce(onChangeQuery)({ caloriesRange: caloriesRange as number[] });
   };
 
+  const classPrefix = pathname.includes(AppRoute.CustomerWorkoutCatalog) ? 'gym-catalog' : 'my-training';
+
   return (
-    <div className="my-training-form__block my-training-form__block--calories">
-      <h4 className="my-training-form__block-title">Калории</h4>
+    <div className={ `${classPrefix}-form__block ${classPrefix}-form__block--calories` }>
+      <h4 className={ `${classPrefix}-form__block-title` }>Калории</h4>
       <div className="filter-calories">
         <div className="filter-calories__input-text filter-calories__input-text--min">
           <input
