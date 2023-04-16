@@ -1,7 +1,14 @@
-import { OrderForTrainer, UrlDomain, UrlRoute } from '@fit-friends/shared';
+import {
+  CreateOrder,
+  Order,
+  OrderForTrainer,
+  UrlDomain,
+  UrlRoute,
+} from '@fit-friends/shared';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AsyncThunkOptionField } from '../../../types/store.types';
 import { ActionName } from '../../../utils/constants';
+import { toastError } from '../../../utils/helpers';
 
 export const fetchOrders = createAsyncThunk<
   OrderForTrainer[],
@@ -13,3 +20,20 @@ export const fetchOrders = createAsyncThunk<
   );
   return data;
 });
+
+export const createOrder = createAsyncThunk<
+  Order,
+  CreateOrder,
+  AsyncThunkOptionField
+>(
+  ActionName.Order.CreateOrder,
+  async (dto, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.post<Order>(`/${UrlDomain.Order}`, dto);
+      return data;
+    } catch (err) {
+      toastError(err);
+      return rejectWithValue(undefined);
+    }
+  }
+);

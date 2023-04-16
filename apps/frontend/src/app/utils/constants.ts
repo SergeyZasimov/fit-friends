@@ -53,6 +53,7 @@ export const ActionName = {
   },
   Order: {
     FetchOrders: 'order/fetchOrders',
+    CreateOrder: 'order/createOrder',
   },
   Friends: {
     FetchFriends: 'friends/fetchFriends',

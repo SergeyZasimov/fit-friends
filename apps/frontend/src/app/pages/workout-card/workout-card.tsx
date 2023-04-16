@@ -1,6 +1,7 @@
 import { CreateWorkout, User, UserRole } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CreateOrderPopup from '../../components/create-order-popup/create-order-popup';
 import Header from '../../components/header/header';
 import ReviewList from '../../components/review-list/review-list';
 import Video from '../../components/video/video';
@@ -18,6 +19,7 @@ export function WorkoutCard() {
   const errors = useAppSelector(getWorkoutErrors);
   const user = useAppSelector(getUser);
   const [ isFormDisabled, setIsFormDisabled ] = useState(true);
+  const [ isOrderPopupOpen, setIsOrderPopupOpen ] = useState(false);
 
   const [ workoutForm, setWorkoutForm ] = useState<Partial<CreateWorkout>>({});
 
@@ -65,6 +67,7 @@ export function WorkoutCard() {
     <>
       <Header />
       <main>
+        { isOrderPopupOpen && <CreateOrderPopup onClose={ () => setIsOrderPopupOpen(false) } workout={ workout } /> }
         <section className="inner-page">
           <div className="container">
             <div className="inner-page__wrapper">
@@ -204,7 +207,11 @@ export function WorkoutCard() {
                                 </svg><span>Сделать скидку 10%</span>
                               </button>
                               :
-                              <button className="btn training-info__buy" type="button">Купить</button>
+                              <button
+                                className="btn training-info__buy"
+                                type="button"
+                                onClick={ () => setIsOrderPopupOpen(true) }
+                              >Купить</button>
                           }
                         </div>
                       </div>

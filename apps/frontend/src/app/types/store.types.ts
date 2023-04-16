@@ -50,6 +50,7 @@ export type ReviewState = {
 
 export type OrderState = {
   ordersForTrainer: OrderForTrainer[];
+  status: keyof typeof RequestStatus;
 };
 
 export type FriendsState = {
