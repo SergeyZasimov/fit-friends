@@ -88,6 +88,7 @@ export const AppRoute = {
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
   CustomerWorkoutCatalog: 'workout-catalog',
+  CustomerUsersCatalog: 'users-catalog',
   WorkoutCard: 'workout-card',
 } as const;
 

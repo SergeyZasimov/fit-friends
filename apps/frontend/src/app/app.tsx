@@ -4,6 +4,7 @@ import TrainerRestrictPage from './components/trainer-restrict-page/trainer-rest
 import { CreateTraining } from './pages/create-training/create-training';
 import CustomerMain from './pages/customer-main/customer-main';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
+import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
 import Intro from './pages/intro/intro';
 import QuestionnaireCoach from './pages/questionnaire-coach/questionnaire-coach';
 import QuestionnaireUser from './pages/questionnaire-user/questionnaire-user';
@@ -40,6 +41,7 @@ export function App() {
       <Route path={ AppRoute.CustomerMain } element={ <CustomerRestrictPage><CustomerMain /></CustomerRestrictPage> } />
       <Route path={ AppRoute.CustomerWorkoutCatalog } element={ <CustomerRestrictPage><CustomerTrainingCatalog /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.WorkoutCard}/:id` } element={ <WorkoutCard /> } />
+      <Route path={ AppRoute.CustomerUsersCatalog } element={ <CustomerRestrictPage><CustomerUsersCatalog /></CustomerRestrictPage> } />
     </Routes>
 
   );

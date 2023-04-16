@@ -1,5 +1,7 @@
 import { ProfileQuery } from '@fit-friends/shared';
+import { AppRoute } from 'apps/frontend/src/app/utils/constants';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSlider } from '../../../../hooks/use-slider';
 import { fetchUsers } from '../../../../store/features/user/api-actions';
 import { getUsers } from '../../../../store/features/user/user-slice';
@@ -11,6 +13,7 @@ const USERS_QUANTITY = 4;
 export function CustomerLookForCompanyList() {
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const users = useAppSelector(getUsers);
   const sliderRef = useRef<HTMLLIElement>(null);
   const offset = (sliderRef.current && (sliderRef.current as HTMLLIElement).getBoundingClientRect().width);
@@ -25,13 +28,21 @@ export function CustomerLookForCompanyList() {
 
   const { handleNextClick, handlePrevClick, style } = useSlider(offset as number, USERS_QUANTITY, users.length);
 
+  const handleUsersButtonClick = () => {
+    navigate(`/${AppRoute.CustomerUsersCatalog}`);
+  };
   return (
     <section className="look-for-company ">
       <div className="container slider-overflow-hidden">
         <div className="look-for-company__wrapper">
           <div className="look-for-company__title-wrapper">
             <h2 className="look-for-company__title">Ищут компанию для тренировки</h2>
-            <button className="btn-flat btn-flat--light look-for-company__button" type="button"><span>Смотреть все</span>
+            <button
+              className="btn-flat btn-flat--light look-for-company__button"
+              type="button"
+              onClick={ handleUsersButtonClick }
+            >
+              <span>Смотреть все</span>
               <svg width="14" height="10" aria-hidden="true">
                 <use xlinkHref="#arrow-right"></use>
               </svg>

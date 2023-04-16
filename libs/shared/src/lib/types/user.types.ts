@@ -70,5 +70,9 @@ export type UserTokens = {
 export type RegisterUser = Pick<User, 'email' | 'password' | 'role'> &
   Pick<Profile, 'avatar' | 'birthDay' | 'gender' | 'location' | 'name'>;
 
-export type ProfileQuery = BasicQuery & Pick<Profile, 'isReadyToTraining'>
-
+export type ProfileQuery = BasicQuery & {
+  isReadyToTraining?: boolean;
+  location?: string[];
+  trainingType?: string[];
+  trainingLevel?: string;
+};
