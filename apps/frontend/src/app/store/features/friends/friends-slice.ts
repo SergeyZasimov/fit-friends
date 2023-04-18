@@ -1,11 +1,12 @@
 import { User } from '@fit-friends/shared';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { FriendsState, State } from '../../../types/store.types';
-import { StoreNamespace } from '../../../utils/constants';
+import { RequestStatus, StoreNamespace } from '../../../utils/constants';
 import { fetchFriends } from './api-actions';
 
 const initialState: FriendsState = {
   friends: [],
+  status: RequestStatus.Unknown,
 };
 
 export const friendsSlice = createSlice({

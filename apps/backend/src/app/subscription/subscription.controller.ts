@@ -1,4 +1,4 @@
-import { UrlDomain, UrlParams, UserRole } from '@fit-friends/shared';
+import { UrlDomain, UrlParams, UrlRoute, UserRole } from '@fit-friends/shared';
 import {
   Controller,
   Delete,
@@ -43,5 +43,13 @@ export class SubscriptionController {
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
     await this.subscriptionService.deleteSubscription(userId, trainerId);
+  }
+
+  @Get(`${UrlRoute.CheckSubscription}/:${UrlParams.Id}`)
+  async checkSubscription(
+    @Param(UrlParams.Id, DbIdValidationPipe) trainerId: number,
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    return this.subscriptionService.checkExist(userId, trainerId);
   }
 }

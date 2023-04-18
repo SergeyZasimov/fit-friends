@@ -13,3 +13,39 @@ export const fetchFriends = createAsyncThunk<
   );
   return data;
 });
+
+export const addToFriends = createAsyncThunk<
+  undefined,
+  number,
+  AsyncThunkOptionField
+>(
+  ActionName.Friends.AddToFriends,
+  async (friendId, { extra: api, fulfillWithValue }) => {
+    await api.get(`/${UrlDomain.Profile}/${UrlRoute.AddFriend}/${friendId}`);
+    return fulfillWithValue(undefined);
+  }
+);
+
+export const removeFromFriends = createAsyncThunk<
+  undefined,
+  number,
+  AsyncThunkOptionField
+>(
+  ActionName.Friends.RemoveFromFriends,
+  async (friendId, { extra: api, fulfillWithValue }) => {
+    await api.get(`/${UrlDomain.Profile}/${UrlRoute.RemoveFriend}/${friendId}`);
+    return fulfillWithValue(undefined);
+  }
+);
+
+export const checkFriend = createAsyncThunk<
+  undefined,
+  string,
+  AsyncThunkOptionField
+>(
+  ActionName.Friends.CheckFriend,
+  async (friendId, { extra: api, fulfillWithValue }) => {
+    await api.get(`/${UrlDomain.Profile}/${UrlRoute.CheckFriend}/${friendId}`);
+    return fulfillWithValue(undefined);
+  }
+);

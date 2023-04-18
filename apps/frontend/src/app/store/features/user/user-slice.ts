@@ -6,6 +6,7 @@ import {
   deleteAvatar,
   deleteCertificate,
   fetchUser,
+  fetchUserCard,
   fetchUsers,
   login,
   questionnaireCustomer,
@@ -19,6 +20,7 @@ const initialState: UserState = {
   errors: {},
   status: RequestStatus.Unknown,
   users: [],
+  userCard: null,
 };
 
 export const userSlice = createSlice({
@@ -119,6 +121,12 @@ export const userSlice = createSlice({
         (state, { payload }: PayloadAction<User[]>) => {
           state.users = payload;
         }
+      )
+      .addCase(
+        fetchUserCard.fulfilled,
+        (state, { payload }: PayloadAction<User>) => {
+          state.userCard = payload;
+        }
       );
   },
 });
@@ -136,3 +144,6 @@ export const getUserRequestStatus = (state: State) =>
 export const getUser = (state: State) => state[StoreNamespace.UserStore].user;
 
 export const getUsers = (state: State) => state[StoreNamespace.UserStore].users;
+
+export const getUserCard = (state: State) =>
+  state[StoreNamespace.UserStore].userCard;

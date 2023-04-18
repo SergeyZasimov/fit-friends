@@ -10,9 +10,10 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 export interface CreateOrderPopupProps {
   onClose: () => void;
   workout?: Workout;
+  title: string;
 }
 
-export function CreateOrderPopup({ onClose, workout }: CreateOrderPopupProps) {
+export function CreateOrderPopup({ onClose, workout, title }: CreateOrderPopupProps) {
 
   const dispatch = useAppDispatch();
   const orderRequestStatus = useAppSelector(getOrderRequestStatus);
@@ -52,7 +53,7 @@ export function CreateOrderPopup({ onClose, workout }: CreateOrderPopupProps) {
   const totalPrice = formatPrice(newOrder.amount * (workout?.price as number));
 
   return (
-    <ModalOverlay target='buy' onClose={ onClose }>
+    <ModalOverlay target='buy' onClose={ onClose } title={ title }>
       <div className="popup__content popup__content--purchases">
         <div className="popup__product">
           <div className="popup__product-image">

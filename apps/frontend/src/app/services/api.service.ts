@@ -16,7 +16,6 @@ import {
 } from './token.service';
 
 const DISPLAY_STATUS_CODE = new Set([
-  HttpStatusCode.NotFound,
   HttpStatusCode.Conflict,
   HttpStatusCode.Forbidden,
   HttpStatusCode.InternalServerError,

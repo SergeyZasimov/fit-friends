@@ -112,8 +112,25 @@ export class ProfileService extends ServiceWithFiles {
     await this.userRepository.addFriend(userId, friendId);
   }
 
+  async removeFriend(userId: number, friendId: number): Promise<void> {
+    const user = await this.getOne(userId);
+    await this.notificationService.create({
+      userId: friendId,
+      text: createFriendNotification(user.profile.name),
+    });
+    await this.userRepository.removeFriend(userId, friendId);
+  }
+
   async getFriends(userId: number, query: ProfileQueryDto) {
     return this.userRepository.findFriends(userId, query);
+  }
+
+  async checkFriend(
+    userId: number,
+    friendId: number
+  ): Promise<User | undefined> {
+    const friends = await this.userRepository.findFriends(userId);
+    return friends.find((user) => user.id === friendId);
   }
 
   async updateFavoriteGym(userId: number, sportGymId: number) {

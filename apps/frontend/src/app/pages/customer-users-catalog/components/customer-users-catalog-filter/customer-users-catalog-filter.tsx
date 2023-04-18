@@ -1,12 +1,12 @@
 import { ProfileQuery } from '@fit-friends/shared';
-import FilterLocation from 'apps/frontend/src/app/components/filter-location/filter-location';
-import FilterTrainingLevel from 'apps/frontend/src/app/components/filter-training-level/filter-training-level';
-import FilterTrainingType from 'apps/frontend/src/app/components/filter-training-type/filter-training-type';
-import SortUserRole from 'apps/frontend/src/app/components/sort-user-role/sort-user-role';
-import { fetchUsers } from 'apps/frontend/src/app/store/features/user/api-actions';
-import { useAppDispatch } from 'apps/frontend/src/app/store/store.hooks';
-import { createQueryString } from 'apps/frontend/src/app/utils/helpers';
 import { useEffect, useState } from 'react';
+import FilterLocation from '../../../../components/filter-location/filter-location';
+import FilterTrainingLevel from '../../../../components/filter-training-level/filter-training-level';
+import FilterTrainingType from '../../../../components/filter-training-type/filter-training-type';
+import SortUserRole from '../../../../components/sort-user-role/sort-user-role';
+import * as apiActions from '../../../../store/features/user/api-actions';
+import { useAppDispatch } from '../../../../store/store.hooks';
+import { createQueryString } from '../../../../utils/helpers';
 
 
 export function CustomerUsersCatalogFilter() {
@@ -23,7 +23,7 @@ export function CustomerUsersCatalogFilter() {
   };
 
   useEffect(() => {
-    dispatch(fetchUsers(createQueryString(query)));
+    dispatch(apiActions.fetchUsers(createQueryString(query)));
   }, [ query ]);
 
   return (

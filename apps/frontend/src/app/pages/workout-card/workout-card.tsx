@@ -67,7 +67,12 @@ export function WorkoutCard() {
     <>
       <Header />
       <main>
-        { isOrderPopupOpen && <CreateOrderPopup onClose={ () => setIsOrderPopupOpen(false) } workout={ workout } /> }
+        { isOrderPopupOpen &&
+          <CreateOrderPopup
+            onClose={ () => setIsOrderPopupOpen(false) }
+            workout={ workout }
+            title='Купить тренировку'
+          /> }
         <section className="inner-page">
           <div className="container">
             <div className="inner-page__wrapper">

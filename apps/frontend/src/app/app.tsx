@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import CustomerRestrictPage from './components/customer-restrict-page/customer-restrict-page';
 import TrainerRestrictPage from './components/trainer-restrict-page/trainer-restrict-page';
 import { CreateTraining } from './pages/create-training/create-training';
+import CustomerCardTrainer from './pages/customer-card-trainer/customer-card-trainer';
+import CustomerCardUser from './pages/customer-card-user/customer-card-user';
 import CustomerMain from './pages/customer-main/customer-main';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
@@ -42,6 +44,8 @@ export function App() {
       <Route path={ AppRoute.CustomerWorkoutCatalog } element={ <CustomerRestrictPage><CustomerTrainingCatalog /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.WorkoutCard}/:id` } element={ <WorkoutCard /> } />
       <Route path={ AppRoute.CustomerUsersCatalog } element={ <CustomerRestrictPage><CustomerUsersCatalog /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerCardUser}/:id` } element={ <CustomerRestrictPage><CustomerCardUser /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerCardTrainer}/:id` } element={ <CustomerRestrictPage><CustomerCardTrainer /></CustomerRestrictPage> } />
     </Routes>
 
   );

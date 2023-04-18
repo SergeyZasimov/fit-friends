@@ -1,8 +1,10 @@
 import { UserRole } from '@fit-friends/shared';
-import ShowMoreButtons from 'apps/frontend/src/app/components/show-more-buttons/show-more-buttons';
-import { getUsers } from 'apps/frontend/src/app/store/features/user/user-slice';
-import { useAppSelector } from 'apps/frontend/src/app/store/store.hooks';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import ShowMoreButtons from '../../../../components/show-more-buttons/show-more-buttons';
+import { getUsers } from '../../../../store/features/user/user-slice';
+import { useAppSelector } from '../../../../store/store.hooks';
+import { AppRoute } from '../../../../utils/constants';
 
 const setItemClass = (role: string) => {
   return role === UserRole.Customer ? 'user' : 'coach';
@@ -45,7 +47,12 @@ export function CustomerUsersCatalogList() {
                   ))
                 }
               </ul>
-              <a className="btn btn--medium thumbnail-user__button" href="#">Подробнее</a>
+              <Link
+                className="btn btn--medium thumbnail-user__button"
+                to={ role === UserRole.Customer ? `/${AppRoute.CustomerCardUser}/${id}` : `/${AppRoute.CustomerCardTrainer}/${id}` }
+              >
+                Подробнее
+              </Link>
             </div>
           </li>
         )) }

@@ -34,6 +34,7 @@ export const ActionName = {
     DeleteCertificate: 'user/deleteCertificate',
     DeleteAvatar: 'user/deleteAvatar',
     FetchUsers: 'user/fetchUsers',
+    FetchUserCard: 'user/fetchUserCard',
   },
   Notification: {
     Fetch: 'notification/fetch',
@@ -57,6 +58,9 @@ export const ActionName = {
   },
   Friends: {
     FetchFriends: 'friends/fetchFriends',
+    AddToFriends: 'friends/addToFriends',
+    RemoveFromFriends: 'friends/removeFromFriends',
+    CheckFriend: 'friends/checkFriend',
   },
   PersonalTraining: {
     Fetch: 'personal-trainings/fetch',
@@ -89,6 +93,8 @@ export const AppRoute = {
   MyFriends: 'my-friends',
   CustomerWorkoutCatalog: 'workout-catalog',
   CustomerUsersCatalog: 'users-catalog',
+  CustomerCardUser: 'user-card',
+  CustomerCardTrainer: 'trainer-card',
   WorkoutCard: 'workout-card',
 } as const;
 

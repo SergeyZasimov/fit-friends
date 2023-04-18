@@ -34,7 +34,12 @@ export function ReviewList({ workoutId }: ReviewListProps) {
 
   return (
     <>
-      { isCreateReviewModalOpen && <CreateReviewPopup onClose={ handleCloseReviewModal } workoutId={ workoutId } /> }
+      { isCreateReviewModalOpen &&
+        <CreateReviewPopup
+          onClose={ handleCloseReviewModal }
+          workoutId={ workoutId }
+          title='Оставить отзыв'
+        /> }
 
       <aside className="reviews-side-bar">
         <button

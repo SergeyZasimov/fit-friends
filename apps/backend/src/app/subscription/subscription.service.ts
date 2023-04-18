@@ -77,7 +77,7 @@ export class SubscriptionService {
     });
   }
 
-  private async checkExist(
+  async checkExist(
     userId: number,
     trainerId: number
   ): Promise<Subscription> {

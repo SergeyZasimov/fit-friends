@@ -64,6 +64,14 @@ export class WorkoutController {
     );
   }
 
+  @Get(`${UrlRoute.Trainer}/:${UrlParams.Id}`)
+  async showManyByTrainer(
+    @Param(UrlParams.Id, DbIdValidationPipe) trainerId: number
+  ) {
+    const workouts = await this.workoutService.getManyByTrainer(trainerId);
+    return workouts.map((item: Workout) => fillObject(WorkoutRdo, item));
+  }
+
   @Get(UrlRoute.Info)
   async showWorkoutsInfo(
     @GetCurrentUser(CurrentUserField.Id)

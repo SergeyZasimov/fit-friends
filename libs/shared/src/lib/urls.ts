@@ -24,10 +24,13 @@ export const UrlRoute = {
   DeleteAvatar: 'delete-avatar',
   Friends: 'friends',
   AddFriend: 'add-friend',
+  RemoveFriend: 'remove-friend',
+  CheckFriend: 'check-friend',
   Trainer: 'trainer',
   Customer: 'customer',
   UpdateFavoriteGym: 'favorite-gym',
   Info: 'info',
+  CheckSubscription: 'check-subscription',
 } as const;
 
 export const UrlParams = {

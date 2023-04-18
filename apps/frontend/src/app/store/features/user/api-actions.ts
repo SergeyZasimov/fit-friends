@@ -255,3 +255,12 @@ export const fetchUsers = createAsyncThunk<
   const { data } = await api.get(`/${UrlDomain.Profile}?${query}`);
   return data;
 });
+
+export const fetchUserCard = createAsyncThunk<
+  User,
+  string,
+  AsyncThunkOptionField
+>(ActionName.User.FetchUserCard, async (id, { extra: api }) => {
+  const { data } = await api.get(`/${UrlDomain.Profile}/${id}`);
+  return data;
+});

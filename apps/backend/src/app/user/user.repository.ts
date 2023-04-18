@@ -83,8 +83,22 @@ export class UserRepository {
     });
   }
 
-  async findFriends(id: number, query: ProfileQueryDto) {
-    const { limit, page, sortType, sortOption } = query;
+  async removeFriend(userId: number, friendId: number): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        friends: {
+          disconnect: {
+            id: friendId,
+          },
+        },
+      },
+    });
+  }
+
+  async findFriends(id: number, query?: ProfileQueryDto) {
     const result = await this.prisma.user.findUnique({
       where: {
         id,
@@ -94,11 +108,13 @@ export class UserRepository {
           include: {
             profile: true,
           },
-          orderBy: {
-            [sortOption]: sortType,
-          },
-          skip: limit * (page - 1) || undefined,
-          take: limit,
+          orderBy: query
+            ? {
+                [query.sortOption]: query?.sortType,
+              }
+            : undefined,
+          skip: query ? query.limit * (query.page - 1) || undefined : undefined,
+          take: query?.limit,
         },
       },
     });

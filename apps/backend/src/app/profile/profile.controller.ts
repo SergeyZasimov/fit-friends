@@ -72,6 +72,23 @@ export class ProfileController {
     await this.profileService.addFriend(userId, friendId);
   }
 
+  @Get(`${UrlRoute.RemoveFriend}/:${UrlParams.Id}`)
+  async removeFromFriends(
+    @Param(UrlParams.Id, DbIdValidationPipe) friendId: number,
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    await this.profileService.removeFriend(userId, friendId);
+  }
+
+  @Get(`${UrlRoute.CheckFriend}/:${UrlParams.Id}`)
+  async checkFriend(
+    @Param(UrlParams.Id, DbIdValidationPipe) friendId: number,
+    @GetCurrentUser(CurrentUserField.Id) userId: number
+  ) {
+    const user = await this.profileService.checkFriend(userId, friendId);
+    return user ? fillObject(UserRdo, user, user.role) : null;
+  }
+
   @UseGuards(RoleGuard)
   @Role(UserRole.Customer)
   @Patch(`${UrlRoute.UpdateFavoriteGym}/:${UrlParams.Id}`)

@@ -10,9 +10,10 @@ import { RequestStatus } from '../../../../utils/constants';
 export interface CreateReviewPopupProps {
   workoutId: string;
   onClose: () => void;
+  title: string;
 }
 
-export function CreateReviewPopup({ workoutId, onClose }: CreateReviewPopupProps) {
+export function CreateReviewPopup({ workoutId, onClose, title }: CreateReviewPopupProps) {
 
   const dispatch = useAppDispatch();
   const requestStatus = useAppSelector(getReviewRequestStatus);
@@ -40,14 +41,14 @@ export function CreateReviewPopup({ workoutId, onClose }: CreateReviewPopupProps
   }, [ requestStatus ]);
 
   return (
-    <ModalOverlay onClose={ onClose } target='feedback'>
+    <ModalOverlay onClose={ onClose } target='feedback' title={ title }>
       <div className="popup__content popup__content--feedback">
         <h3 className="popup__feedback-title">Оцените тренировку</h3>
         <ul className="popup__rate-list">
           {
             Array.from({ length: 5 }, (_, index) => {
               const rating = index + 1;
-              return <li className="popup__rate-item">
+              return <li className="popup__rate-item" key={ rating }>
                 <div className="popup__rate-item-wrap">
                   <label>
                     <input type="radio" name="оценка тренировки"
