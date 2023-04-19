@@ -4,6 +4,8 @@ import TrainerRestrictPage from './components/trainer-restrict-page/trainer-rest
 import { CreateTraining } from './pages/create-training/create-training';
 import CustomerCardTrainer from './pages/customer-card-trainer/customer-card-trainer';
 import CustomerCardUser from './pages/customer-card-user/customer-card-user';
+import CustomerGymCard from './pages/customer-gym-card/customer-gym-card';
+import CustomerGymsCatalog from './pages/customer-gyms-catalog/customer-gyms-catalog';
 import CustomerMain from './pages/customer-main/customer-main';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
@@ -19,7 +21,6 @@ import TrainerMyOrders from './pages/trainer-my-orders/trainer-my-orders';
 import TrainerMyWorkouts from './pages/trainer-my-workouts/trainer-my-workouts';
 import WorkoutCard from './pages/workout-card/workout-card';
 import { AppRoute } from './utils/constants';
-import CustomerGymsCatalog from './pages/customer-gyms-catalog/customer-gyms-catalog';
 
 
 export function App() {
@@ -48,6 +49,7 @@ export function App() {
       <Route path={ `${AppRoute.CustomerCardUser}/:id` } element={ <CustomerRestrictPage><CustomerCardUser /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerCardTrainer}/:id` } element={ <CustomerRestrictPage><CustomerCardTrainer /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerGymsCatalog}` } element={ <CustomerRestrictPage><CustomerGymsCatalog /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerGymCard}/:id` } element={ <CustomerRestrictPage><CustomerGymCard /></CustomerRestrictPage> } />
     </Routes>
 
   );

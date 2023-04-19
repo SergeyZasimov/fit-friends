@@ -67,4 +67,5 @@ export type SportGymStore = {
   sportGyms: SportGym[];
   gymsPriceInfo: { min: number; max: number } | null;
   favoriteGyms: SportGym[];
+  gym: SportGym | null;
 };

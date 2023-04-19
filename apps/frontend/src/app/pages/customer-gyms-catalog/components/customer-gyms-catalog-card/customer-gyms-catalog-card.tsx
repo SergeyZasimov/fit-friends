@@ -1,8 +1,10 @@
 import { SportGym } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchFavoriteGyms, updateFavoriteStatus } from '../../../../store/features/sport-gyms/api-actions';
 import { getFavoriteGyms } from '../../../../store/features/sport-gyms/sport-gyms-slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { AppRoute } from '../../../../utils/constants';
 import { capitalizeWord } from '../../../../utils/helpers';
 
 export interface CustomerGymsCatalogCardProps {
@@ -74,7 +76,7 @@ export function CustomerGymsCatalogCard({ gym }: CustomerGymsCatalogCardProps) {
           <p className="thumbnail-gym__text">{ gym.description }</p>
         </div>
         <div className="thumbnail-gym__buttons-wrapper">
-          <a className="btn btn--small thumbnail-gym__button" href="#">Подробнее</a>
+          <Link className="btn btn--small thumbnail-gym__button" to={ `/${AppRoute.CustomerGymCard}/${gym.id}` }>Подробнее</Link>
         </div>
       </div>
     </li>

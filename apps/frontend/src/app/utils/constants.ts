@@ -67,6 +67,7 @@ export const ActionName = {
     UpdateStatus: 'personal-trainings/updateStatus',
   },
   SportGyms: {
+    FetchGym: 'sport-gyms/fetchGym',
     FetchGyms: 'sport-gyms/fetchGyms',
     FetchGymsInfo: 'sport-gyms/fetchGymsInfo',
     FetchFavorites: 'sport-gyms/fetchFavorites',
@@ -96,6 +97,7 @@ export const AppRoute = {
   MyFriends: 'my-friends',
   CustomerWorkoutCatalog: 'workout-catalog',
   CustomerGymsCatalog: 'gyms-catalog',
+  CustomerGymCard: 'gym-card',
   CustomerUsersCatalog: 'users-catalog',
   CustomerCardUser: 'user-card',
   CustomerCardTrainer: 'trainer-card',

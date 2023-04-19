@@ -50,7 +50,7 @@ export const OrderType = {
   SportGym: 'абонемент',
 } as const;
 
-export const PaymentMethods = ['visa', 'mir', 'umoney'] as const;
+export const PaymentMethods = ['visa', 'mir', 'iomoney'] as const;
 
 export const TrainingStatus = {
   UnderConsideration: 'на рассмотрении',

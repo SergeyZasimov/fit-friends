@@ -1,4 +1,3 @@
-import { CreateWorkout } from '@fit-friends/shared';
 import CreateTrainingForm from '../../components/create-training-form/create-training-form';
 import Header from '../../components/header/header';
 
@@ -25,4 +24,4 @@ export function CreateTraining() {
   );
 }
 
-export default CreateWorkout;
+export default CreateTraining;

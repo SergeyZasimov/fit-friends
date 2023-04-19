@@ -36,7 +36,6 @@ export const fetchFavoriteGyms = createAsyncThunk<
   const { data } = await api.get(
     `/${UrlDomain.Profile}/${UrlRoute.FavoriteGym}`
   );
-  console.log(data);
   return data;
 });
 
@@ -51,3 +50,12 @@ export const updateFavoriteStatus = createAsyncThunk<
     return fulfillWithValue(undefined);
   }
 );
+
+export const fetchGym = createAsyncThunk<
+  SportGym,
+  string,
+  AsyncThunkOptionField
+>(ActionName.SportGyms.FetchGym, async (id, { extra: api }) => {
+  const { data } = await api.get(`/${UrlDomain.SportGym}/${id}`);
+  return data;
+});

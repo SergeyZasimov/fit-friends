@@ -21,7 +21,7 @@ export type Order = {
 export type CreateOrder = Pick<
   Order,
   'orderType' | 'amount' | 'paymentMethod'
-> & { purchaseId: number };
+> & { purchaseId: number; parameters?: string[] };
 
 export type OrderForTrainer = {
   workout: Workout;

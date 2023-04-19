@@ -4,6 +4,7 @@ import { SportGymStore, State } from '../../../types/store.types';
 import { StoreNamespace } from '../../../utils/constants';
 import {
   fetchFavoriteGyms,
+  fetchGym,
   fetchSportGyms,
   fetchSportGymsInfo,
 } from './api-actions';
@@ -12,6 +13,7 @@ const initialState: SportGymStore = {
   sportGyms: [],
   gymsPriceInfo: null,
   favoriteGyms: [],
+  gym: null,
 };
 
 export const sportGymsSlice = createSlice({
@@ -40,6 +42,12 @@ export const sportGymsSlice = createSlice({
         (state, { payload }: PayloadAction<SportGym[]>) => {
           state.favoriteGyms = payload;
         }
+      )
+      .addCase(
+        fetchGym.fulfilled,
+        (state, { payload }: PayloadAction<SportGym>) => {
+          state.gym = payload;
+        }
       );
   },
 });
@@ -54,3 +62,6 @@ export const getGymsPriceInfo = (state: State) =>
 
 export const getFavoriteGyms = (state: State) =>
   state[StoreNamespace.SportGymsStore].favoriteGyms;
+
+export const getGym = (state: State) =>
+  state[StoreNamespace.SportGymsStore].gym;

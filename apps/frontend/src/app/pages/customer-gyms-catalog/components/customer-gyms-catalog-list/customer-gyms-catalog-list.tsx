@@ -17,9 +17,12 @@ export function CustomerGymsCatalogList() {
     dispatch(fetchFavoriteGyms());
   });
 
+  useEffect(() => {
+    setOffset(GYM_QUANTITY);
+  }, [ gyms ]);
+
   return (
     <div className="gyms-catalog">
-
       <ul className="gyms-catalog__list">
         {
           gyms.slice(0, offset).map(gym => (
