@@ -68,6 +68,9 @@ export const ActionName = {
   },
   SportGyms: {
     FetchGyms: 'sport-gyms/fetchGyms',
+    FetchGymsInfo: 'sport-gyms/fetchGymsInfo',
+    FetchFavorites: 'sport-gyms/fetchFavorites',
+    UpdateFavoriteStatus: 'sport-gyms/updateFavoriteStatus',
   },
 } as const;
 
@@ -92,6 +95,7 @@ export const AppRoute = {
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
   CustomerWorkoutCatalog: 'workout-catalog',
+  CustomerGymsCatalog: 'gyms-catalog',
   CustomerUsersCatalog: 'users-catalog',
   CustomerCardUser: 'user-card',
   CustomerCardTrainer: 'trainer-card',

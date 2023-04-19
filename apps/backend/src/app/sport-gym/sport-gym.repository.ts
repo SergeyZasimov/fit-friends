@@ -58,4 +58,15 @@ export class SportGymRepository {
       take: limit,
     });
   }
+
+  async findGymsInfo() {
+    return this.prisma.sportGym.aggregate({
+      _min: {
+        oneWorkoutPrice: true,
+      },
+      _max: {
+        oneWorkoutPrice: true,
+      },
+    });
+  }
 }

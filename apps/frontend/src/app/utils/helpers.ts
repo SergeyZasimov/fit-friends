@@ -33,12 +33,12 @@ export const createQueryString = (query: Record<string, unknown>): string => {
     .join('&')} `;
 };
 
-export const debounce = <T>(
-  callback: (value: T) => void,
+export const debounce = <U>(
+  callback: (value: U) => void,
   timeoutDelay = DEFAULT_PRICE_CHANGE_TIMEOUT
 ) => {
   let timeout: NodeJS.Timeout;
-  return (param: T) => {
+  return (param: U) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => callback(param), timeoutDelay);
   };

@@ -1,7 +1,8 @@
 import { TrainingTimes, WorkoutQuery } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
 import { fetchWorkouts, fetchWorkoutsInfo } from '../../store/features/workout/api-actions';
-import { useAppDispatch } from '../../store/store.hooks';
+import { getWorkoutsPriceInfo } from '../../store/features/workout/workout-slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { checkValueInCollection, createQueryString } from '../../utils/helpers';
 import FilterCalories from '../filter-calories/filter-calories';
 import FilterPrice from '../filter-price/filter-price';
@@ -11,7 +12,7 @@ import FilterRating from '../filter-rating/filter-rating';
 export function MyWorkoutsFilter() {
 
   const dispatch = useAppDispatch();
-
+  const priceInfo = useAppSelector(getWorkoutsPriceInfo);
   const [ query, setQuery ] = useState<WorkoutQuery>({});
 
   useEffect(() => {
@@ -39,9 +40,13 @@ export function MyWorkoutsFilter() {
 
   return (
     <form className="my-training-form__form">
-      <FilterPrice
-        onChangeQuery={ handleChangeQuery }
-      />
+      <div className='my-training-form__block my-training-form__block--price'>
+        <h4 className='my-training-form__block-title'>Цена, ₽</h4>
+        <FilterPrice
+          onChangeQuery={ handleChangeQuery }
+          priceInfo={ priceInfo }
+        />
+      </div>
       <FilterCalories onChangeQuery={ handleChangeQuery } />
       <FilterRating onChangeQuery={ handleChangeQuery } />
       <div className="my-training-form__block my-training-form__block--duration">

@@ -36,7 +36,6 @@ export function TrainerMyWorkouts() {
               <div className="inner-page__content">
                 <div className="my-trainings">
                   <MyWorkoutsList />
-
                 </div>
               </div>
             </div>

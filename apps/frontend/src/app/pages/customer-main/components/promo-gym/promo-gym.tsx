@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import { getSportGyms } from '../../../../store/features/sport-gyms/sport-gyms-slice';
 import { getUser } from '../../../../store/features/user/user-slice';
 import { useAppSelector } from '../../../../store/store.hooks';
+import { AppRoute } from '../../../../utils/constants';
 
 export function PromoGym() {
 
@@ -38,8 +40,18 @@ export function PromoGym() {
         </div>
       </div>
       <div className="thumbnail-spec-gym__button-wrapper">
-        <a className="btn btn--small thumbnail-spec-gym__button" href="#">Подробнее</a>
-        <a className="btn btn--small btn--outlined thumbnail-spec-gym__button" href="#">Все залы</a>
+        <Link
+          className="btn btn--small thumbnail-spec-gym__button"
+          to={ '' }
+        >
+          Подробнее
+        </Link>
+        <Link
+          className="btn btn--small btn--outlined thumbnail-spec-gym__button"
+          to={ `/${AppRoute.CustomerGymsCatalog}` }
+        >
+          Все залы
+        </Link>
       </div>
     </div>
   );

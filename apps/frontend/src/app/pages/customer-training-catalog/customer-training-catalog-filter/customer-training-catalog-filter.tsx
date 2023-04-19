@@ -5,12 +5,13 @@ import FilterPrice from '../../../components/filter-price/filter-price';
 import FilterRating from '../../../components/filter-rating/filter-rating';
 import { useWorkoutsQuery } from '../../../hooks/use-workouts-query';
 import { fetchWorkoutsInfo } from '../../../store/features/workout/api-actions';
-import { useAppDispatch } from '../../../store/store.hooks';
+import { getWorkoutsPriceInfo } from '../../../store/features/workout/workout-slice';
+import { useAppDispatch, useAppSelector } from '../../../store/store.hooks';
 
 export function CustomerTrainingCatalogFilter() {
 
   const dispatch = useAppDispatch();
-
+  const priceInfo = useAppSelector(getWorkoutsPriceInfo);
   useEffect(() => {
     dispatch(fetchWorkoutsInfo());
   }, []);
@@ -19,7 +20,10 @@ export function CustomerTrainingCatalogFilter() {
 
   return (
     <form className="gym-catalog-form__form">
-      <FilterPrice onChangeQuery={ handleChangeQuery } />
+      <div className='gym-catalog-form__block gym-catalog-form__block--price'>
+        <h4 className='gym-catalog-form__block-title'>Цена, ₽</h4>
+        <FilterPrice onChangeQuery={ handleChangeQuery } priceInfo={ priceInfo } />
+      </div>
       <FilterCalories onChangeQuery={ handleChangeQuery } />
       <FilterRating onChangeQuery={ handleChangeQuery } />
       <div className="gym-catalog-form__block gym-catalog-form__block--type">

@@ -28,7 +28,7 @@ export const UrlRoute = {
   CheckFriend: 'check-friend',
   Trainer: 'trainer',
   Customer: 'customer',
-  UpdateFavoriteGym: 'favorite-gym',
+  FavoriteGym: 'favorite-gym',
   Info: 'info',
   CheckSubscription: 'check-subscription',
 } as const;

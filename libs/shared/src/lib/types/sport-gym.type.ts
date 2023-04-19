@@ -23,3 +23,12 @@ export type QuerySportGym = BasicQuery &
     status: boolean;
     parameters: string[];
   }>;
+
+export type SportGymsInfo = {
+  _min: {
+    oneWorkoutPrice: number;
+  };
+  _max: {
+    oneWorkoutPrice: number;
+  };
+};

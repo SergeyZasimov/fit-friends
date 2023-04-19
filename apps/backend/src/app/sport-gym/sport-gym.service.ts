@@ -52,6 +52,10 @@ export class SportGymService {
     return existGym;
   }
 
+  async getInfo() {
+    return this.sportGymRepository.findGymsInfo();
+  }
+
   private async setPhotos(): Promise<string[]> {
     const photos = await readdir(
       path.resolve(this.staticFolder, SPORT_GYM_PHOTOS_FOLDER)

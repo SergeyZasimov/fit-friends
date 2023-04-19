@@ -1,27 +1,22 @@
-import { WorkoutQuery } from '@fit-friends/shared';
+import { QuerySportGym, WorkoutQuery } from '@fit-friends/shared';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { getWorkoutsPriceInfo } from '../../store/features/workout/workout-slice';
-import { useAppSelector } from '../../store/store.hooks';
-import { AppRoute, HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
+import { HIGH_INDEX, LOW_INDEX } from '../../utils/constants';
 import { debounce } from '../../utils/helpers';
 import RangeSlider from '../range-slider/range-slider';
 
-export interface FilterPriceProps {
-  onChangeQuery: (value: WorkoutQuery) => void;
+export interface FilterPriceProps<T> {
+  onChangeQuery: (value: T) => void;
+  priceInfo: { min: number, max: number; } | null;
 }
 
-export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
+export function FilterPrice<T extends WorkoutQuery | QuerySportGym>({ onChangeQuery, priceInfo }: FilterPriceProps<T>) {
 
-  const { pathname } = useLocation();
-  const priceInfo = useAppSelector(getWorkoutsPriceInfo);
 
   const [ priceRange, setPriceRange ] = useState([ priceInfo?.min, priceInfo?.max ]);
 
   useEffect(() => {
     setPriceRange([ priceInfo?.min, priceInfo?.max ]);
   }, [ priceInfo ]);
-
 
   const handleInputChange = (evt: ChangeEvent, index: number) => {
     const target = evt.target as HTMLInputElement;
@@ -44,14 +39,11 @@ export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
   };
 
   const setQuery = () => {
-    debounce(onChangeQuery)({ priceRange: priceRange as number[] });
+    debounce(onChangeQuery)({ priceRange: priceRange as number[] } as T);
   };
 
-  const classPrefix = pathname.includes(AppRoute.CustomerWorkoutCatalog) ? 'gym-catalog' : 'my-training';
-
   return (
-    <div className={ `${classPrefix}-form__block ${classPrefix}-form__block--price` }>
-      <h4 className={ `${classPrefix}-form__block-title` }>Цена, ₽</h4>
+    <>
       <div className="filter-price">
         <div className="filter-price__input-text filter-price__input-text--min">
           <input
@@ -80,10 +72,8 @@ export function FilterPrice({ onChangeQuery }: FilterPriceProps) {
         max={ priceInfo?.max as number }
         onChange={ handleSliderChange }
       />
-    </div>
+    </>
   );
 }
 
 export default FilterPrice;
-
-// gym-catalog

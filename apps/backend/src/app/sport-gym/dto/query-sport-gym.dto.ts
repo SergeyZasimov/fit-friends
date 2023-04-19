@@ -17,7 +17,7 @@ export class QuerySportGymDto extends BasicQueryDto implements QuerySportGym {
   location?: string[];
 
   @IsBoolean()
-  @Transform(({ value }) => !!parseInt(value))
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @IsOptional()
   status?: boolean;
 

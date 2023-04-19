@@ -13,7 +13,7 @@ export function CustomerMain() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchSportGyms());
+    dispatch(fetchSportGyms(''));
   }, []);
 
   return (

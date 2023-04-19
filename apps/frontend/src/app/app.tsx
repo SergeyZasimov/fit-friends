@@ -19,6 +19,7 @@ import TrainerMyOrders from './pages/trainer-my-orders/trainer-my-orders';
 import TrainerMyWorkouts from './pages/trainer-my-workouts/trainer-my-workouts';
 import WorkoutCard from './pages/workout-card/workout-card';
 import { AppRoute } from './utils/constants';
+import CustomerGymsCatalog from './pages/customer-gyms-catalog/customer-gyms-catalog';
 
 
 export function App() {
@@ -46,6 +47,7 @@ export function App() {
       <Route path={ AppRoute.CustomerUsersCatalog } element={ <CustomerRestrictPage><CustomerUsersCatalog /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerCardUser}/:id` } element={ <CustomerRestrictPage><CustomerCardUser /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerCardTrainer}/:id` } element={ <CustomerRestrictPage><CustomerCardTrainer /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerGymsCatalog}` } element={ <CustomerRestrictPage><CustomerGymsCatalog /></CustomerRestrictPage> } />
     </Routes>
 
   );
