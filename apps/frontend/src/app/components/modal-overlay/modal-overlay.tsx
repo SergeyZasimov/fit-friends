@@ -35,8 +35,8 @@ export function ModalOverlay({ children, target, onClose, title, address }: Prop
   return (
     <div className={ modalClass }>
       <section className="popup" style={ { minHeight: `${window.outerHeight}px` } }>
-        <div className={`popup__wrapper ${address && 'popup__wrapper--map'}`}>
-          <div className={`popup-head ${address && 'popup-head--address'}`}>
+        <div className={ `popup__wrapper ${address && 'popup__wrapper--map'}` }>
+          <div className={ `popup-head ${address && 'popup-head--address'}` }>
             <h2 className="popup-head__header">{ title }</h2>
             { address &&
               <p className="popup-head__address">

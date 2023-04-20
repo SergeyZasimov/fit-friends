@@ -2,11 +2,14 @@ import { Route, Routes } from 'react-router-dom';
 import CustomerRestrictPage from './components/customer-restrict-page/customer-restrict-page';
 import TrainerRestrictPage from './components/trainer-restrict-page/trainer-restrict-page';
 import { CreateTraining } from './pages/create-training/create-training';
+import CustomerAccount from './pages/customer-account/customer-account';
 import CustomerCardTrainer from './pages/customer-card-trainer/customer-card-trainer';
 import CustomerCardUser from './pages/customer-card-user/customer-card-user';
+import CustomerFoodDiary from './pages/customer-food-diary/customer-food-diary';
 import CustomerGymCard from './pages/customer-gym-card/customer-gym-card';
 import CustomerGymsCatalog from './pages/customer-gyms-catalog/customer-gyms-catalog';
 import CustomerMain from './pages/customer-main/customer-main';
+import CustomerMyFriends from './pages/customer-my-friends/customer-my-friends';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
 import Intro from './pages/intro/intro';
@@ -50,6 +53,9 @@ export function App() {
       <Route path={ `${AppRoute.CustomerCardTrainer}/:id` } element={ <CustomerRestrictPage><CustomerCardTrainer /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerGymsCatalog}` } element={ <CustomerRestrictPage><CustomerGymsCatalog /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerGymCard}/:id` } element={ <CustomerRestrictPage><CustomerGymCard /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerAccount}` } element={ <CustomerRestrictPage><CustomerAccount /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerFoodDiary}` } element={ <CustomerRestrictPage><CustomerFoodDiary /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.MyFriends}` } element={ <CustomerRestrictPage><CustomerMyFriends /></CustomerRestrictPage> } />
     </Routes>
 
   );

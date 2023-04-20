@@ -37,7 +37,7 @@ export function CustomerCardTrainer() {
         <MapPopup
           onClose={ () => setIsMapOpen(false) }
           title={ userCard?.profile?.name as string }
-          address = {userCard?.profile?.location as string}
+          address={ userCard?.profile?.location as string }
         />
       }
       <Header />
@@ -107,7 +107,7 @@ export function CustomerCardTrainer() {
                         <ul className="user-card-coach__hashtag-list">
                           { userCard?.profile?.trainingType?.map((type) => (
                             <li className="user-card-coach__hashtag-item" key={ type }>
-                              <div className="hashtag"><span>#бокс</span></div>
+                              <div className="hashtag"><span>#{ type }</span></div>
                             </li>
                           )) }
                         </ul>

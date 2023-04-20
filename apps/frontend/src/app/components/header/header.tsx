@@ -55,7 +55,7 @@ export function Header() {
                 </svg></NavLink></li>
             <li className="main-nav__item">
               <NavLink
-                to={ routes.friends }
+                to={ `/${routes.friends}` }
                 className={ () => setNavLindActiveClass(routes.friends) }
                 aria-label="Друзья"
               >
@@ -67,7 +67,8 @@ export function Header() {
         </nav>
         <div className="search">
           <form action="#" method="get">
-            <label><span className="search__label">Поиск</span>
+            <label>
+              <span className="search__label">Поиск</span>
               <input type="search" name="search" />
               <svg className="search__icon" width="20" height="20" aria-hidden="true">
                 <use xlinkHref="#icon-search"></use>

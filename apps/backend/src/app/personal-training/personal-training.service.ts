@@ -86,4 +86,8 @@ export class PersonalTrainingService {
   async getRequestsToConductor(userId: number) {
     return this.personalTrainingRepository.findRequestsToConductor(userId);
   }
+
+  async getUserRequests(userId: number) {
+    return this.personalTrainingRepository.findUserRequests(userId);
+  }
 }

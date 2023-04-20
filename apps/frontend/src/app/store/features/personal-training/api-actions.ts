@@ -2,6 +2,7 @@ import {
   PersonalTraining,
   UpdatePersonalTraining,
   UrlDomain,
+  UrlRoute,
 } from '@fit-friends/shared';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AsyncThunkOptionField } from '../../../types/store.types';
@@ -22,5 +23,16 @@ export const updatePersonalTrainingStatus = createAsyncThunk<
   AsyncThunkOptionField
 >(ActionName.PersonalTraining.UpdateStatus, async (dto, { extra: api }) => {
   const { data } = await api.patch(`/${UrlDomain.PersonalTraining}`, dto);
+  return data;
+});
+
+export const fetchMyRequests = createAsyncThunk<
+  PersonalTraining[],
+  void,
+  AsyncThunkOptionField
+>(ActionName.PersonalTraining.FetchMyRequests, async (_, { extra: api }) => {
+  const { data } = await api.get(
+    `/${UrlDomain.PersonalTraining}/${UrlRoute.UserPersonalTrainingRequests}`
+  );
   return data;
 });

@@ -59,7 +59,6 @@ export class ProfileController {
     @UploadedFiles(new UserFilesValidationPipe())
     files: UserFiles
   ) {
-    console.log(dto);
     const user = await this.profileService.update(userId, dto, files);
     return fillObject(UserRdo, user, user.role);
   }

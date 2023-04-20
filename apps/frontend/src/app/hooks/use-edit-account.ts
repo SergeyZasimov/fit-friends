@@ -40,6 +40,13 @@ export const useEditAccount = (account: Profile) => {
     });
   };
 
+  const setIsReadyToTraining = (evt: ChangeEvent) => {
+    setEditedAccount({
+      ...editedAccount,
+      isReadyToTraining: !editedAccount.isReadyToTraining,
+    });
+  };
+
   const setSelectionField = (
     evt: SyntheticEvent<HTMLOptionElement>,
     propertyName: string
@@ -56,5 +63,6 @@ export const useEditAccount = (account: Profile) => {
     setAccountField,
     setIsReadyToPersonalTraining,
     setSelectionField,
+    setIsReadyToTraining,
   };
 };

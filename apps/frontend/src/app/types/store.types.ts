@@ -61,6 +61,7 @@ export type FriendsState = {
 
 export type PersonalTrainingStore = {
   personalTrainings: PersonalTraining[];
+  myRequests: PersonalTraining[];
 };
 
 export type SportGymStore = {

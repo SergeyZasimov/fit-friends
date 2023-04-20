@@ -31,6 +31,7 @@ export const UrlRoute = {
   FavoriteGym: 'favorite-gym',
   Info: 'info',
   CheckSubscription: 'check-subscription',
+  UserPersonalTrainingRequests: 'user-requests',
 } as const;
 
 export const UrlParams = {

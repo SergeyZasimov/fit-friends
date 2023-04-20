@@ -1,4 +1,4 @@
-import { Profile, User } from '@fit-friends/shared';
+import { Profile, User, UserRole } from '@fit-friends/shared';
 import { FormEvent, useState } from 'react';
 import { useEditAccount } from '../../hooks/use-edit-account';
 import { updateUser } from '../../store/features/user/api-actions';
@@ -22,7 +22,8 @@ export function AccountForm({ user }: AccountFormProps) {
     setSpecialization,
     setAccountField,
     setIsReadyToPersonalTraining,
-    setSelectionField
+    setSelectionField,
+    setIsReadyToTraining
   } = useEditAccount(user.profile as Profile);
 
   const handleSubmit = (evt: FormEvent) => {
@@ -82,21 +83,40 @@ export function AccountForm({ user }: AccountFormProps) {
       <div className="user-info-edit__section user-info-edit__section--status">
         <h2 className="user-info-edit__title user-info-edit__title--status">Статус</h2>
         <div className="custom-toggle custom-toggle--switch user-info-edit__toggle">
-          <label>
-            <input
-              type="checkbox"
-              name="isReadyToPersonalTraining"
-              checked={ editedAccount.isReadyToPersonalTraining }
-              disabled={ isFormDisabled }
-              onChange={ setIsReadyToPersonalTraining }
-            />
-            <span className="custom-toggle__icon">
-              <svg width="9" height="6" aria-hidden="true">
-                <use xlinkHref="#arrow-check"></use>
-              </svg>
-            </span>
-            <span className="custom-toggle__label">Готов тренировать</span>
-          </label>
+          { user.role === UserRole.Trainer ?
+            <label>
+              <input
+                type="checkbox"
+                name="isReadyToPersonalTraining"
+                checked={ editedAccount.isReadyToPersonalTraining }
+                disabled={ isFormDisabled }
+                onChange={ setIsReadyToPersonalTraining }
+              />
+              <span className="custom-toggle__icon">
+                <svg width="9" height="6" aria-hidden="true">
+                  <use xlinkHref="#arrow-check"></use>
+                </svg>
+              </span>
+              <span className="custom-toggle__label">Готов тренировать</span>
+            </label>
+            :
+            <label>
+              <input
+                type="checkbox"
+                name="isReadyToTraining"
+                checked={ editedAccount.isReadyToTraining }
+                disabled={ isFormDisabled }
+                onChange={ setIsReadyToTraining }
+              />
+              <span className="custom-toggle__icon">
+                <svg width="9" height="6" aria-hidden="true">
+                  <use xlinkHref="#arrow-check"></use>
+                </svg>
+              </span>
+              <span className="custom-toggle__label">Готов тренироваться</span>
+            </label>
+
+          }
         </div>
       </div>
 

@@ -65,6 +65,8 @@ export const ActionName = {
   PersonalTraining: {
     Fetch: 'personal-trainings/fetch',
     UpdateStatus: 'personal-trainings/updateStatus',
+    FetchMyRequests: 'personal-trainings/fetchMyRequests',
+    Create: 'personal-training/create',
   },
   SportGyms: {
     FetchGym: 'sport-gyms/fetchGym',
@@ -101,6 +103,7 @@ export const AppRoute = {
   CustomerUsersCatalog: 'users-catalog',
   CustomerCardUser: 'user-card',
   CustomerCardTrainer: 'trainer-card',
+  CustomerFoodDiary: 'food-diary',
   WorkoutCard: 'workout-card',
 } as const;
 

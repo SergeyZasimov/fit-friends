@@ -9,7 +9,7 @@ import { fetchPersonalTrainings } from '../../store/features/personal-training/a
 import { getPersonalTrainings } from '../../store/features/personal-training/personal-training-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
-export const DEFAULT_FRIENDS_OFFSET = 3;
+export const DEFAULT_FRIENDS_OFFSET = 6;
 
 export function TrainerMyFriends() {
 

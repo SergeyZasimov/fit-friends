@@ -3,12 +3,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalTrainingStore, State } from '../../../types/store.types';
 import { StoreNamespace } from '../../../utils/constants';
 import {
+  fetchMyRequests,
   fetchPersonalTrainings,
   updatePersonalTrainingStatus,
 } from './api-actions';
 
 const initialState: PersonalTrainingStore = {
   personalTrainings: [],
+  myRequests: [],
 };
 
 export const personalTrainingSlice = createSlice({
@@ -21,6 +23,12 @@ export const personalTrainingSlice = createSlice({
         fetchPersonalTrainings.fulfilled,
         (state, { payload }: PayloadAction<PersonalTraining[]>) => {
           state.personalTrainings = payload;
+        }
+      )
+      .addCase(
+        fetchMyRequests.fulfilled,
+        (state, { payload }: PayloadAction<PersonalTraining[]>) => {
+          state.myRequests = payload;
         }
       )
       .addCase(
@@ -39,3 +47,6 @@ export default personalTrainingSlice.reducer;
 
 export const getPersonalTrainings = (state: State) =>
   state[StoreNamespace.PersonalTrainingStore].personalTrainings;
+
+export const getMyRequests = (state: State) =>
+  state[StoreNamespace.PersonalTrainingStore].myRequests;

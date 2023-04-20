@@ -104,8 +104,8 @@ export class UpdateProfileDto implements Partial<Profile> {
   caloriesAmountToLosePerDay?: number;
 
   @IsBoolean({ message: IsReadyToTraining })
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @ValidateIf((obj) => obj.role === UserRole.Customer)
-  @Transform(({ value }) => !!value)
   @IsOptional()
   isReadyToTraining?: boolean;
 

@@ -1,4 +1,4 @@
-import { UrlDomain, UserRole } from '@fit-friends/shared';
+import { UrlDomain, UrlRoute, UserRole } from '@fit-friends/shared';
 import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
 import { Role } from '../decorators/role.decorator';
@@ -43,6 +43,12 @@ export class PersonalTrainingController {
     const result = await this.personalTrainingService.getRequestsToConductor(
       userId
     );
+    return fillObject(PersonalTrainingRdo, result);
+  }
+
+  @Get(`${UrlRoute.UserPersonalTrainingRequests}`)
+  async showUserRequests(@GetCurrentUser(CurrentUserField.Id) userId: number) {
+    const result = await this.personalTrainingService.getUserRequests(userId);
     return fillObject(PersonalTrainingRdo, result);
   }
 }
