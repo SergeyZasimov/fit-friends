@@ -1,4 +1,10 @@
-import { UrlDomain, UrlParams, UrlRoute, UserRole } from '@fit-friends/shared';
+import {
+  QuerySportGym,
+  UrlDomain,
+  UrlParams,
+  UrlRoute,
+  UserRole,
+} from '@fit-friends/shared';
 import {
   Body,
   Controller,
@@ -101,8 +107,11 @@ export class ProfileController {
   @UseGuards(RoleGuard)
   @Role(UserRole.Customer)
   @Get(`${UrlRoute.FavoriteGym}`)
-  async showFavoriteGyms(@GetCurrentUser(CurrentUserField.Id) userId: number) {
-    return this.profileService.getFavoriteGyms(userId);
+  async showFavoriteGyms(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @Query() query: QuerySportGym
+  ) {
+    return this.profileService.getFavoriteGyms(userId, query);
   }
 
   @Get(`:${UrlParams.Id}`)

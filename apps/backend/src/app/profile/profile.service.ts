@@ -1,4 +1,10 @@
-import { FavoriteAction, Profile, User, UserRole } from '@fit-friends/shared';
+import {
+  FavoriteAction,
+  Profile,
+  QuerySportGym,
+  User,
+  UserRole,
+} from '@fit-friends/shared';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ServiceWithFiles } from '../abstract/service-with-files';
@@ -148,8 +154,8 @@ export class ProfileService extends ServiceWithFiles {
     );
   }
 
-  async getFavoriteGyms(userId: number) {
-    return this.userRepository.findFavoriteGyms(userId);
+  async getFavoriteGyms(userId: number, query: QuerySportGym) {
+    return this.userRepository.findFavoriteGyms(userId, query);
   }
 
   async deleteCertificate(userId: number, dto: DeleteCertificateDto) {

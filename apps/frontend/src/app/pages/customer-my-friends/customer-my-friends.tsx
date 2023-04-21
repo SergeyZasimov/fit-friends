@@ -2,6 +2,7 @@ import { Profile } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import ShowMoreButtons from '../../components/show-more-buttons/show-more-buttons';
+import { browserHistory } from '../../services/browser-history.service';
 import { fetchFriends } from '../../store/features/friends/api-actions';
 import { getFriends } from '../../store/features/friends/friends-slice';
 import { fetchMyRequests, fetchPersonalTrainings } from '../../store/features/personal-training/api-actions';
@@ -33,7 +34,11 @@ export function CustomerMyFriends() {
         <section className="friends-list">
           <div className="container">
             <div className="friends-list__wrapper">
-              <button className="btn-flat friends-list__back" type="button">
+              <button
+                className="btn-flat friends-list__back"
+                type="button"
+                onClick={ () => browserHistory.back() }
+              >
                 <svg width="14" height="10" aria-hidden="true">
                   <use xlinkHref="#arrow-left"></use>
                 </svg><span>Назад</span>

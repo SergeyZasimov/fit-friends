@@ -30,11 +30,11 @@ export const fetchSportGymsInfo = createAsyncThunk<
 
 export const fetchFavoriteGyms = createAsyncThunk<
   SportGym[],
-  void,
+  string,
   AsyncThunkOptionField
->(ActionName.SportGyms.FetchFavorites, async (_, { extra: api }) => {
+>(ActionName.SportGyms.FetchFavorites, async (query, { extra: api }) => {
   const { data } = await api.get(
-    `/${UrlDomain.Profile}/${UrlRoute.FavoriteGym}`
+    `/${UrlDomain.Profile}/${UrlRoute.FavoriteGym}?${query}`
   );
   return data;
 });

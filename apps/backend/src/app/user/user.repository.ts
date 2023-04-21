@@ -1,4 +1,4 @@
-import { FavoriteAction } from '@fit-friends/shared';
+import { FavoriteAction, QuerySportGym } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
@@ -121,11 +121,19 @@ export class UserRepository {
     return result ? result.friends : [];
   }
 
-  async findFavoriteGyms(userId: number) {
+  async findFavoriteGyms(userId: number, query?: QuerySportGym) {
+    let location: string[];
+    if (query) {
+      location = query.location;
+    }
     const result = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
-        sportGyms: true,
+        sportGyms: {
+          where: {
+            location: location ? { in: location } : undefined,
+          },
+        },
       },
     });
     return result ? result.sportGyms : [];

@@ -1,18 +1,20 @@
-import { SportGym } from '@fit-friends/shared';
+import { QuerySportGym, SportGym } from '@fit-friends/shared';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchFavoriteGyms, updateFavoriteStatus } from '../../../../store/features/sport-gyms/api-actions';
 import { getFavoriteGyms } from '../../../../store/features/sport-gyms/sport-gyms-slice';
+import { getUser } from '../../../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 import { AppRoute } from '../../../../utils/constants';
-import { capitalizeWord } from '../../../../utils/helpers';
+import { capitalizeWord, createQueryString } from '../../../../utils/helpers';
 
 export interface CustomerGymsCatalogCardProps {
   gym: SportGym;
+  isOnlyNearby?: boolean;
 }
 
-export function CustomerGymsCatalogCard({ gym }: CustomerGymsCatalogCardProps) {
-
+export function CustomerGymsCatalogCard({ gym, isOnlyNearby }: CustomerGymsCatalogCardProps) {
+  const user = useAppSelector(getUser);
   const favoriteGyms = useAppSelector(getFavoriteGyms);
   const dispatch = useAppDispatch();
 
@@ -25,7 +27,16 @@ export function CustomerGymsCatalogCard({ gym }: CustomerGymsCatalogCardProps) {
 
   const handleChangeFavorite = () => {
     dispatch(updateFavoriteStatus(gym.id as number))
-      .then(() => dispatch(fetchFavoriteGyms()));
+      .then(() => {
+        if (isOnlyNearby) {
+          const query: QuerySportGym = {
+            location: [ user?.profile?.location as string ]
+          };
+          dispatch(fetchFavoriteGyms(createQueryString(query)));
+        } else {
+          dispatch(fetchFavoriteGyms(''));
+        }
+      });
   };
 
   return (

@@ -14,7 +14,7 @@ export function CustomerGymsCatalogList() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFavoriteGyms());
+    dispatch(fetchFavoriteGyms(''));
   });
 
   useEffect(() => {

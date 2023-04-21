@@ -10,6 +10,7 @@ import CustomerGymCard from './pages/customer-gym-card/customer-gym-card';
 import CustomerGymsCatalog from './pages/customer-gyms-catalog/customer-gyms-catalog';
 import CustomerMain from './pages/customer-main/customer-main';
 import CustomerMyFriends from './pages/customer-my-friends/customer-my-friends';
+import CustomerMyGyms from './pages/customer-my-gyms/customer-my-gyms';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
 import Intro from './pages/intro/intro';
@@ -55,6 +56,7 @@ export function App() {
       <Route path={ `${AppRoute.CustomerGymCard}/:id` } element={ <CustomerRestrictPage><CustomerGymCard /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerAccount}` } element={ <CustomerRestrictPage><CustomerAccount /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerFoodDiary}` } element={ <CustomerRestrictPage><CustomerFoodDiary /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.MyGyms}` } element={ <CustomerRestrictPage><CustomerMyGyms /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.MyFriends}` } element={ <CustomerRestrictPage><CustomerMyFriends /></CustomerRestrictPage> } />
     </Routes>
 

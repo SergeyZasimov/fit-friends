@@ -97,6 +97,7 @@ export const AppRoute = {
   MyWorkouts: 'my-workouts',
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
+  MyGyms: 'my-gyms',
   CustomerWorkoutCatalog: 'workout-catalog',
   CustomerGymsCatalog: 'gyms-catalog',
   CustomerGymCard: 'gym-card',
