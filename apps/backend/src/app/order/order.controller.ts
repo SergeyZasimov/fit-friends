@@ -6,8 +6,10 @@ import { RoleGuard } from '../guards/role.guard';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { QueryCustomerOrdersDto } from './dto/query-customer-orders.dto';
 import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
 import { OrderService } from './order.service';
+import { OrderForCustomerRdo } from './rdo/order-for-customer.rdo';
 import { OrderForTrainerRdo } from './rdo/order-for-trainer.rdo';
 import { OrderRdo } from './rdo/order.rdo';
 
@@ -43,8 +45,12 @@ export class OrderController {
   @Role(UserRole.Customer)
   @Get(UrlRoute.Customer)
   async showOrdersForCustomer(
+    @Query() query: QueryCustomerOrdersDto,
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    return this.orderService.getOrdersForCustomer(userId);
+    const result = await this.orderService.getOrdersForCustomer(userId, query);
+    return result.map((item) =>
+      fillObject(OrderForCustomerRdo, item, item.orderType)
+    );
   }
 }

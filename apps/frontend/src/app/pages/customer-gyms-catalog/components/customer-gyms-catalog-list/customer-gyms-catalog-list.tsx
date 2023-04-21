@@ -26,7 +26,9 @@ export function CustomerGymsCatalogList() {
       <ul className="gyms-catalog__list">
         {
           gyms.slice(0, offset).map(gym => (
-            <CustomerGymsCatalogCard key={ gym.id } gym={ gym } />
+            <li className="gyms-catalog__item" key={ gym.id }>
+              <CustomerGymsCatalogCard gym={ gym } />
+            </li>
           ))
         }
       </ul>

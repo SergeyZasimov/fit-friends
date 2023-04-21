@@ -54,6 +54,7 @@ export const ActionName = {
   },
   Order: {
     FetchOrders: 'order/fetchOrders',
+    FetchCustomersOrders: 'order/fetchCustomersOrders',
     CreateOrder: 'order/createOrder',
   },
   Friends: {
@@ -98,6 +99,7 @@ export const AppRoute = {
   MyOrders: 'my-orders',
   MyFriends: 'my-friends',
   MyGyms: 'my-gyms',
+  MyPurchase: 'my-purchase',
   CustomerWorkoutCatalog: 'workout-catalog',
   CustomerGymsCatalog: 'gyms-catalog',
   CustomerGymCard: 'gym-card',

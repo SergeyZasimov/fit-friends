@@ -1,5 +1,6 @@
 import {
   Notification,
+  Order,
   OrderForTrainer,
   PersonalTraining,
   Review,
@@ -51,6 +52,7 @@ export type ReviewState = {
 
 export type OrderState = {
   ordersForTrainer: OrderForTrainer[];
+  ordersForCustomer: Order[];
   status: keyof typeof RequestStatus;
 };
 

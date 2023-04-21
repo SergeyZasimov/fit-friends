@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { SportGymService } from '../sport-gym/sport-gym.service';
 import { WorkoutService } from '../workout/workout.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { QueryCustomerOrdersDto } from './dto/query-customer-orders.dto';
 import { QueryTrainerOrders } from './dto/query-trainer-orders.dto';
 import { OrderEntity } from './order.entity';
 import { OrderRepository } from './order.repository';
@@ -57,19 +58,7 @@ export class OrderService {
     return ordersSummary;
   }
 
-  async getOrdersForCustomer(userId: number) {
-    const summary = await this.orderRepository.findOrdersForCustomer(userId);
-    const result = {};
-    for (const item of summary) {
-      switch (item.orderType) {
-        case OrderType.SportGym:
-          result['sportGym'] = item._count.id;
-          break;
-        case OrderType.Workout:
-          result['workout'] = item._count.id;
-          break;
-      }
-    }
-    return result;
+  async getOrdersForCustomer(userId: number, query: QueryCustomerOrdersDto) {
+    return this.orderRepository.findOrdersForCustomer(userId, query);
   }
 }

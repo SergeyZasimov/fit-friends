@@ -1,11 +1,12 @@
-import { OrderForTrainer } from '@fit-friends/shared';
+import { Order, OrderForTrainer } from '@fit-friends/shared';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { OrderState, State } from '../../../types/store.types';
 import { RequestStatus, StoreNamespace } from '../../../utils/constants';
-import { createOrder, fetchOrders } from './api-actions';
+import { createOrder, fetchCustomerOrders, fetchOrders } from './api-actions';
 
 const initialState: OrderState = {
   ordersForTrainer: [],
+  ordersForCustomer: [],
   status: RequestStatus.Unknown,
 };
 
@@ -33,7 +34,13 @@ export const orderSlice = createSlice({
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = RequestStatus.Fail;
-      });
+      })
+      .addCase(
+        fetchCustomerOrders.fulfilled,
+        (state, { payload }: PayloadAction<Order[]>) => {
+          state.ordersForCustomer = payload;
+        }
+      );
   },
 });
 
@@ -46,3 +53,6 @@ export const getOrdersForTrainer = (state: State) =>
 
 export const getOrderRequestStatus = (state: State) =>
   state[StoreNamespace.OrderStore].status;
+
+export const getCustomerOrders = (state: State) =>
+  state[StoreNamespace.OrderStore].ordersForCustomer;

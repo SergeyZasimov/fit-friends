@@ -139,12 +139,14 @@ export function CustomerAccount() {
                       </div>
                       <span className="thumbnail-link__text">Мои залы</span>
                     </Link>
-                    <a className="thumbnail-link thumbnail-link--theme-light personal-account-user__shop" href="#">
+                    <Link className="thumbnail-link thumbnail-link--theme-light personal-account-user__shop" to={ `/${AppRoute.MyPurchase}` }>
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
                           <use xlinkHref="#icon-shopping-cart"></use>
                         </svg>
-                      </div><span className="thumbnail-link__text">Мои покупки</span></a>
+                      </div>
+                      <span className="thumbnail-link__text">Мои покупки</span>
+                    </Link>
                     <Calendar className="personal-account-user__calendar" />
                   </div>
                 </div>

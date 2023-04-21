@@ -21,6 +21,17 @@ export const fetchOrders = createAsyncThunk<
   return data;
 });
 
+export const fetchCustomerOrders = createAsyncThunk<
+  Order[],
+  string,
+  AsyncThunkOptionField
+>(ActionName.Order.FetchCustomersOrders, async (query, { extra: api }) => {
+  const { data } = await api.get<Order[]>(
+    `/${UrlDomain.Order}/${UrlRoute.Customer}?${query}`
+  );
+  return data;
+});
+
 export const createOrder = createAsyncThunk<
   Order,
   CreateOrder,

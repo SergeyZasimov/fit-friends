@@ -81,7 +81,9 @@ export function CustomerMyGyms() {
               <ul className="my-gyms__list">
                 {
                   favoriteGyms.slice(0, offset).map(gym => (
-                    <CustomerGymsCatalogCard gym={ gym } key={ gym.id } isOnlyNearby={ isOnlyNearby } />
+                    <li className="my-gyms__item" key={ gym.id }>
+                      <CustomerGymsCatalogCard gym={ gym } isOnlyNearby={ isOnlyNearby } />
+                    </li>
                   ))
                 }
               </ul>
