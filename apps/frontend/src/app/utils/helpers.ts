@@ -70,3 +70,7 @@ export const formatPrice = (price: number | undefined): string => {
   }
   return '';
 };
+
+export const isSameDate = (dateA: Date, dateB: Date): boolean => {
+  return dayjs(dateA).diff(dateB, 'day') === 0;
+};

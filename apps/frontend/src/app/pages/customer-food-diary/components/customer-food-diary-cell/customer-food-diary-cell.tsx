@@ -1,18 +1,21 @@
 import { CreateFoodDiary } from '@fit-friends/shared';
 import dayjs from 'dayjs';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
-/* eslint-disable-next-line */
 export interface CustomerFoodDiaryCellProps {
   mealType: string;
   day: number;
   value: number;
-  onTotalChange: (value: number, day: number) => void;
+  onTotalChange: (value: number, day: number, mealType: string) => void;
+  onAddRecord: (record: CreateFoodDiary) => void;
 }
 
-export function CustomerFoodDiaryCell({ mealType, day, value, onTotalChange }: CustomerFoodDiaryCellProps) {
-
+export function CustomerFoodDiaryCell({ mealType, day, value, onTotalChange, onAddRecord }: CustomerFoodDiaryCellProps) {
   const [ cellValue, setCellValue ] = useState(value);
+
+  useEffect(() => {
+    setCellValue(value);
+  }, [ value ]);
 
   const handleCellChange = (evt: ChangeEvent) => {
     const target = evt.target as HTMLInputElement;
@@ -22,13 +25,17 @@ export function CustomerFoodDiaryCell({ mealType, day, value, onTotalChange }: C
 
   const handleSaveValue = (evt: ChangeEvent) => {
     const target = evt.target as HTMLInputElement;
+    const mealType = target.dataset.mealtype as string;
+    const dayIndex = parseInt(target.dataset.day as string);
+    const dateOfMeal = dayjs().day(dayIndex).toDate();
 
     const newFoodDiaryRecord: CreateFoodDiary = {
       caloriesAmount: cellValue,
-      typeOfMeal: target.dataset.mealtype as string,
-      dateOfMeal: dayjs().day(parseInt(target.dataset.day as string)).toDate()
+      typeOfMeal: mealType,
+      dateOfMeal: dateOfMeal
     };
-    onTotalChange(newFoodDiaryRecord.caloriesAmount, parseInt(target.dataset.day as string));
+    onAddRecord(newFoodDiaryRecord);
+    onTotalChange(newFoodDiaryRecord.caloriesAmount, dayIndex, mealType);
   };
 
   const handleEnter = (evt: KeyboardEvent) => {

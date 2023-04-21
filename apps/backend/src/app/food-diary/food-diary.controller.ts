@@ -1,5 +1,4 @@
 import {
-  FoodDiary,
   UpdateFoodDiary,
   UrlDomain,
   UrlParams,
@@ -13,6 +12,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GetCurrentUser } from '../decorators/get-current-user.decorator';
@@ -22,6 +22,7 @@ import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
+import { QueryFoodDiaryDto } from './dto/query-food-diary.dto';
 import { FoodDiaryService } from './food-diary.service';
 import { FoodDiaryRdo } from './rdo/food-diary.rdo';
 
@@ -31,14 +32,12 @@ import { FoodDiaryRdo } from './rdo/food-diary.rdo';
 export class FoodDiaryController {
   constructor(private readonly foodDiaryService: FoodDiaryService) {}
 
-
   @Post()
   async create(
-    @Body() dto: CreateFoodDiaryDto,
+    @Body() dto: CreateFoodDiaryDto[],
     @GetCurrentUser(CurrentUserField.Id) userId: number
   ) {
-    const result = await this.foodDiaryService.create(userId, dto);
-    return fillObject(FoodDiaryRdo, result, result.user.role);
+    await this.foodDiaryService.createMany(userId, dto);
   }
 
   @Get(`:${UrlParams.Id}`)
@@ -51,11 +50,12 @@ export class FoodDiaryController {
   }
 
   @Get()
-  async showMany(@GetCurrentUser(CurrentUserField.Id) userId: number) {
-    const results = await this.foodDiaryService.getMany(userId);
-    return results.map((item: FoodDiary) =>
-      fillObject(FoodDiaryRdo, item, item.user.role)
-    );
+  async showMany(
+    @GetCurrentUser(CurrentUserField.Id) userId: number,
+    @Query() query: QueryFoodDiaryDto
+  ) {
+    const result = await this.foodDiaryService.getMany(userId, query);
+    return fillObject(FoodDiaryRdo, result);
   }
 
   @Patch(`:${UrlParams.Id}`)

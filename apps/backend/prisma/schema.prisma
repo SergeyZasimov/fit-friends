@@ -164,9 +164,10 @@ model FoodDiary {
   userId         Int
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   caloriesAmount Int
-  dateOfMeal     DateTime
+  dateOfMeal     DateTime @db.Date
   typeOfMeal     String
 
+  @@unique([dateOfMeal, typeOfMeal, userId])
   @@map("food_diaries")
 }
 

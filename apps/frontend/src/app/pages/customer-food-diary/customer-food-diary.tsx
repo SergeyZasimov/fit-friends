@@ -1,19 +1,96 @@
-import { TypeOfMeal } from '@fit-friends/shared';
-import { useState } from 'react';
+import { CreateFoodDiary, FoodDiary, TypeOfMeal } from '@fit-friends/shared';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import BackButton from '../../components/back-button/back-button';
+import FoodDiaryRows from '../../components/food-diary-rows/food-diary-rows';
 import Header from '../../components/header/header';
-import CustomerFoodDiaryCell from './components/customer-food-diary-cell/customer-food-diary-cell';
+import { createFoodDiaryRecords, fetchFoodDiaryRecords } from '../../store/features/food-diary/api-actions';
+import { getFoodDiaryRecords } from '../../store/features/food-diary/food-diary.slice';
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
+import { createQueryString, formatPrice, isSameDate } from '../../utils/helpers';
+
+export const WEEK_DAYS = 7;
+export type FoodDiaryTable = Record<string, number[]>;
+
+export const getCurrentDayIndex = (index: number): number => {
+  const dayIndex = index + 1;
+  return dayIndex !== WEEK_DAYS ? dayIndex : 0;
+};
+
+export const calculateDayTotal = (table: number[][], dayIndex: number): number => {
+  return table.reduce((sum, item) => {
+    const dayValue = item[ dayIndex ] ?? 0;
+    return sum += dayValue;
+  }, 0);
+};
+
+export const calculateWeekTotal = (table: number[][]): number => {
+  return Array.from({ length: WEEK_DAYS }, (_, index) => index).reduce((sum, dayIndex) => {
+    return sum += calculateDayTotal(table, dayIndex);
+  }, 0);
+};
+
+export const createInitialTable = (records: FoodDiary[], table: FoodDiaryTable): FoodDiaryTable => {
+  const initialTable: FoodDiaryTable = table;
+
+  records.forEach(item => {
+    const dayIndex = dayjs(item.dateOfMeal).day();
+    initialTable[ item.typeOfMeal ][ dayIndex ] = item.caloriesAmount;
+  });
+
+  return initialTable;
+};
 
 
 export function CustomerFoodDiary() {
+  const dispatch = useAppDispatch();
+  const foodDiaryRecords = useAppSelector(getFoodDiaryRecords);
+  const [ newFoodDiaryRecords, setNewFoodDiaryRecords ] = useState<CreateFoodDiary[]>([]);
 
-  const [ total, setTotal ] = useState<number[]>(Array.from({ length: 7 }));
+  const [ table, setTable ] = useState<FoodDiaryTable>({
+    [ TypeOfMeal.Breakfast ]: Array.from({ length: WEEK_DAYS }),
+    [ TypeOfMeal.Dinner ]: Array.from({ length: WEEK_DAYS }),
+    [ TypeOfMeal.Supper ]: Array.from({ length: WEEK_DAYS }),
+    [ TypeOfMeal.Lunch ]: Array.from({ length: WEEK_DAYS }),
+  });
 
-  const handleTotalChange = (value: number, day: number) => {
-    console.log(value, day);
-    setTotal(prevState => {
-      prevState[ day ] = value;
-      return prevState;
+  useEffect(() => {
+    const query = {
+      weekBegin: dayjs().day(1).toISOString(),
+      weekEnd: dayjs().day(7).toISOString(),
+    };
+    dispatch(fetchFoodDiaryRecords(createQueryString(query)));
+  }, []);
+
+  useEffect(() => {
+    const initialTable = createInitialTable(foodDiaryRecords, table);
+    setTable({ ...initialTable });
+  }, [ foodDiaryRecords ]);
+
+  const handleTotalChange = (value: number, day: number, mealType: string) => {
+    setTable(prevState => {
+      prevState[ mealType ][ day ] = value;
+      return { ...prevState };
     });
+  };
+
+  const handleSubmit = () => {
+    dispatch(createFoodDiaryRecords(newFoodDiaryRecords));
+  };
+
+  const addNewFoodDiaryRecord = (record: CreateFoodDiary) => {
+    const existRecordIndex = newFoodDiaryRecords.findIndex(
+      item => isSameDate(item.dateOfMeal, record.dateOfMeal) && item.typeOfMeal === record.typeOfMeal
+    );
+
+    if (existRecordIndex === -1) {
+      setNewFoodDiaryRecords([ ...newFoodDiaryRecords, record ]);
+    } else {
+      setNewFoodDiaryRecords(prevState => {
+        prevState.splice(existRecordIndex, 1, record);
+        return [ ...prevState ];
+      });
+    }
   };
 
   return (
@@ -23,11 +100,7 @@ export function CustomerFoodDiary() {
         <div className="inner-page inner-page--no-sidebar">
           <div className="container">
             <div className="inner-page__wrapper">
-              <button className="btn-flat inner-page__back" type="button">
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg><span>Назад</span>
-              </button>
+              <BackButton />
               <div className="inner-page__content">
                 <section className="food-diary">
                   <div className="food-diary__wrapper">
@@ -58,26 +131,15 @@ export function CustomerFoodDiary() {
                               <th className="food-diary__cell food-diary__cell--head">сб</th>
                               <th className="food-diary__cell food-diary__cell--head">вс</th>
                             </tr>
-                            {
-                              Object.values(TypeOfMeal).map((mealType) => (
-                                <tr className="food-diary__row" key={ mealType }>
-                                  { Array.from({ length: 7 }, (_, index) => {
-                                    const currentDay = index + 1 !== 7 ? index + 1 : 0;
-                                    return <CustomerFoodDiaryCell
-                                      key={ `${mealType}-${currentDay}` }
-                                      day={ currentDay }
-                                      mealType={ mealType }
-                                      value={ 0 }
-                                      onTotalChange={ handleTotalChange }
-                                    />;
-                                  }) }
-                                </tr>
-                              ))
-                            }
+                            <FoodDiaryRows
+                              table={ table }
+                              addNewFoodDiaryRecord={ addNewFoodDiaryRecord }
+                              handleTotalChange={ handleTotalChange }
+                            />
                             <tr className="food-diary__row">
-                              { Array.from({ length: 7 }, (_, index) => {
-                                const currentDay = index + 1 !== 7 ? index + 1 : 0;
-                                const value = total[ currentDay ] ?? 0;
+                              { Array.from({ length: WEEK_DAYS }, (_, index) => {
+                                const currentDay = getCurrentDayIndex(index);
+                                const value = calculateDayTotal(Object.values(table), currentDay);
                                 return (
                                   <td className="food-diary__cell" key={ currentDay }>
                                     <div className="food-diary__total-value">
@@ -98,9 +160,15 @@ export function CustomerFoodDiary() {
                           <use xlinkHref="#icon-chart-with-arrow"></use>
                         </svg>
                       </div>
-                      <p className="total__number">18 130</p>
+                      <p className="total__number">{ formatPrice(calculateWeekTotal(Object.values(table))) }</p>
                     </div>
-                    <button className="btn food-diary__button" type="button">Сохранить</button>
+                    <button
+                      className="btn food-diary__button"
+                      type="button"
+                      onClick={ handleSubmit }
+                    >
+                      Сохранить
+                    </button>
                   </div>
                 </section>
               </div>

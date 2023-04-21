@@ -21,6 +21,7 @@ export const StoreNamespace = {
   FriendsStore: 'friends',
   PersonalTrainingStore: 'personal-training',
   SportGymsStore: 'sport-gym',
+  FoodDiaryStore: 'food-diary',
 } as const;
 
 export const ActionName = {
@@ -75,6 +76,10 @@ export const ActionName = {
     FetchGymsInfo: 'sport-gyms/fetchGymsInfo',
     FetchFavorites: 'sport-gyms/fetchFavorites',
     UpdateFavoriteStatus: 'sport-gyms/updateFavoriteStatus',
+  },
+  FoodDiary: {
+    Create: 'food-diary/create',
+    FetchMany: 'food-diary/fetchMany',
   },
 } as const;
 

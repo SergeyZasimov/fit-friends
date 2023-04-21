@@ -1,4 +1,5 @@
 import {
+  FoodDiary,
   Notification,
   Order,
   OrderForTrainer,
@@ -71,4 +72,8 @@ export type SportGymStore = {
   gymsPriceInfo: { min: number; max: number } | null;
   favoriteGyms: SportGym[];
   gym: SportGym | null;
+};
+
+export type FoodDiaryStore = {
+  foodDiaryRecords: FoodDiary[];
 };

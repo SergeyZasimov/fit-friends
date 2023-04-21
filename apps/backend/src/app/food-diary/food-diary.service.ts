@@ -9,10 +9,27 @@ import { UpdateFoodDiaryDto } from './dto/update-food-diary';
 import { FoodDiaryExceptionMessage } from './food-diary.constant';
 import { FoodDiaryEntity } from './food-diary.entity';
 import { FoodDiaryRepository } from './food-diary.repository';
+import { QueryFoodDiaryDto } from './dto/query-food-diary.dto';
 
 @Injectable()
 export class FoodDiaryService {
   constructor(private readonly foodDiaryRepository: FoodDiaryRepository) {}
+
+  async createMany(userId: number, dto: CreateFoodDiaryDto[]) {
+    for (const item of dto) {
+      const foodDiaryEntity = new FoodDiaryEntity({ ...item, userId });
+      const existRecord = await this.foodDiaryRepository.findOneByDateType(
+        item.dateOfMeal,
+        item.typeOfMeal,
+        userId
+      );
+      if (existRecord) {
+        this.update(userId, existRecord.id, foodDiaryEntity);
+      } else {
+        await this.foodDiaryRepository.create(foodDiaryEntity);
+      }
+    }
+  }
 
   async create(userId: number, dto: CreateFoodDiaryDto): Promise<FoodDiary> {
     const foodDiaryEntity = new FoodDiaryEntity({ ...dto, userId });
@@ -23,8 +40,8 @@ export class FoodDiaryService {
     return this.checkOwner(userId, id);
   }
 
-  async getMany(userId: number): Promise<FoodDiary[]> {
-    return this.foodDiaryRepository.findMany(userId);
+  async getMany(userId: number, query: QueryFoodDiaryDto) {
+    return this.foodDiaryRepository.findMany(userId, query);
   }
 
   async update(

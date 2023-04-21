@@ -61,8 +61,6 @@ export class CliService {
     await this.generateReviews(customers, workouts);
     await this.generateWorkoutOrders(workouts, customers);
     await this.generateSportGymOrders(sportGyms, customers);
-    await this.generateFoodDiary(customers);
-    await this.generateWorkoutDiary(customers);
   }
 
   async generateSportGyms() {
@@ -103,10 +101,10 @@ export class CliService {
         await this.prisma.profile.update({
           where: { userId: user.id },
           data: {
-            avatar: 'http://localhost:3333/test-content/test-img/photo-1-coach.png',
+            avatar:
+              'http://localhost:3333/test-content/test-img/photo-1-coach.png',
           },
         });
-
       })
     ).then(() => {
       console.log('Trainers were generated');

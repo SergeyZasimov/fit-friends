@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { StoreNamespace } from '../utils/constants';
+import FoodDiaryReducer from './features/food-diary/food-diary.slice';
 import FriendsReducer from './features/friends/friends-slice';
 import NotificationReducer from './features/notification/notification-slice';
 import OrderReducer from './features/order/order-slice';
@@ -18,4 +19,5 @@ export const rootReducer = combineReducers({
   [StoreNamespace.FriendsStore]: FriendsReducer,
   [StoreNamespace.PersonalTrainingStore]: PersonalTrainingsReducer,
   [StoreNamespace.SportGymsStore]: SportGymsReducer,
+  [StoreNamespace.FoodDiaryStore]: FoodDiaryReducer,
 });
