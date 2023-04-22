@@ -3,6 +3,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const ACCESS_TOKEN_KEY_NAME = 'fit-fiends-access-token';
 export const REFRESH_TOKEN_KEY_NAME = 'fit-fiends-refresh-token';
 export const DEFAULT_PRICE_CHANGE_TIMEOUT = 500;
+export const WEEK_DAYS = 7;
 
 export const LOW_INDEX = 0;
 export const HIGH_INDEX = 1;
@@ -22,6 +23,7 @@ export const StoreNamespace = {
   PersonalTrainingStore: 'personal-training',
   SportGymsStore: 'sport-gym',
   FoodDiaryStore: 'food-diary',
+  WorkoutDiaryStore: 'workout-diary',
 } as const;
 
 export const ActionName = {
@@ -81,6 +83,10 @@ export const ActionName = {
     Create: 'food-diary/create',
     FetchMany: 'food-diary/fetchMany',
   },
+  WorkoutDiary: {
+    Create: 'workout-diary/create',
+    FetchMany: 'workout-diary/fetchMany',
+  },
 } as const;
 
 export const RequestStatus = {
@@ -112,6 +118,7 @@ export const AppRoute = {
   CustomerCardUser: 'user-card',
   CustomerCardTrainer: 'trainer-card',
   CustomerFoodDiary: 'food-diary',
+  CustomerWorkoutDiary: 'food-workout',
   WorkoutCard: 'workout-card',
 } as const;
 

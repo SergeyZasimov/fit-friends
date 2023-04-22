@@ -7,15 +7,10 @@ import Header from '../../components/header/header';
 import { createFoodDiaryRecords, fetchFoodDiaryRecords } from '../../store/features/food-diary/api-actions';
 import { getFoodDiaryRecords } from '../../store/features/food-diary/food-diary.slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
-import { createQueryString, formatPrice, isSameDate } from '../../utils/helpers';
+import { WEEK_DAYS } from '../../utils/constants';
+import { createQueryString, formatPrice, getCurrentDayIndex, isSameDate } from '../../utils/helpers';
 
-export const WEEK_DAYS = 7;
 export type FoodDiaryTable = Record<string, number[]>;
-
-export const getCurrentDayIndex = (index: number): number => {
-  const dayIndex = index + 1;
-  return dayIndex !== WEEK_DAYS ? dayIndex : 0;
-};
 
 export const calculateDayTotal = (table: number[][], dayIndex: number): number => {
   return table.reduce((sum, item) => {

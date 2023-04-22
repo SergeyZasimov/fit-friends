@@ -8,6 +8,7 @@ import {
   SportGym,
   User,
   Workout,
+  WorkoutDiary,
 } from '@fit-friends/shared';
 import { AxiosInstance } from 'axios';
 import { store } from '../store';
@@ -76,4 +77,8 @@ export type SportGymStore = {
 
 export type FoodDiaryStore = {
   foodDiaryRecords: FoodDiary[];
+};
+
+export type WorkoutDiaryStore = {
+  workoutDiaryRecords: WorkoutDiary[];
 };

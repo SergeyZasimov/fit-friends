@@ -4,6 +4,7 @@ import { WorkoutService } from '../workout/workout.service';
 import { CreateWorkoutDiaryDto } from './dto/create-workout-diary.dto';
 import { WorkoutDiaryEntity } from './workout-diary.entity';
 import { WorkoutDiaryRepository } from './workout-diary.repository';
+import { QueryDiaryDto } from '../query/diary-query.dto';
 
 @Injectable()
 export class WorkoutDiaryService {
@@ -22,7 +23,7 @@ export class WorkoutDiaryService {
     return this.workoutDiaryRepository.create(workoutDiaryEntity);
   }
 
-  async getMany(userId: number): Promise<WorkoutDiary[]> {
-    return this.workoutDiaryRepository.findMany(userId);
+  async getMany(userId: number, query: QueryDiaryDto): Promise<WorkoutDiary[]> {
+    return this.workoutDiaryRepository.findMany(userId, query);
   }
 }

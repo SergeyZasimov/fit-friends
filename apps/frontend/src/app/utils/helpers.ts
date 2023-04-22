@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import { toast } from 'react-toastify';
-import { DEFAULT_PRICE_CHANGE_TIMEOUT } from './constants';
+import { DEFAULT_PRICE_CHANGE_TIMEOUT, WEEK_DAYS } from './constants';
 
 export const capitalizeWord = (word: string): string => {
   return `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`;
@@ -73,4 +73,9 @@ export const formatPrice = (price: number | undefined): string => {
 
 export const isSameDate = (dateA: Date, dateB: Date): boolean => {
   return dayjs(dateA).diff(dateB, 'day') === 0;
+};
+
+export const getCurrentDayIndex = (index: number): number => {
+  const dayIndex = index + 1;
+  return dayIndex !== WEEK_DAYS ? dayIndex : 0;
 };

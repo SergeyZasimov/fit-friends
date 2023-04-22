@@ -223,7 +223,7 @@ export function WorkoutCard() {
                     </form>
                   </div>
                 </div>
-                <Video videoPath={ workout.video as string } workoutId={ workout.id as number } />
+                <Video workout={ workout } />
               </div>
             </div>
           </div>

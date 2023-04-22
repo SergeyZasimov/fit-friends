@@ -16,7 +16,7 @@ export type CreateFoodDiary = Pick<
 
 export type UpdateFoodDiary = Partial<CreateFoodDiary>;
 
-export type QueryFoodDiary = {
+export type QueryDiary = {
   weekBegin: Date;
   weekEnd: Date;
 };

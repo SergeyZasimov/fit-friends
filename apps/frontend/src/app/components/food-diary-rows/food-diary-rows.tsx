@@ -1,6 +1,8 @@
 import { CreateFoodDiary, TypeOfMeal } from '@fit-friends/shared';
 import CustomerFoodDiaryCell from '../../pages/customer-food-diary/components/customer-food-diary-cell/customer-food-diary-cell';
-import { FoodDiaryTable, WEEK_DAYS, getCurrentDayIndex } from '../../pages/customer-food-diary/customer-food-diary';
+import { FoodDiaryTable } from '../../pages/customer-food-diary/customer-food-diary';
+import { WEEK_DAYS } from '../../utils/constants';
+import { getCurrentDayIndex } from '../../utils/helpers';
 
 export interface FoodDiaryRowsProps {
   table: FoodDiaryTable;

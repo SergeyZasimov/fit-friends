@@ -1,7 +1,7 @@
 import { FoodDiary } from '@fit-friends/shared';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { QueryFoodDiaryDto } from './dto/query-food-diary.dto';
+import { QueryDiaryDto } from '../query/diary-query.dto';
 import { FoodDiaryEntity } from './food-diary.entity';
 
 @Injectable()
@@ -59,10 +59,7 @@ export class FoodDiaryRepository {
     });
   }
 
-  async findMany(
-    userId: number,
-    query: QueryFoodDiaryDto
-  ): Promise<FoodDiary[]> {
+  async findMany(userId: number, query: QueryDiaryDto): Promise<FoodDiary[]> {
     const { weekBegin, weekEnd } = query;
     return this.prisma.foodDiary.findMany({
       where: {

@@ -4,12 +4,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { QueryDiaryDto } from '../query/diary-query.dto';
 import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
 import { UpdateFoodDiaryDto } from './dto/update-food-diary';
 import { FoodDiaryExceptionMessage } from './food-diary.constant';
 import { FoodDiaryEntity } from './food-diary.entity';
 import { FoodDiaryRepository } from './food-diary.repository';
-import { QueryFoodDiaryDto } from './dto/query-food-diary.dto';
 
 @Injectable()
 export class FoodDiaryService {
@@ -40,7 +40,7 @@ export class FoodDiaryService {
     return this.checkOwner(userId, id);
   }
 
-  async getMany(userId: number, query: QueryFoodDiaryDto) {
+  async getMany(userId: number, query: QueryDiaryDto) {
     return this.foodDiaryRepository.findMany(userId, query);
   }
 

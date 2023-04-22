@@ -39,12 +39,12 @@ export function CustomerAccount() {
                     />
                   </div>
                   <div className="personal-account-user__info">
-                    <a className="thumbnail-link thumbnail-link--theme-dark" href="#">
+                    <Link className="thumbnail-link thumbnail-link--theme-dark" to={ `/${AppRoute.CustomerWorkoutDiary}` }>
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-dark">
                         <svg width="30" height="26" aria-hidden="true">
                           <use xlinkHref="#icon-ranking"></use>
                         </svg>
-                      </div><span className="thumbnail-link__text">Дневник тренировок</span></a>
+                      </div><span className="thumbnail-link__text">Дневник тренировок</span></Link>
                     <Link className="thumbnail-link thumbnail-link--theme-dark" to={ `/${AppRoute.CustomerFoodDiary}` }>
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-dark">
                         <svg width="30" height="26" aria-hidden="true">

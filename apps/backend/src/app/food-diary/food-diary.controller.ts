@@ -22,9 +22,9 @@ import { DbIdValidationPipe } from '../pipes/db-id-validation.pipe';
 import { CurrentUserField } from '../user/user.constant';
 import { fillObject } from '../utils/helpers';
 import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
-import { QueryFoodDiaryDto } from './dto/query-food-diary.dto';
 import { FoodDiaryService } from './food-diary.service';
 import { FoodDiaryRdo } from './rdo/food-diary.rdo';
+import { QueryDiaryDto } from '../query/diary-query.dto';
 
 @UseGuards(RoleGuard)
 @Role(UserRole.Customer)
@@ -52,7 +52,7 @@ export class FoodDiaryController {
   @Get()
   async showMany(
     @GetCurrentUser(CurrentUserField.Id) userId: number,
-    @Query() query: QueryFoodDiaryDto
+    @Query() query: QueryDiaryDto
   ) {
     const result = await this.foodDiaryService.getMany(userId, query);
     return fillObject(FoodDiaryRdo, result);

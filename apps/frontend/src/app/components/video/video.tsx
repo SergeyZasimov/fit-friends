@@ -1,18 +1,19 @@
-import { UserRole } from '@fit-friends/shared';
-import { ChangeEvent, useState } from 'react';
+import { UserRole, Workout } from '@fit-friends/shared';
+import { ChangeEvent, useRef, useState } from 'react';
 import { getUser } from '../../store/features/user/user-slice';
+import { createWorkoutDiaryRecord } from '../../store/features/workout-diary/api-actions';
 import { deleteVideo, updateWorkout } from '../../store/features/workout/api-actions';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 
 export interface VideoProps {
-  workoutId: number;
-  videoPath: string;
+  workout: Workout;
 }
 
-export function Video({ videoPath, workoutId }: VideoProps) {
+export function Video({ workout }: VideoProps) {
 
   const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [ videoFile, setVideoFile ] = useState<File>();
   const [ isPlay, setIsPlay ] = useState(false);
 
@@ -24,28 +25,39 @@ export function Video({ videoPath, workoutId }: VideoProps) {
 
   const handleSaveFile = () => {
     setIsPlay(false);
-    dispatch(updateWorkout({ workoutId, formData: { video: videoFile as File } }));
+    dispatch(updateWorkout({ workoutId: workout.id as number, formData: { video: videoFile as File } }));
   };
 
   const handleDeleteFile = () => {
-    dispatch(deleteVideo(workoutId));
+    dispatch(deleteVideo(workout.id as number));
   };
 
   const handleStartPlayClick = () => {
-    setIsPlay(true);
+    if (isPlay && videoRef.current) {
+      videoRef.current.pause();
+      setIsPlay(false);
+      dispatch(createWorkoutDiaryRecord({
+        workoutId: workout.id as number,
+        lostCaloriesAmount: workout.caloriesAmountToLose,
+        lostTrainingTime: workout.trainingTime
+      }));
+    } else {
+      setIsPlay(true);
+    }
+
   };
 
   return (
     <div className="training-video">
       <h2 className="training-video__title">Видео</h2>
       {
-        videoPath ?
+        workout.video as string ?
           <div className="training-video__video">
             <div className="training-video__thumbnail">
               {
                 isPlay
                   ?
-                  <video controls autoPlay src={ videoPath } width="922" height="566"></video>
+                  <video controls autoPlay src={ workout.video as string } width="922" height="566" ref={ videoRef }></video>
                   :
                   <picture>
                     <source type="image/webp"
@@ -99,7 +111,11 @@ export function Video({ videoPath, workoutId }: VideoProps) {
         {
           user?.role === UserRole.Customer
             ?
-            <button className="btn training-video__button--start" type="button" disabled>Приступить</button>
+            <button
+              className="btn training-video__button--start"
+              type="button"
+              onClick={ handleStartPlayClick }
+            >{ isPlay ? 'Закончить' : 'Приступить' }</button>
             :
             <div className="training-video__edit-buttons">
               <button

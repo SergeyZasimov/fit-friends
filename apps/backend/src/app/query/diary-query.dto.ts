@@ -1,7 +1,7 @@
-import { QueryFoodDiary } from '@fit-friends/shared';
+import { QueryDiary } from '@fit-friends/shared';
 import { IsDateString } from 'class-validator';
 
-export class QueryFoodDiaryDto implements QueryFoodDiary {
+export class QueryDiaryDto implements QueryDiary {
   @IsDateString()
   weekBegin: Date;
 

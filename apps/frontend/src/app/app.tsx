@@ -14,6 +14,7 @@ import CustomerMyGyms from './pages/customer-my-gyms/customer-my-gyms';
 import CustomerMyPurchase from './pages/customer-my-purchase/customer-my-purchase';
 import CustomerTrainingCatalog from './pages/customer-training-catalog/customer-training-catalog';
 import CustomerUsersCatalog from './pages/customer-users-catalog/customer-users-catalog';
+import CustomerWorkoutDiary from './pages/customer-workout-diary/customer-workout-diary';
 import Intro from './pages/intro/intro';
 import QuestionnaireCoach from './pages/questionnaire-coach/questionnaire-coach';
 import QuestionnaireUser from './pages/questionnaire-user/questionnaire-user';
@@ -57,6 +58,7 @@ export function App() {
       <Route path={ `${AppRoute.CustomerGymCard}/:id` } element={ <CustomerRestrictPage><CustomerGymCard /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerAccount}` } element={ <CustomerRestrictPage><CustomerAccount /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.CustomerFoodDiary}` } element={ <CustomerRestrictPage><CustomerFoodDiary /></CustomerRestrictPage> } />
+      <Route path={ `${AppRoute.CustomerWorkoutDiary}` } element={ <CustomerRestrictPage><CustomerWorkoutDiary /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.MyGyms}` } element={ <CustomerRestrictPage><CustomerMyGyms /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.MyFriends}` } element={ <CustomerRestrictPage><CustomerMyFriends /></CustomerRestrictPage> } />
       <Route path={ `${AppRoute.MyPurchase}` } element={ <CustomerRestrictPage><CustomerMyPurchase /></CustomerRestrictPage> } />
