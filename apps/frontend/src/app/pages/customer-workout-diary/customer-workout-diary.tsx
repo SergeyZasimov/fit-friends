@@ -3,11 +3,10 @@ import dayjs from 'dayjs';
 import { Fragment, useEffect, useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
-import { fetchWorkoutDiaryRecords } from '../../store/features/workout-diary/api-actions';
 import { getWorkoutDiaryRecords } from '../../store/features/workout-diary/workout-diary.slice';
-import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
+import { useAppSelector } from '../../store/store.hooks';
 import { WEEK_DAYS } from '../../utils/constants';
-import { createQueryString, formatPrice, getCurrentDayIndex } from '../../utils/helpers';
+import { formatPrice, getCurrentDayIndex } from '../../utils/helpers';
 
 export type WorkoutDiaryTable = WorkoutDiary[][];
 
@@ -37,18 +36,9 @@ export const calculateWeekTotal = (table: WorkoutDiaryTable): number => {
 };
 
 export function CustomerWorkoutDiary() {
-  const dispatch = useAppDispatch();
   const workoutDiaryRecords = useAppSelector(getWorkoutDiaryRecords);
 
   const [ table, setTable ] = useState<WorkoutDiaryTable>([]);
-
-  useEffect(() => {
-    const query = {
-      weekBegin: dayjs().day(1).toISOString(),
-      weekEnd: dayjs().day(7).toISOString(),
-    };
-    dispatch(fetchWorkoutDiaryRecords(createQueryString(query)));
-  }, []);
 
   useEffect(() => {
     setTable(createTable(workoutDiaryRecords));

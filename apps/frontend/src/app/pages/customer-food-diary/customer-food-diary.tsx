@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import FoodDiaryRows from '../../components/food-diary-rows/food-diary-rows';
 import Header from '../../components/header/header';
-import { createFoodDiaryRecords, fetchFoodDiaryRecords } from '../../store/features/food-diary/api-actions';
+import { createFoodDiaryRecords } from '../../store/features/food-diary/api-actions';
 import { getFoodDiaryRecords } from '../../store/features/food-diary/food-diary.slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
 import { WEEK_DAYS } from '../../utils/constants';
-import { createQueryString, formatPrice, getCurrentDayIndex, isSameDate } from '../../utils/helpers';
+import { formatPrice, getCurrentDayIndex, isSameDate } from '../../utils/helpers';
 
 export type FoodDiaryTable = Record<string, number[]>;
 
@@ -48,14 +48,6 @@ export function CustomerFoodDiary() {
     [ TypeOfMeal.Supper ]: Array.from({ length: WEEK_DAYS }),
     [ TypeOfMeal.Lunch ]: Array.from({ length: WEEK_DAYS }),
   });
-
-  useEffect(() => {
-    const query = {
-      weekBegin: dayjs().day(1).toISOString(),
-      weekEnd: dayjs().day(7).toISOString(),
-    };
-    dispatch(fetchFoodDiaryRecords(createQueryString(query)));
-  }, []);
 
   useEffect(() => {
     const initialTable = createInitialTable(foodDiaryRecords, table);
