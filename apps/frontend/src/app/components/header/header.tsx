@@ -15,7 +15,7 @@ export function Header() {
   const routes = {
     main: AppRoute.CustomerMain,
     account: user?.role === UserRole.Trainer ? AppRoute.TrainerAccount : AppRoute.CustomerAccount,
-    friends: AppRoute.MyFriends
+    friends: user?.role === UserRole.Trainer ? `${AppRoute.TrainerAccount}/${AppRoute.MyFriends}` : AppRoute.MyFriends
   };
 
   const setNavLindActiveClass = (route: string) =>

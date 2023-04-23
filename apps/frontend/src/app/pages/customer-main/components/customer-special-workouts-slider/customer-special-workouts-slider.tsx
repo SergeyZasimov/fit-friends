@@ -1,8 +1,10 @@
 import { Workout, WorkoutQuery } from '@fit-friends/shared';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useSlider } from '../../../../hooks/use-slider';
 import { getUser } from '../../../../store/features/user/user-slice';
 import { useAppSelector } from '../../../../store/store.hooks';
+import { AppRoute } from '../../../../utils/constants';
 import { createQueryString } from '../../../../utils/helpers';
 import { useFetchWorkouts } from '../../hooks/use-fetch-workouts';
 
@@ -71,7 +73,11 @@ export function CustomerSpecialWorkoutsSlider() {
                   <div className="thumbnail-preview__inner">
                     <h3 className="thumbnail-preview__title">{ workout.trainingType }</h3>
                     <div className="thumbnail-preview__button-wrapper">
-                      <a className="btn btn--small thumbnail-preview__button" href="#">Подробнее</a>
+                      <Link
+                        className="btn btn--small thumbnail-preview__button"
+                        to={ `/${AppRoute.WorkoutCard}/${workout.id}` }
+                      >Подробнее
+                      </Link>
                     </div>
                   </div>
                 </div>

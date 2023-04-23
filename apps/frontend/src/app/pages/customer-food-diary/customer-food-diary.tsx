@@ -109,33 +109,35 @@ export function CustomerFoodDiary() {
                       <div className="food-diary__content">
                         <form action="#" method="get">
                           <table className="food-diary__table">
-                            <tr className="food-diary__row food-diary__row--head">
-                              <th className="food-diary__cell food-diary__cell--head">пн</th>
-                              <th className="food-diary__cell food-diary__cell--head">вт</th>
-                              <th className="food-diary__cell food-diary__cell--head">ср</th>
-                              <th className="food-diary__cell food-diary__cell--head">чт</th>
-                              <th className="food-diary__cell food-diary__cell--head">пт</th>
-                              <th className="food-diary__cell food-diary__cell--head">сб</th>
-                              <th className="food-diary__cell food-diary__cell--head">вс</th>
-                            </tr>
-                            <FoodDiaryRows
-                              table={ table }
-                              addNewFoodDiaryRecord={ addNewFoodDiaryRecord }
-                              handleTotalChange={ handleTotalChange }
-                            />
-                            <tr className="food-diary__row">
-                              { Array.from({ length: WEEK_DAYS }, (_, index) => {
-                                const currentDay = getCurrentDayIndex(index);
-                                const value = calculateDayTotal(Object.values(table), currentDay);
-                                return (
-                                  <td className="food-diary__cell" key={ currentDay }>
-                                    <div className="food-diary__total-value">
-                                      <span>{ value }</span>
-                                    </div>
-                                  </td>
-                                );
-                              }) }
-                            </tr>
+                            <tbody>
+                              <tr className="food-diary__row food-diary__row--head">
+                                <th className="food-diary__cell food-diary__cell--head">пн</th>
+                                <th className="food-diary__cell food-diary__cell--head">вт</th>
+                                <th className="food-diary__cell food-diary__cell--head">ср</th>
+                                <th className="food-diary__cell food-diary__cell--head">чт</th>
+                                <th className="food-diary__cell food-diary__cell--head">пт</th>
+                                <th className="food-diary__cell food-diary__cell--head">сб</th>
+                                <th className="food-diary__cell food-diary__cell--head">вс</th>
+                              </tr>
+                              <FoodDiaryRows
+                                table={ table }
+                                addNewFoodDiaryRecord={ addNewFoodDiaryRecord }
+                                handleTotalChange={ handleTotalChange }
+                              />
+                              <tr className="food-diary__row">
+                                { Array.from({ length: WEEK_DAYS }, (_, index) => {
+                                  const currentDay = getCurrentDayIndex(index);
+                                  const value = calculateDayTotal(Object.values(table), currentDay);
+                                  return (
+                                    <td className="food-diary__cell" key={ currentDay }>
+                                      <div className="food-diary__total-value">
+                                        <span>{ value }</span>
+                                      </div>
+                                    </td>
+                                  );
+                                }) }
+                              </tr>
+                            </tbody>
                           </table>
                         </form>
                       </div>

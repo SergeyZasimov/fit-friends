@@ -85,71 +85,73 @@ export function CustomerWorkoutDiary() {
                       </div>
                       <div className="training-diary__content">
                         <table className="training-diary__table">
-                          <tr className="training-diary__row training-diary__row--head">
-                            <th className="training-diary__cell training-diary__cell--head">пн</th>
-                            <th className="training-diary__cell training-diary__cell--head">вт</th>
-                            <th className="training-diary__cell training-diary__cell--head">ср</th>
-                            <th className="training-diary__cell training-diary__cell--head">чт</th>
-                            <th className="training-diary__cell training-diary__cell--head">пт</th>
-                            <th className="training-diary__cell training-diary__cell--head">сб</th>
-                            <th className="training-diary__cell training-diary__cell--head">вс</th>
-                          </tr>
-                          {
-                            maxWorkoutCount && table.length > 0 &&
-                            Array.from({ length: maxWorkoutCount }, (_, workoutNumber) => (
-                              <Fragment key={ workoutNumber }>
-                                <tr className="training-diary__row">
-                                  {
-                                    Array.from({ length: WEEK_DAYS }, (_, index) => {
-                                      const currentDay = getCurrentDayIndex(index);
-                                      const dayWorkouts = table[ currentDay ];
-                                      const value = dayWorkouts.length > 0
-                                        ? dayWorkouts[ workoutNumber ]?.lostCaloriesAmount
-                                        : '';
-                                      return (
-                                        <td className="training-diary__cell" key={ `calories-${currentDay}` }>
-                                          <div className="training-diary__data"><span>{ value }</span></div>
-                                        </td>
-                                      );
-                                    })
-                                  }
-                                </tr>
-                                <tr className="training-diary__row">
-                                  {
-                                    Array.from({ length: WEEK_DAYS }, (_, index) => {
-                                      const currentDay = getCurrentDayIndex(index);
-                                      const dayWorkouts = table[ currentDay ];
-                                      const value = dayWorkouts.length > 0
-                                        ? dayWorkouts[ workoutNumber ]?.lostTrainingTime
-                                        : '';
-                                      return (
-                                        <td className="training-diary__cell" key={ `time-${currentDay}` }>
-                                          <div className="training-diary__data"><span>{ value }</span></div>
-                                        </td>
-                                      );
-                                    })
-                                  }
-                                </tr>
-                              </Fragment>
-                            ))
-                          }
-                          <tr className="training-diary__row" style={ { marginTop: '115px' } }>
+                          <tbody>
+                            <tr className="training-diary__row training-diary__row--head">
+                              <th className="training-diary__cell training-diary__cell--head">пн</th>
+                              <th className="training-diary__cell training-diary__cell--head">вт</th>
+                              <th className="training-diary__cell training-diary__cell--head">ср</th>
+                              <th className="training-diary__cell training-diary__cell--head">чт</th>
+                              <th className="training-diary__cell training-diary__cell--head">пт</th>
+                              <th className="training-diary__cell training-diary__cell--head">сб</th>
+                              <th className="training-diary__cell training-diary__cell--head">вс</th>
+                            </tr>
                             {
-                              table.length > 0 &&
-                              Array.from({ length: WEEK_DAYS }, (_, index) => {
-                                const currentDay = getCurrentDayIndex(index);
-                                const tableRow = table[ currentDay ];
-                                const value = calculateDayTotal(tableRow);
-
-                                return (
-                                  <td className="training-diary__cell" key={ `total=${currentDay}` }>
-                                    <div className="training-diary__data training-diary__data--total">
-                                      <span>{ value }</span></div>
-                                  </td>
-                                );
-                              })
+                              maxWorkoutCount && table.length > 0 &&
+                              Array.from({ length: maxWorkoutCount }, (_, workoutNumber) => (
+                                <Fragment key={ workoutNumber }>
+                                  <tr className="training-diary__row">
+                                    {
+                                      Array.from({ length: WEEK_DAYS }, (_, index) => {
+                                        const currentDay = getCurrentDayIndex(index);
+                                        const dayWorkouts = table[ currentDay ];
+                                        const value = dayWorkouts.length > 0
+                                          ? dayWorkouts[ workoutNumber ]?.lostCaloriesAmount
+                                          : '';
+                                        return (
+                                          <td className="training-diary__cell" key={ `calories-${currentDay}` }>
+                                            <div className="training-diary__data"><span>{ value }</span></div>
+                                          </td>
+                                        );
+                                      })
+                                    }
+                                  </tr>
+                                  <tr className="training-diary__row">
+                                    {
+                                      Array.from({ length: WEEK_DAYS }, (_, index) => {
+                                        const currentDay = getCurrentDayIndex(index);
+                                        const dayWorkouts = table[ currentDay ];
+                                        const value = dayWorkouts.length > 0
+                                          ? dayWorkouts[ workoutNumber ]?.lostTrainingTime
+                                          : '';
+                                        return (
+                                          <td className="training-diary__cell" key={ `time-${currentDay}` }>
+                                            <div className="training-diary__data"><span>{ value }</span></div>
+                                          </td>
+                                        );
+                                      })
+                                    }
+                                  </tr>
+                                </Fragment>
+                              ))
                             }
-                          </tr>
+                            <tr className="training-diary__row" style={ { marginTop: '115px' } }>
+                              {
+                                table.length > 0 &&
+                                Array.from({ length: WEEK_DAYS }, (_, index) => {
+                                  const currentDay = getCurrentDayIndex(index);
+                                  const tableRow = table[ currentDay ];
+                                  const value = calculateDayTotal(tableRow);
+
+                                  return (
+                                    <td className="training-diary__cell" key={ `total=${currentDay}` }>
+                                      <div className="training-diary__data training-diary__data--total">
+                                        <span>{ value }</span></div>
+                                    </td>
+                                  );
+                                })
+                              }
+                            </tr>
+                          </tbody>
                         </table>
                       </div>
                     </div>

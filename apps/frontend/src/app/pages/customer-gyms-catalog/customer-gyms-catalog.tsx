@@ -3,10 +3,8 @@ import { browserHistory } from '../../services/browser-history.service';
 import CustomerGymsCatalogFilter from './components/customer-gyms-catalog-filter/customer-gyms-catalog-filter';
 import CustomerGymsCatalogList from './components/customer-gyms-catalog-list/customer-gyms-catalog-list';
 
-/* eslint-disable-next-line */
-export interface CustomerGymsCatalogProps { }
 
-export function CustomerGymsCatalog(props: CustomerGymsCatalogProps) {
+export function CustomerGymsCatalog() {
   return (
     <>
       <Header />

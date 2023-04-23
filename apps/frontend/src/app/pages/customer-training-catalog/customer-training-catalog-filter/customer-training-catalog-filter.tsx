@@ -31,7 +31,7 @@ export function CustomerTrainingCatalogFilter() {
         <ul className="gym-catalog-form__check-list">
           {
             TrainingTypes.map(type => (
-              <li className="gym-catalog-form__check-list-item">
+              <li className="gym-catalog-form__check-list-item" key={ type }>
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
                     <input

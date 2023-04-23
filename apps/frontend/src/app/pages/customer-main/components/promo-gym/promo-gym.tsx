@@ -42,7 +42,7 @@ export function PromoGym() {
       <div className="thumbnail-spec-gym__button-wrapper">
         <Link
           className="btn btn--small thumbnail-spec-gym__button"
-          to={ '' }
+          to={ `/${AppRoute.CustomerGymCard}/${specGym.id}` }
         >
           Подробнее
         </Link>

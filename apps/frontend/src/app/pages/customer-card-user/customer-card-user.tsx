@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
+import MapPopup from '../../components/map-popup/map-popup';
 import { useFriend } from '../../hooks/use-friend';
-import { browserHistory } from '../../services/browser-history.service';
 import { fetchUserCard } from '../../store/features/user/api-actions';
 import { getUserCard } from '../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
@@ -12,6 +13,7 @@ export function CustomerCardUser() {
   const dispatch = useAppDispatch();
   const userCard = useAppSelector(getUserCard);
   const { handleAddToFriend, isFriend, handleRemoveFromFriend } = useFriend(userCard?.id as number, id as string);
+  const [ isMapModalOpen, setIsMapOpen ] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(fetchUserCard(id as string));
@@ -25,20 +27,19 @@ export function CustomerCardUser() {
 
   return (
     <>
+      { isMapModalOpen &&
+        <MapPopup
+          onClose={ () => setIsMapOpen(false) }
+          title={ userCard?.profile?.name as string }
+          address={ userCard?.profile?.location as string }
+        />
+      }
       <Header />
       <main>
         <div className="inner-page inner-page--no-sidebar">
           <div className="container">
             <div className="inner-page__wrapper">
-              <button
-                className="btn-flat inner-page__back"
-                type="button"
-                onClick={ () => browserHistory.back() }
-              >
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg><span>Назад</span>
-              </button>
+              <BackButton />
               <div className="inner-page__content">
                 <section className="user-card">
                   <h1 className="visually-hidden">Карточка пользователя</h1>
@@ -47,10 +48,14 @@ export function CustomerCardUser() {
                       <div className="user-card__head">
                         <h2 className="user-card__title">{ userCard.profile?.name }</h2>
                       </div>
-                      <div className="user-card__label">
+                      <div
+                        className="user-card__label"
+                        onClick={ () => setIsMapOpen(true) }
+                      >
                         <svg className="user-card__icon-location" width="12" height="14" aria-hidden="true">
                           <use xlinkHref="#icon-location"></use>
-                        </svg><span>{ userCard.profile?.location }</span>
+                        </svg>
+                        <span>{ userCard.profile?.location }</span>
                       </div>
                       {
                         userCard.profile?.isReadyToTraining ?

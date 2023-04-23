@@ -71,6 +71,7 @@ export type RegisterUser = Pick<User, 'email' | 'password' | 'role'> &
   Pick<Profile, 'avatar' | 'birthDay' | 'gender' | 'location' | 'name'>;
 
 export type ProfileQuery = BasicQuery & {
+  role?: string;
   isReadyToTraining?: boolean;
   location?: string[];
   trainingType?: string[];

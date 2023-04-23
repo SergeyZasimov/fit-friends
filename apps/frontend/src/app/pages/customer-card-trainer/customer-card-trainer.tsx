@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import BackButton from '../../components/back-button/back-button';
 import CertificatesPopup from '../../components/certificates-popup/certificates-popup';
 import Header from '../../components/header/header';
 import MapPopup from '../../components/map-popup/map-popup';
 import { useFriend } from '../../hooks/use-friend';
-import { browserHistory } from '../../services/browser-history.service';
 import { fetchUserCard } from '../../store/features/user/api-actions';
 import { getUserCard } from '../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
@@ -45,15 +45,7 @@ export function CustomerCardTrainer() {
         <div className="inner-page inner-page--no-sidebar">
           <div className="container">
             <div className="inner-page__wrapper">
-              <button
-                className="btn-flat inner-page__back"
-                type="button"
-                onClick={ () => browserHistory.back() }
-              >
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg><span>Назад</span>
-              </button>
+              <BackButton />
               <div className="inner-page__content">
                 <section className="user-card-coach">
                   <h1 className="visually-hidden">Карточка пользователя роль тренер</h1>
@@ -63,13 +55,15 @@ export function CustomerCardTrainer() {
                         <div className="user-card-coach__head">
                           <h2 className="user-card-coach__title">{ userCard?.profile?.name }</h2>
                         </div>
-                        <div className="user-card-coach__label">
+                        <div
+                          className="user-card-coach__label"
+                          onClick={ () => setIsMapOpen(true) }
+                        >
                           <svg
                             className="user-card-coach__icon-location"
                             width="12"
                             height="14"
                             aria-hidden="true"
-                            onClick={ () => setIsMapOpen(true) }
                           >
                             <use xlinkHref="#icon-location"></use>
                           </svg>

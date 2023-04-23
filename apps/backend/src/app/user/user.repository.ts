@@ -34,9 +34,11 @@ export class UserRepository {
       location,
       trainingLevel,
       trainingType,
+      role,
     } = query;
     return this.prisma.user.findMany({
       where: {
+        role,
         profile: {
           isReadyToTraining,
           location: location ? { in: location } : undefined,

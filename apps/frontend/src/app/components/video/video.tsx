@@ -115,6 +115,7 @@ export function Video({ workout }: VideoProps) {
               className="btn training-video__button--start"
               type="button"
               onClick={ handleStartPlayClick }
+              disabled={ !workout.video }
             >{ isPlay ? 'Закончить' : 'Приступить' }</button>
             :
             <div className="training-video__edit-buttons">

@@ -1,6 +1,6 @@
 import { SortOption, Workout, WorkoutQuery } from '@fit-friends/shared';
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSlider } from '../../../../hooks/use-slider';
 import { AppRoute } from '../../../../utils/constants';
 import { createQueryString } from '../../../../utils/helpers';
@@ -107,7 +107,12 @@ export function CustomerPopularWorkoutsList() {
                         <p className="thumbnail-training__text">{ workout.description }</p>
                       </div>
                       <div className="thumbnail-training__button-wrapper">
-                        <a className="btn btn--small thumbnail-training__button-catalog" href="#">Подробнее</a>
+                        <Link
+                          className="btn btn--small thumbnail-training__button-catalog"
+                          to={ `/${AppRoute.WorkoutCard}/${workout.id}` }
+                        >
+                          Подробнее
+                        </Link>
                         <a className="btn btn--small btn--outlined thumbnail-training__button-catalog" href="#">Отзывы</a>
                       </div>
                     </div>

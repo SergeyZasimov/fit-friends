@@ -130,7 +130,7 @@ export function TrainerMyOrders() {
                           </div>
                           <Link
                             className="btn-flat btn-flat--underlined thumbnail-training__button-orders"
-                            to={ `../${AppRoute.MyWorkouts}/${workout.id}` }
+                            to={ `/${AppRoute.WorkoutCard}/${workout.id}` }
                           >
                             <svg width="18" height="18" aria-hidden="true">
                               <use xlinkHref="#icon-info"></use>

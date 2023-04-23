@@ -1,11 +1,11 @@
-import { ProfileQuery } from '@fit-friends/shared';
-import { AppRoute } from 'apps/frontend/src/app/utils/constants';
+import { ProfileQuery, UserRole } from '@fit-friends/shared';
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSlider } from '../../../../hooks/use-slider';
 import { fetchUsers } from '../../../../store/features/user/api-actions';
 import { getUsers } from '../../../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { AppRoute } from '../../../../utils/constants';
 import { createQueryString } from '../../../../utils/helpers';
 
 const USERS_QUANTITY = 4;
@@ -72,7 +72,7 @@ export function CustomerLookForCompanyList() {
           </div>
           <ul className="look-for-company__list" >
             {
-              users.map(({ id, profile }) => (
+              users.map(({ id, profile, role }) => (
                 <li className="look-for-company__item" key={ id } style={ { ...style, maxWidth: '340px' } } ref={ sliderRef }>
                   <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">
                     <div className="thumbnail-user__image">
@@ -106,7 +106,11 @@ export function CustomerLookForCompanyList() {
                         }
                       </li>
                     </ul>
-                    <a className="btn btn--outlined btn--dark-bg btn--medium thumbnail-user__button" href="#">Подробнее</a>
+                    <Link
+                      className="btn btn--outlined btn--dark-bg btn--medium thumbnail-user__button"
+                      to={ role === UserRole.Customer ? `/${AppRoute.CustomerCardUser}/${id}` : `/${AppRoute.CustomerCardTrainer}/${id}` }
+                    >
+                      Подробнее</Link>
                   </div>
                 </li>
               ))

@@ -1,5 +1,5 @@
 import { Profile } from '@fit-friends/shared';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { deleteAvatar, updateUser } from '../../store/features/user/api-actions';
 import { useAppDispatch } from '../../store/store.hooks';
 
@@ -31,9 +31,9 @@ export function LoadAvatar({ avatar, username }: LoadAvatarProps) {
     dispatch(deleteAvatar());
   };
 
-  const handleRefreshClick = () => {
+  useEffect(() => {
     dispatch(updateUser(profile));
-  };
+  }, [ profile ]);
 
   return (
     <div className="user-info-edit__header">
@@ -60,7 +60,6 @@ export function LoadAvatar({ avatar, username }: LoadAvatarProps) {
         <button
           className="user-info-edit__control-btn"
           aria-label="обновить"
-          onClick={ handleRefreshClick }
         >
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-change"></use>

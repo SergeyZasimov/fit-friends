@@ -7,7 +7,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { toast } from 'react-toastify';
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../utils/constants';
+import { AppRoute, BACKEND_URL, REQUEST_TIMEOUT } from '../utils/constants';
+import { browserHistory } from './browser-history.service';
 import {
   getAccessToken,
   getRefreshToken,
@@ -44,6 +45,11 @@ export const createApi = (): AxiosInstance => {
     async (error: AxiosError<AppError>) => {
       const refreshToken = getRefreshToken();
 
+      if (!refreshToken) {
+        browserHistory.push(`${AppRoute.Root}`);
+        return;
+      }
+
       if (
         error.response &&
         error.response.status === HttpStatusCode.Unauthorized &&
@@ -60,12 +66,14 @@ export const createApi = (): AxiosInstance => {
           );
           setAccessToken(data.access_token);
           setRefreshToken(data.refresh_token);
+          return;
         } catch (err) {
           if (
             error.response &&
             error.response.status === HttpStatusCode.Unauthorized
           ) {
-            return Promise.reject(error);
+            browserHistory.push(`/${AppRoute.SignIn}`);
+            return;
           }
         }
       }

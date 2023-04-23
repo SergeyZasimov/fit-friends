@@ -3,6 +3,7 @@ import {
   ProfileQuery,
   TrainingLevels,
   TrainingTypes,
+  UserRole,
 } from '@fit-friends/shared';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsEnum, IsOptional } from 'class-validator';
@@ -27,4 +28,8 @@ export class ProfileQueryDto extends BasicQueryDto implements ProfileQuery {
   @Transform(({ value }) => value.split(','))
   @IsOptional()
   trainingType?: string[];
+
+  @IsEnum(UserRole)
+  @IsOptional()
+  role?: string;
 }

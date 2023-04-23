@@ -3,7 +3,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const ACCESS_TOKEN_KEY_NAME = 'fit-fiends-access-token';
 export const REFRESH_TOKEN_KEY_NAME = 'fit-fiends-refresh-token';
 export const DEFAULT_PRICE_CHANGE_TIMEOUT = 500;
-export const WEEK_FIRST_DAY = 1
+export const WEEK_FIRST_DAY = -7;
 export const WEEK_DAYS = 7;
 
 export const LOW_INDEX = 0;

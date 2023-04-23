@@ -54,7 +54,7 @@ export class QuestionnaireTrainerDto implements TrainerAdditionalInfo {
   resume: string;
 
   @IsBoolean({ message: IsReadyToPersonalTraining })
-  @Transform(({ value }) => !!value)
+  @Transform(({ value }) => (value === 'true' ? true : false))
   @IsOptional()
   isReadyToPersonalTraining: boolean;
 }

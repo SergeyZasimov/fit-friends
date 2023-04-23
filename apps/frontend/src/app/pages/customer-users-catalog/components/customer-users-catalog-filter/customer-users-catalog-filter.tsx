@@ -31,7 +31,7 @@ export function CustomerUsersCatalogFilter() {
       <FilterLocation queryValue={ query.location as string[] } onQueryChange={ handleQueryChange } />
       <FilterTrainingType queryValue={ query.trainingType as string[] } onQueryChange={ handleQueryChange } />
       <FilterTrainingLevel queryValue={ query.trainingLevel as string } onQueryChange={ handleQueryChange } />
-      <SortUserRole onQueryChange={ handleQueryChange } />
+      <SortUserRole queryValue={query.role as string} onQueryChange={ handleQueryChange } />
     </form>
   );
 }
