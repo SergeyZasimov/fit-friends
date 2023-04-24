@@ -61,6 +61,8 @@ export class CliService {
     await this.generateReviews(customers, workouts);
     await this.generateWorkoutOrders(workouts, customers);
     await this.generateSportGymOrders(sportGyms, customers);
+    await this.generateWorkoutDiary(customers);
+    await this.generateFoodDiary(customers);
   }
 
   async generateSportGyms() {
@@ -103,6 +105,12 @@ export class CliService {
           data: {
             avatar:
               'http://localhost:3333/test-content/test-img/photo-1-coach.png',
+            certificates: [
+              'http://localhost:3333/test-content/test-img/certificate-1.jpg',
+              'http://localhost:3333/test-content/test-img/certificate-2.jpg',
+              'http://localhost:3333/test-content/test-img/certificate-3.jpg',
+              'http://localhost:3333/test-content/test-img/certificate-4.jpg',
+            ],
           },
         });
       })
@@ -224,7 +232,25 @@ export class CliService {
         Array.from(
           { length: MOCKS_DEFAULT.GENERATE.FOOD_DIARY_COUNT },
           async () => {
-            await this.foodDiaryService.create(user.id, createFoodDiary());
+            const foodDiaryRecord = {
+              userId: user.id,
+              ...createFoodDiary(),
+            };
+            await this.prisma.foodDiary.upsert({
+              where: {
+                dateOfMeal_typeOfMeal_userId: {
+                  dateOfMeal: foodDiaryRecord.dateOfMeal,
+                  typeOfMeal: foodDiaryRecord.typeOfMeal,
+                  userId: foodDiaryRecord.userId,
+                },
+              },
+              create: {
+                ...foodDiaryRecord,
+              },
+              update: {
+                ...foodDiaryRecord,
+              },
+            });
           }
         );
       })

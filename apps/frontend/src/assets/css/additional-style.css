@@ -1,0 +1,59 @@
+.capitalize {
+  text-transform: capitalize;
+}
+
+.range-slider {
+  width: 100%;
+  border: 1px solid #aeaeae;
+}
+
+.track-1 {
+  border: 1px solid #333333;
+  top: -1px;
+}
+
+.range-slider .thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #333333;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  top: -9px;
+}
+
+.range-slider span {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  color: #333333;
+  position: absolute;
+  top: 15px;
+}
+
+.slider-overflow-hidden {
+  overflow: hidden;
+}
+
+.not-ready {
+  color: #adadad;
+  border: 1px solid #cfcfcf;
+}
+
+.not-ready::after {
+  background-color: #cfcfcf;
+}
+
+.certificates-slider {
+  display: flex;
+  overflow: hidden;
+}
+
+.certificates-slide {
+  min-width: 100%;
+  margin-right: 20px;
+}
+
+.training-diary__row:nth-last-child(3) {
+  margin-bottom: 10px;
+}

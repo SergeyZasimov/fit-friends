@@ -10,12 +10,11 @@
 - проинициализируйте БД командой `npm run backend-db:init`
 - создайте тестовые данные - `npm run backend-db:generate-mocks`
 - запустите backend - `npm run backend:start`
+- запустите frontend - `npm run frontend:start`
 
 Папка для тестирования загрузки файлов: `test-content`
 
 Документация в формате OpenApi: `specification/specification.yml`
-
-Пароль для авторизации тестовых пользователей: `secret`
 
 Для просмотра БД выполните команду `npm run backend-db:studio`. По адресу `http://localhost:5555` будет доступна `prisma studio`
 
@@ -25,6 +24,6 @@
 - удалить данные из БД - `nx run backend:db-reset`
 - создать PrismaClient - `nx run backend:db-generate-client`
 
-### Команды для выполнения тестирования:
+Пароль для авторизации тестовых пользователей: `secret`
 
-- выполнить unit-тесты - `nx run backend:test`
+**Не удаляйте аватары и сертификаты тестовых пользователей - у всех пользователей ссылка ведёт на одни и те же файлы**

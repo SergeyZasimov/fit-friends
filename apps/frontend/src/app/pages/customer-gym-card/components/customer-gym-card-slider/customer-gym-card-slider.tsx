@@ -27,7 +27,7 @@ export function CustomerGymCardSlider({ photos }: CustomerGymCardSliderProps) {
   }
 
   return (
-    <section className="slider-gyms">
+    <section className="slider-gyms" style={ { justifyContent: 'end' } }>
       <h2 className="visually-hidden">Слайдер с фотографиями спортивных залов.</h2>
       <ul className="slider-gyms__list">
         <li>
@@ -61,12 +61,10 @@ export function CustomerGymCardSlider({ photos }: CustomerGymCardSliderProps) {
               key={ photo }
             >
               <div className="slider-gyms__img">
-                <picture>
-                  <img src={ photo }
-                    width="826"
-                    height="773"
-                    alt="Фото спортивного снаряжения." />
-                </picture>
+                <img src={ photo }
+                  width="826"
+                  height="773"
+                  alt="Фото спортивного снаряжения." />
               </div>
             </li>
           ))

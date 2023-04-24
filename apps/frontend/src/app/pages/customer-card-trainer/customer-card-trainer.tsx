@@ -58,6 +58,7 @@ export function CustomerCardTrainer() {
                         <div
                           className="user-card-coach__label"
                           onClick={ () => setIsMapOpen(true) }
+                          style={ { cursor: 'pointer' } }
                         >
                           <svg
                             className="user-card-coach__icon-location"

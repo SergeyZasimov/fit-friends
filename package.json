@@ -8,6 +8,7 @@
     "backend-db:generate-mocks": "nx run backend:cli-build && node dist/apps/backend/cli/main.js",
     "backend-db:studio": "nx run backend:db-studio",
     "backend:start": "nx run backend:serve",
+    "frontend:start": "nx run frontend:serve:development",
     "test": "nx run backend:test"
   },
   "private": true,

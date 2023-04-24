@@ -76,13 +76,16 @@ export function CustomerGymCard() {
                           </div>
                         }
                       </div>
-                      <p className="gym-card__address">
+                      <p
+                        className="gym-card__address"
+                        onClick={ () => setIsMapModalOpen(true) }
+                        style={ { cursor: 'pointer' } }
+                      >
                         <svg
                           className="gym-card__icon-location"
                           width="12"
                           height="14"
                           aria-hidden="true"
-                          onClick={ () => setIsMapModalOpen(true) }
                         >
                           <use xlinkHref="#icon-location"></use>
                         </svg><span>м. { capitalizeWord(gym.location) }</span>

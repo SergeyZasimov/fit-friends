@@ -51,6 +51,7 @@ export function CustomerCardUser() {
                       <div
                         className="user-card__label"
                         onClick={ () => setIsMapOpen(true) }
+                        style={ { cursor: 'pointer' } }
                       >
                         <svg className="user-card__icon-location" width="12" height="14" aria-hidden="true">
                           <use xlinkHref="#icon-location"></use>
