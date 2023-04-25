@@ -1,7 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { getUser } from '../../store/features/user/user-slice';
+import { useAppSelector } from '../../store/store.hooks';
 import { AppRoute } from '../../utils/constants';
 
 export function Intro() {
+
+  const user = useAppSelector(getUser);
+
+  if (user) {
+    return <Navigate to={ AppRoute.CustomerMain } />;
+  }
 
   return (
     <main>

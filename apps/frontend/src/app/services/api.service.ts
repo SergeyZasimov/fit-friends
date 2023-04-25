@@ -12,7 +12,6 @@ import { getAccessToken } from './token.service';
 
 const DISPLAY_STATUS_CODE = new Set([
   HttpStatusCode.Conflict,
-  HttpStatusCode.Forbidden,
   HttpStatusCode.InternalServerError,
 ]);
 

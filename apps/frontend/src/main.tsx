@@ -8,6 +8,9 @@ import App from './app/app';
 import HistoryRouter from './app/components/history-router/history-router';
 import { browserHistory } from './app/services/browser-history.service';
 import { store } from './app/store';
+import { fetchUser } from './app/store/features/user/api-actions';
+
+store.dispatch(fetchUser());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

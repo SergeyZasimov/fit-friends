@@ -11,7 +11,7 @@ export function TrainerRestrictPage({ children }: PropsWithChildren) {
   return (
     children && user && user.role === UserRole.Trainer
       ? <>{ children }</>
-      : <Navigate to={ `/${AppRoute.SignIn}` } />
+      : <Navigate to={ `/${AppRoute.CustomerMain}` } />
   );
 }
 
