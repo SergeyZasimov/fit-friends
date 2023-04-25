@@ -3,8 +3,6 @@ import { AppRoute } from '../../utils/constants';
 
 export function Intro() {
 
-  
-
   return (
     <main>
       <div className="intro">
@@ -39,7 +37,11 @@ export function Intro() {
             </picture>
           </div>
           <div className="intro__buttons">
-            <Link to={ AppRoute.SignUp } className="btn intro__button" type="button">Регистрация</Link>
+            <Link
+              to={ AppRoute.SignUp }
+              className="btn intro__button"
+              type="button"
+            >Регистрация</Link>
             <p className="intro__text">Есть аккаунт? <Link className="intro__link" to={ AppRoute.SignIn }>Вход</Link>
             </p>
           </div>

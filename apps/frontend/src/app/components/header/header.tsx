@@ -27,7 +27,7 @@ export function Header() {
   return (
     <header className="header">
       <div className="container">
-        <NavLink className="header__logo" to={ `/` } aria-label="Переход на главную">
+        <NavLink className="header__logo" to={ `/${routes.main}` } aria-label="Переход на главную">
           <svg width="187" height="70" aria-hidden="true">
             <use xlinkHref="#logo"></use>
           </svg>

@@ -13,12 +13,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { shouldDisplayError } from '../../../services/api.service';
+import { browserHistory } from '../../../services/browser-history.service';
 import {
   setAccessToken,
   setRefreshToken,
 } from '../../../services/token.service';
 import { AsyncThunkOptionField } from '../../../types/store.types';
-import { ActionName } from '../../../utils/constants';
+import { ActionName, AppRoute } from '../../../utils/constants';
 
 export const registerUser = createAsyncThunk<
   User,
@@ -69,6 +70,7 @@ export const questionnaireCustomer = createAsyncThunk<
         `/${UrlDomain.Auth}/${UrlRoute.QuestionnaireCustomer}`,
         dto
       );
+      browserHistory.push(`/${AppRoute.SignIn}`);
       return data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -119,6 +121,7 @@ export const questionnaireTrainer = createAsyncThunk<
           },
         }
       );
+      browserHistory.push(`/${AppRoute.SignIn}`);
       return data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

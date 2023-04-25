@@ -76,15 +76,8 @@ export const userSlice = createSlice({
         state.errors = payload as Record<string, string[]>;
         state.status = RequestStatus.Fail;
       })
-      .addCase(fetchUser.pending, (state) => {
-        state.status = RequestStatus.Process;
-      })
       .addCase(fetchUser.fulfilled, (state, { payload }) => {
-        state.status = RequestStatus.Success;
         state.user = payload;
-      })
-      .addCase(fetchUser.rejected, (state) => {
-        state.status = RequestStatus.Fail;
       })
       .addCase(updateUser.pending, (state) => {
         state.status = RequestStatus.Process;

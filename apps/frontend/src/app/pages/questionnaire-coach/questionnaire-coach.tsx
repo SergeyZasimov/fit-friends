@@ -1,17 +1,13 @@
 import { TrainerAdditionalInfo, TrainingLevels, TrainingTypes } from '@fit-friends/shared';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { questionnaireTrainer } from '../../store/features/user/api-actions';
-import { getUser, getUserRequestStatus, resetStatus } from '../../store/features/user/user-slice';
+import { getUser } from '../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
-import { AppRoute, RequestStatus } from '../../utils/constants';
 
 export function QuestionnaireCoach() {
 
   const user = useAppSelector(getUser);
-  const status = useAppSelector(getUserRequestStatus);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [ questionnaire, setQuestionnaire ] = useState<TrainerAdditionalInfo>({
     userId: user?.id,
@@ -55,13 +51,6 @@ export function QuestionnaireCoach() {
     evt.preventDefault();
     dispatch(questionnaireTrainer(questionnaire));
   };
-
-  useEffect(() => {
-    if (status === RequestStatus.Success) {
-      dispatch(resetStatus());
-      navigate(`/${AppRoute.TrainerAccount}`);
-    }
-  }, [ status, dispatch, navigate ]);
 
   return (
     <main>
