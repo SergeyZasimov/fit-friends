@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { DEFAULT_PRICE_CHANGE_TIMEOUT, WEEK_DAYS } from './constants';
 
 export const capitalizeWord = (word: string): string => {
-  return `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`;
+  return word ? `${word.slice(0, 1).toUpperCase()}${word.slice(1)}` : '';
 };
 
 export const formatNotificationDate = (date: Date | undefined) => {

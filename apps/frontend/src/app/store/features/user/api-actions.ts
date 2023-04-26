@@ -13,13 +13,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { shouldDisplayError } from '../../../services/api.service';
-import { browserHistory } from '../../../services/browser-history.service';
 import {
   setAccessToken,
   setRefreshToken,
 } from '../../../services/token.service';
 import { AsyncThunkOptionField } from '../../../types/store.types';
 import { ActionName, AppRoute } from '../../../utils/constants';
+import { redirectToRoute } from '../middlewares/redirect.actions';
 
 export const registerUser = createAsyncThunk<
   User,
@@ -64,13 +64,13 @@ export const questionnaireCustomer = createAsyncThunk<
   AsyncThunkOptionField
 >(
   ActionName.User.QuestionnaireCustomer,
-  async (dto, { extra: api, rejectWithValue }) => {
+  async (dto, { extra: api, rejectWithValue, dispatch }) => {
     try {
       const { data } = await api.post<User>(
         `/${UrlDomain.Auth}/${UrlRoute.QuestionnaireCustomer}`,
         dto
       );
-      browserHistory.push(`/${AppRoute.SignIn}`);
+      dispatch(redirectToRoute(`/${AppRoute.SignIn}`));
       return data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -110,7 +110,7 @@ export const questionnaireTrainer = createAsyncThunk<
   AsyncThunkOptionField
 >(
   ActionName.User.QuestionnaireTrainer,
-  async (dto, { extra: api, rejectWithValue }) => {
+  async (dto, { extra: api, rejectWithValue, dispatch }) => {
     try {
       const { data } = await api.post(
         `/${UrlDomain.Auth}/${UrlRoute.QuestionnaireTrainer}`,
@@ -121,7 +121,7 @@ export const questionnaireTrainer = createAsyncThunk<
           },
         }
       );
-      browserHistory.push(`/${AppRoute.SignIn}`);
+      dispatch(redirectToRoute(`/${AppRoute.SignIn}`));
       return data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

@@ -28,6 +28,8 @@ export const StoreNamespace = {
 } as const;
 
 export const ActionName = {
+  RedirectBack: 'app/redirectBack',
+  RedirectToRoute: 'app/redirectToRoute',
   User: {
     Register: 'user/register',
     QuestionnaireCustomer: 'user/questionnaire/customer',

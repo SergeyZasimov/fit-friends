@@ -1,6 +1,7 @@
 import { UserRole } from '@fit-friends/shared';
 import { FormEvent, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAccessToken } from '../../services/token.service';
 import { fetchUser, login } from '../../store/features/user/api-actions';
 import { getErrors, getUser, getUserRequestStatus } from '../../store/features/user/user-slice';
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
@@ -26,7 +27,7 @@ export function SignIn() {
   };
 
   useEffect(() => {
-    if (status === RequestStatus.Success) {
+    if (getAccessToken() && status === RequestStatus.Success) {
       dispatch(fetchUser());
 
       if (user && user.role === UserRole.Customer) {
